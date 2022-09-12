@@ -7,7 +7,7 @@ function Navigation(){
         <nav>
             <ul>
                 {navItems.map(navItem => 
-                    <li key={navItem.key}><Link to={navItem.path}>{navItem.name}</Link></li>
+                    <li key={navItem.key}><Link to={navItem.path}>{navItem.name.en}</Link></li>
                 )}
             </ul>
         </nav>

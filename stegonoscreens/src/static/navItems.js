@@ -4,19 +4,25 @@ import FAQPage from "../pages/FAQPage";
 
 const navItems = [
     {
-        "name": "Home",
+        "name": {
+            "en": "Home"
+        },
         "path": "/",
         "element": <HomePage />,
         "key": "home" 
     },
     {
-        "name": "About",
+        "name": {
+            "en": "About"
+        },
         "path": "/about",
         "element": <AboutPage />,
         "key": "about" 
     },
     {
-        "name": "FAQ",
+        "name": {
+            "en": "FAQ"
+        },
         "path": "/faq",
         "element": <FAQPage />,
         "key": "faq" 
