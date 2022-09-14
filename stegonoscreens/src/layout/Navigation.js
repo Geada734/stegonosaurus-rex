@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import navItems from '../static/navItems';
+import navItems from '../static/strings';
 
 import classes from './Navigation.module.css';
 import logo from '../static/stegologo.svg';
@@ -13,14 +13,14 @@ function Navigation(){
                 height="60em" width="60em"/>
                 Stegonosaurus
             </span>
-            <div className='d-flex'>
-                    {navItems.map(navItem => 
+            <div className='navbar-item d-flex flex-row'>
+                {navItems.map(navItem => 
                     <div className='p-2'>
                         <Link to={navItem.path} className={classes.navItem}>
                             <span>{navItem.name.en}</span>
                         </Link>
                     </div>
-                    )}
+                )}
             </div>
         </nav>
     );
