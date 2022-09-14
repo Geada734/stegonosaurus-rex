@@ -27,3 +27,4 @@ config.json
 
 # static files
 *.png
+*.svg

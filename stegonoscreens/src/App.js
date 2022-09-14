@@ -11,7 +11,8 @@ function App() {
     <Layout>
       <Routes>
         {navItems.map(navItem => 
-          <Route path={navItem.path} element={navItem.element}/>
+          <Route path={navItem.path} key={navItem.key} 
+          element={navItem.element}/>
         )}
       </Routes>
     </Layout>
