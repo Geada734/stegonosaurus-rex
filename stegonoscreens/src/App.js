@@ -4,13 +4,13 @@ import classes from './App.css';
 
 import Layout from './layout/Layout';
 
-import navItems from './static/strings.js'
+import strings from './static/strings.js'
 
 function App() {
   return (
     <Layout className={classes.app}>
       <Routes>
-        {navItems.map(navItem => 
+        {strings.navItems.map(navItem => 
           <Route path={navItem.path} key={navItem.key} 
           element={navItem.element}/>
         )}

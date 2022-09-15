@@ -1,28 +1,34 @@
 import { Link } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
 
-import navItems from '../static/strings';
+import strings from '../static/strings';
 
 import classes from './Navigation.module.css';
 import logo from '../static/stegologo.svg';
 
 function Navigation(){
     return (
-        <nav className='navbar navbar-dark bg-dark'>
-            <span className='nav-brand text-white font-weight-bold'>
-                <img src={logo} alt='Logo' className={classes.logo}
-                height="60em" width="60em"/>
-                Stegonosaurus
-            </span>
-            <div className='navbar-item d-flex flex-row'>
-                {navItems.map(navItem => 
-                    <div className='p-2'>
-                        <Link to={navItem.path} className={classes.navItem}>
-                            <span>{navItem.name.en}</span>
-                        </Link>
-                    </div>
-                )}
-            </div>
-        </nav>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Container>
+                <Navbar.Brand className='text-white font-weight-bold'>
+                    <img src={logo} alt='Logo' className={classes.logo}
+                    height="60em" width="60em"/>
+                    Stegonosaurus
+                </Navbar.Brand>
+                <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse>
+                    {strings.navItems.map(navItem => 
+                        <Nav key={navItem.key}>
+                            <Nav.Link>
+                                <Link className={classes.navItem} to={navItem.path}>{navItem.name.en}</Link>
+                            </Nav.Link>
+                        </Nav>
+                    )}
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 };
 
