@@ -8,7 +8,7 @@ function FAQPage(){
         <h1>Frequently Asked Questions</h1>
         <div className={classes.questions}>
             {
-                strings.faqs.map(q => <Question question={q.question.en} answer={q.answer.en} />)
+                strings.faqs.map(q => <Question question={q.question.en} key={q.key} answer={q.answer.en} />)
             }
         </div>
     </section>

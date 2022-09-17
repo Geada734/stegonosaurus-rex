@@ -70,7 +70,8 @@ const strings = {
                 "en":<div> 
                     <p>cuz dis.</p>
                 </div>
-            }
+            },
+            "key": 1
         },
         {
             "question": {
@@ -80,7 +81,8 @@ const strings = {
                 "en": <div> 
                     <p>like dis.</p>
                 </div>
-            }
+            },
+            "key": 2
         },
         {
             "question": {
@@ -96,9 +98,18 @@ const strings = {
                         torquent parturient magnis
                     </p>
                 </div>
-            }
+            },
+            "key": 3
         }
-    ]
+    ],
+    "useful": {
+        "unrated": {
+            "en": "Was this answer useful?"
+        },
+        "rated": {
+            "en": "Thanks for your opinion!"
+        }
+    }
 };
 
 export default strings;
