@@ -22,7 +22,7 @@ const strings = {
         },
         {
             "name": {
-                "en": "FAQ"
+                "en": "FAQs"
             },
             "path": "/faq",
             "element": <FAQPage />,
@@ -35,7 +35,7 @@ const strings = {
             "en": "About Stegonosaurus"
         },
         "text":{
-            "en": <section>
+            "en": <div>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipiscing 
                     elit mi mus, torquent sagittis condimentum in sociosqu 
@@ -58,7 +58,7 @@ const strings = {
                     curabitur, nec in porttitor ligula nostra dapibus, maecenas quis 
                     at tempor congue.
                 </p>
-            </section>
+            </div>
         }
     },
     "faqs": [
@@ -67,7 +67,9 @@ const strings = {
                 "en": "why dis?"
             },
             "answer": {
-                "en": "cuz dis."
+                "en":<div> 
+                    <p>cuz dis.</p>
+                </div>
             }
         },
         {
@@ -75,7 +77,9 @@ const strings = {
                 "en": "how dis?"
             },
             "answer": {
-                "en": "like dis."
+                "en": <div> 
+                    <p>like dis.</p>
+                </div>
             }
         },
         {
@@ -83,11 +87,15 @@ const strings = {
                 "en": "lorem ipsum?"
             },
             "answer": {
-                "en": "litora est pellentesque scelerisque, " +
-                "vestibulum ridiculus lectus non. Erat aenean " + 
-                "ornare eu accumsan montes ridiculus dapibus " + 
-                "sapien euismod, vitae laoreet litora netus "  +
-                "torquent parturient magnis"
+                "en": <div>
+                    <p>
+                        litora est pellentesque scelerisque,
+                        vestibulum ridiculus lectus non. Erat aenean 
+                        ornare eu accumsan montes ridiculus dapibus
+                        sapien euismod, vitae laoreet litora netus
+                        torquent parturient magnis
+                    </p>
+                </div>
             }
         }
     ]
