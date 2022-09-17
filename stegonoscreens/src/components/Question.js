@@ -6,8 +6,6 @@ import Button from 'react-bootstrap/esm/Button';
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import { HandThumbsUp } from 'react-bootstrap-icons';
 import { HandThumbsDown } from 'react-bootstrap-icons';
-import { HandThumbsUpFill } from 'react-bootstrap-icons';
-import { HandThumbsDownFill } from 'react-bootstrap-icons';
 
 import classes from './Question.module.css';
 
@@ -16,49 +14,13 @@ function Question(props){
 
     function rate(e, value){
         e.preventDefault();
-        setRating(value);
-    };
 
-    function renderRatingControls(){
-        let component = <div></div>
-
-        switch (rating) {
-            case 'unrated':
-                component = <div>
-                    <span className={classes.useful}>{strings.useful.unrated.en}</span>
-                    <div>
-                        <ButtonGroup>
-                            <Button variant='outline-success' onClick={(e) => rate(e, 'up')}>
-                                <HandThumbsUp />
-                            </Button>
-                            <Button variant='outline-danger' onClick={(e) => rate(e, 'down')}>
-                                <HandThumbsDown />
-                            </Button>
-                        </ButtonGroup>
-                    </div>
-                </div>;
-                break;
-
-            case 'up':
-                component = <div>
-                    <span className={classes.useful}>{strings.useful.rated.en}</span>
-                    <div>
-                        <HandThumbsUpFill color='#198754' />
-                    </div>
-                </div>;
-                break;
-
-            case 'down': 
-                component = <div>
-                    <span className={classes.useful}>{strings.useful.rated.en}</span>
-                    <div>
-                        <HandThumbsDownFill color='#dc3545' />
-                    </div>
-                </div>;
-                break;
+        if(value!==rating) {
+            setRating(value)
+        }
+        else {
+            setRating('unrated');
         };
-
-        return component;
     };
 
     return <div>
@@ -67,7 +29,23 @@ function Question(props){
                 {props.answer}
             </div>
             <div>
-                {renderRatingControls()}
+                <span className={classes.useful}>
+                    {rating === 'unrated' ? strings.useful.unrated.en : strings.useful.rated.en }
+                </span> 
+                <div>
+                    <div>
+                        <ButtonGroup>
+                            <Button variant='outline-success' onClick={(e) => rate(e, 'up')}
+                            active={rating === 'up' ? true : false}>
+                                <HandThumbsUp />
+                            </Button>
+                            <Button variant='outline-danger' onClick={(e) => rate(e, 'down')}
+                            active={rating === 'down' ? true : false}>
+                                <HandThumbsDown />
+                            </Button>
+                        </ButtonGroup>
+                    </div>
+                </div>
             </div>
         </div>
 };
