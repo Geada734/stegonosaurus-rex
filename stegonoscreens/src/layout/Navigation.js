@@ -1,14 +1,20 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
-import strings from '../static/strings';
-
 import classes from './Navigation.module.css';
 import logo from '../static/stegologo.svg';
 
+import AppContext from '../store/app-context';
+
+import strings from '../static/strings';
+
 function Navigation(){
+    const appCtx = useContext(AppContext);
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -22,7 +28,7 @@ function Navigation(){
                     {strings.navItems.map(navItem => 
                         <Nav key={navItem.key}>
                             <Nav.Link>
-                                <Link className={classes.navItem} to={navItem.path}>{navItem.name.en}</Link>
+                                <Link className={classes.navItem} to={navItem.path}>{navItem.name[appCtx.language]}</Link>
                             </Nav.Link>
                         </Nav>
                     )}

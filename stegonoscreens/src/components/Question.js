@@ -1,6 +1,4 @@
-import {useState} from 'react';
-
-import strings from '../static/strings.js';
+import { useState, useContext } from 'react';
 
 import Button from 'react-bootstrap/esm/Button';
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
@@ -9,8 +7,13 @@ import { HandThumbsDown } from 'react-bootstrap-icons';
 
 import classes from './Question.module.css';
 
+import AppContext from '../store/app-context';
+
+import strings from '../static/strings.js';
+
 function Question(props){
     const [rating, setRating] = useState('unrated');
+    const appCtx = useContext(AppContext);
 
     function rate(e, value){
         e.preventDefault();
@@ -30,7 +33,7 @@ function Question(props){
             </div>
             <div>
                 <span className={classes.useful}>
-                    {rating === 'unrated' ? strings.useful.unrated.en : strings.useful.rated.en }
+                    {rating === 'unrated' ? strings.useful.unrated[appCtx.language] : strings.useful.rated[appCtx.language] }
                 </span> 
                 <div>
                     <div>
