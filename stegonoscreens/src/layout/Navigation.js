@@ -38,9 +38,10 @@ function Navigation(){
                         </Nav>
                     )}
                     <Nav>
-                        <NavDropdown menuVariant='dark' title='Language' onSelect={languageHandler}>
-                            <NavDropdown.Item eventKey='en' active={appCtx.language === 'en'}>English</NavDropdown.Item>
-                            <NavDropdown.Item eventKey='es'active={appCtx.language === 'es'}>Español</NavDropdown.Item>
+                        <NavDropdown menuVariant='dark' title={strings.languageControl.label[appCtx.language]} onSelect={languageHandler}>
+                            {strings.languageControl.languages.map(lang=> 
+                                <NavDropdown.Item key={lang.key} eventKey={lang.value} active={appCtx.language === lang.key}>{lang.label}</NavDropdown.Item> 
+                            )}
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

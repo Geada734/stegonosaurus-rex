@@ -170,6 +170,25 @@ const strings = {
             "en": "Thanks for your feedback!",
             "es": "¡Gracias por calificar!"
         }
+    },
+
+    "languageControl": {
+        "label": {
+            "en": "Language",
+            "es": "Idioma"
+        },
+        "languages": [
+            {
+                "label": "English",
+                "value": "en",
+                "key": "en"
+            },
+            {
+                "label": "Español",
+                "value": "es",
+                "key": "es"
+            }
+        ]
     }
 };
 
