@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import classes from './Navigation.module.css';
 import logo from '../static/stegologo.svg';
@@ -14,6 +15,10 @@ import strings from '../static/strings';
 
 function Navigation(){
     const appCtx = useContext(AppContext);
+
+    function languageHandler(lang) {
+        appCtx.changeLanguage(lang);
+    };
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -32,6 +37,12 @@ function Navigation(){
                             </Nav.Link>
                         </Nav>
                     )}
+                    <Nav>
+                        <NavDropdown menuVariant='dark' title='Language' onSelect={languageHandler}>
+                            <NavDropdown.Item eventKey='en' active={appCtx.language === 'en'}>English</NavDropdown.Item>
+                            <NavDropdown.Item eventKey='es'active={appCtx.language === 'es'}>Español</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
