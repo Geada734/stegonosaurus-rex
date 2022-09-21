@@ -2,6 +2,9 @@ import HomePage from "../pages/HomePage";
 import AboutPage from "../pages/AboutPage";
 import FAQPage from "../pages/FAQPage";
 
+import en from './flags/en.png';
+import es from './flags/es.png';
+
 const strings = {
     "pageTitles": {
         "home": {
@@ -181,12 +184,16 @@ const strings = {
             {
                 "label": "English",
                 "value": "en",
-                "key": "en"
+                "key": "en",
+                "flagPointer": en,
+                "flagAlt": "EN "
             },
             {
                 "label": "Español",
                 "value": "es",
-                "key": "es"
+                "key": "es",
+                "flagPointer": es,
+                "flagAlt": "ES "
             }
         ]
     }

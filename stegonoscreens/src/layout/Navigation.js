@@ -40,7 +40,10 @@ function Navigation(){
                     <Nav>
                         <NavDropdown menuVariant='dark' title={strings.languageControl.label[appCtx.language]} onSelect={languageHandler}>
                             {strings.languageControl.languages.map(lang=> 
-                                <NavDropdown.Item key={lang.key} eventKey={lang.value} active={appCtx.language === lang.key}>{lang.label}</NavDropdown.Item> 
+                                <NavDropdown.Item key={lang.key} eventKey={lang.value} active={appCtx.language === lang.key}>
+                                    <img src={lang.flagPointer} alt={lang.flagAlt} className= {classes.langFlag}/>
+                                    {lang.label}
+                                </NavDropdown.Item> 
                             )}
                         </NavDropdown>
                     </Nav>
