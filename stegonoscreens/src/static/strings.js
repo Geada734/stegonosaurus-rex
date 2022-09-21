@@ -8,8 +8,8 @@ import es from './flags/es.png';
 const strings = {
     "pageTitles": {
         "home": {
-            "en": "Home",
-            "es": "Página Principal"
+            "en": "Welcome to Stegonosaurus!",
+            "es": "¡Bienvenido a Stegonosaurus!"
         },
         "about": {
             "en": "About Stegonosaurus",

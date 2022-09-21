@@ -7,7 +7,9 @@ import strings from "../static/strings";
 function HomePages() {
     const appCtx = useContext(AppContext);
 
-    return <div>{strings.pageTitles.home[appCtx.language]}</div>
+    return <section>
+            <h1>{strings.pageTitles.home[appCtx.language]}</h1>
+        </section>
 };
 
 export default HomePages;
