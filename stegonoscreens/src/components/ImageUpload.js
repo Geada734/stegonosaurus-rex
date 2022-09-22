@@ -1,11 +1,16 @@
 import classes from './ImageUpload.module.css';
 
-import upload from '../static/logos/upload.svg';
+import Form from 'react-bootstrap/Form';
+
+import upload from '../static/icons/upload.svg';
 
 function ImageUpload(props) {
     return <div className={classes.container}>
-        <span>{props.message}</span>
-        <input type='file'></input>
+        <div className={classes.imageContainer}>
+            <img src={upload} className={classes.image + ' ' + classes.uploadLogo }></img>
+        </div>
+        <Form.Label>{props.message}</Form.Label>
+        <Form.Control type='file' size='sm'></Form.Control>
     </div>;
 };
 
