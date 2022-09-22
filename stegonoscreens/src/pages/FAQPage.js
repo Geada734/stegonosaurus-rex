@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import classes from './FAQPage.module.css'
 
 import AppContext from '../store/app-context';
-import  Question from '../components/Question';
+import Question from '../components/Question';
 
 import strings from '../static/strings.js'
 

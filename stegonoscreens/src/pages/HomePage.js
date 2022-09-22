@@ -1,8 +1,14 @@
 import { useContext } from "react";
 
-import AppContext from "../store/app-context";
-
 import classes from "./HomePage.module.css";
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import ImageUpload from "../components/ImageUpload";
+
+import AppContext from "../store/app-context";
 
 import strings from "../static/strings";
 
@@ -10,18 +16,32 @@ function HomePages() {
     const appCtx = useContext(AppContext);
 
     return <section>
-            <h1>{strings.pageTitles.home[appCtx.language]}</h1>
-            <h2>1.- Upload the image with the coded message:</h2>
-            <p className={classes.instructionP}>
-                Choose the all-black image with the coded message in red letters. 
-                This image must not be taller, or wider (or both) than the image you want to hide your 
-                message.
-            </p>
-            <h2>2.- Upload the image you want to hide your message in:</h2>
-            <p className={classes.instructionP}>
-                The image can be larger than the first one on either axis,
-                but it cannot be wider or taller.
-            </p>
+            <div className={classes.instructions}>
+                <h1>{strings.pageTitles.home[appCtx.language]}</h1>
+                <h2>1.- Upload the image with the coded message:</h2>
+                <p>
+                    Choose the all-black image with the coded message in red letters. 
+                    This image must not be taller, or wider (or both) than the image you want to hide your 
+                    message.
+                </p>
+                <h2>2.- Upload the image you want to hide your message in:</h2>
+                <p>
+                    The image can be larger than the first one on either axis,
+                    but it cannot be wider or taller.
+                </p>
+                <h4 className={classes.importantWarning}>IMPORTANT:</h4>
+                <p>All uploaded images must be multi-band .png files.</p>
+            </div>
+            <Container>
+                <Row>
+                    <Col>
+                        <ImageUpload message='Upload the image that has your coded message:'/>
+                    </Col>
+                    <Col>
+                        <ImageUpload message='Upload image to be encoded:'/>
+                    </Col>
+                </Row>
+            </Container>
         </section>
 };
 
