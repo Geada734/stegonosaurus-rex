@@ -2,11 +2,7 @@ import { useContext } from "react";
 
 import classes from "./HomePage.module.css";
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
-import ImageUpload from "../components/ImageUpload";
+import ModeToggler from '../components/ModeToggler';
 
 import AppContext from "../store/app-context";
 
@@ -32,16 +28,7 @@ function HomePages() {
                 <h4 className={classes.importantWarning}>IMPORTANT:</h4>
                 <p>All uploaded images must be multi-band .png files.</p>
             </div>
-            <Container>
-                <Row>
-                    <Col>
-                        <ImageUpload message='Upload the image that has your coded message:'/>
-                    </Col>
-                    <Col>
-                        <ImageUpload message='Upload image to be encoded:'/>
-                    </Col>
-                </Row>
-            </Container>
+            <ModeToggler></ModeToggler>
         </section>
 };
 
