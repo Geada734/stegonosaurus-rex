@@ -196,6 +196,47 @@ const strings = {
                 "flagAlt": "ES "
             }
         ]
+    },
+
+    "homePage": {
+        "instructions": {
+            "en": <section>
+                    <h2>1.- Upload the image with the coded message:</h2>
+                    <p>
+                        Choose the all-black image with the coded message in red letters. 
+                        This image must not be taller, or wider (or both) than the image you want to hide your 
+                        message.
+                    </p>
+                    <h2>2.- Upload the image you want to hide your message in:</h2>
+                    <p>
+                        The image can be larger than the first one on either axis,
+                        but it cannot be smaller in width or height.
+                    </p>
+                </section>,
+            "es": <section>
+                <h2>1.- Sube la imagen que trae el mensaje oculto:</h2>
+                <p>
+                    Escoge la imagen en negro con el mensaje escrito en letras rojas,
+                    esta imagen no debe de ser más alta o ancha que la imagen en la que
+                    quieres esconder el mensaje.
+                </p>
+                <h2>2.- Sube la imagen en la cual quieres esconder el mensaje:</h2>
+                <p>
+                    La imagen puede ser más alta o ancha que la primera imagen, pero no debe
+                    de ser más chica en ninguno de sus ejes.
+                </p>
+            </section>
+        },
+        "warning": {
+            "important": {
+                "en": "IMPORTANT",
+                "es": "IMPORTANTE"
+            },
+            "warningText": {
+                "en": "All uploaded images must be multi-band .png files.",
+                "es": "Todas las imagenes deben de ser .png multibanda."
+            }
+        }
     }
 };
 
