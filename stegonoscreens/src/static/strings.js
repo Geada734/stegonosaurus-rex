@@ -237,6 +237,45 @@ const strings = {
                 "es": "Todas las imagenes deben de ser .png multibanda."
             }
         }
+    },
+
+    "modeToggler": {
+        "modes": {
+            "encode": {
+                "en": "Encode",
+                "es": "Codificar"
+            },
+            "decode": {
+                "en": "Decode",
+                "es": "Decodificar"
+            }
+        },
+        "decodingModeLabel": {
+            "en": "Decoding Mode",
+            "es": "Modo de Decodificación"
+        },
+        "decodingModes": {
+            "t": {
+                "en": "Transparent",
+                "es": "Transparencia"
+            },
+            "b": {
+                "en": "Black",
+                "es": "En Negro"
+            }
+        },
+        "messageImageMessage": {
+            "en": "Upload the image that has your coded message:",
+            "es": "Sube la imagen que trae to mensaje codificado:"
+        },
+        "toCodeImageMessage": {
+            "en": "Upload image to be encoded:",
+            "es": "Sube la imagen a codificar:" 
+        },
+        "toDecodeImageMessage": {
+            "en": "Upload the image you wish to decode:",
+            "es": "Sube la imagen a decodificar:"
+        }
     }
 };
 
