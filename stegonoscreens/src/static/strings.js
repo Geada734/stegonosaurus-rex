@@ -275,6 +275,16 @@ const strings = {
         "toDecodeImageMessage": {
             "en": "Upload the image you wish to decode:",
             "es": "Sube la imagen a decodificar:"
+        },
+        "buttonMessage": {
+            "encode": {
+                "en": "Encode",
+                "es": "Codificar"
+            },
+            "decode": {
+                "en": "Decode",
+                "es": "Decodificar"
+            }
         }
     }
 };

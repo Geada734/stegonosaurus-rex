@@ -7,7 +7,9 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
-import ImageUpload from "./ImageUpload";
+import classes from './ModeToggler.module.css';
+
+import ImageUpload from './ImageUpload';
 
 import AppContext from '../store/app-context';
 
@@ -39,6 +41,13 @@ function ModeToggler(props){
                         <ImageUpload message={strings.modeToggler.toCodeImageMessage[appCtx.language]}/>
                     </Col>
                 </Row>
+                <Row>
+                    <Col>
+                        <Button variant='outline-dark' disabled className={classes.executeButton}>
+                            {strings.modeToggler.buttonMessage.encode[appCtx.language]}
+                        </Button>
+                    </Col>
+                </Row>
             </Container>;
         }
 
@@ -60,6 +69,11 @@ function ModeToggler(props){
                             </ButtonGroup>
                             <ImageUpload message={strings.modeToggler.toDecodeImageMessage[appCtx.language]}/>
                         </Col>
+                    </Row>
+                    <Row>
+                        <Button variant='outline-dark' disabled className={classes.executeButton}>
+                            {strings.modeToggler.buttonMessage.decode[appCtx.language]}
+                        </Button>
                     </Row>
                 </Container>
             </div>;
