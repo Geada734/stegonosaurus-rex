@@ -286,6 +286,13 @@ const strings = {
                 "es": "Decodificar"
             }
         }
+    },
+
+    "loadingModal": {
+        "loading": {
+            "en": "Processing images...",
+            "es": "Procesando imágenes..."
+        }
     }
 };
 

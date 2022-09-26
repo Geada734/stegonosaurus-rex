@@ -10,6 +10,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import classes from './ModeToggler.module.css';
 
 import ImageUpload from './ImageUpload';
+import LoadingModal from './LoadingModal';
 
 import AppContext from '../store/app-context';
 
@@ -24,6 +25,8 @@ function ModeToggler(props){
     const [codedMessageImage, setCodedMessageImage] = useState(null);
     const [messageImage, setMessageImage] = useState(null);
     const [imageToDecode, setImageToDecode] = useState(null);
+
+    const [showLoading, setShowLoading] = useState(false);
 
     function modeHandler(mode) {
         setCodedMessageImage(null);
@@ -51,6 +54,11 @@ function ModeToggler(props){
         setMessageImage(file);
     };
 
+    function showModalHandler(e){
+        e.preventDefault();
+        setShowLoading(true);
+    };
+
     function renderComponent() {
         if(tabValue==='encode') {
             return <Container>
@@ -66,7 +74,8 @@ function ModeToggler(props){
                 </Row>
                 <Row>
                     <Col>
-                        <Button variant='outline-dark' disabled={!codedMessageImage || !messageImage} 
+                        <Button variant='outline-dark' onClick={showModalHandler}
+                            disabled={!codedMessageImage || !messageImage} 
                             className={classes.executeButton}>
                             {strings.modeToggler.buttonMessage.encode[appCtx.language]}
                         </Button>
@@ -96,7 +105,8 @@ function ModeToggler(props){
                         </Col>
                     </Row>
                     <Row>
-                        <Button variant='outline-dark' disabled={imageToDecode ? false : true} 
+                        <Button variant='outline-dark' onClick={showModalHandler}
+                            disabled={imageToDecode ? false : true} 
                             className={classes.executeButton}>
                             {strings.modeToggler.buttonMessage.decode[appCtx.language]}
                         </Button>
@@ -118,6 +128,7 @@ function ModeToggler(props){
             </Nav.Item>
         </Nav>
         { renderComponent() }
+        <LoadingModal showModal={showLoading}></LoadingModal>
     </div>;
 };
 
