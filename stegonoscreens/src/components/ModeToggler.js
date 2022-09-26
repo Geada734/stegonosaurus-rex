@@ -21,7 +21,16 @@ function ModeToggler(props){
     const [tabValue, setTabValue] = useState('encode'); 
     const [decodeMode, setDecodeMode] = useState('t');
 
+    const [codedMessageImage, setCodedMessageImage] = useState(null);
+    const [messageImage, setMessageImage] = useState(null);
+    const [imageToDecode, setImageToDecode] = useState(null);
+
     function modeHandler(mode) {
+        setCodedMessageImage(null);
+        setMessageImage(null);
+        setImageToDecode(null);
+        setDecodeMode('t');
+
         setTabValue(mode);
     };
 
@@ -30,20 +39,35 @@ function ModeToggler(props){
         setDecodeMode(dMode);
     };
 
+    function imageToDecodeHandler(file) {
+        setImageToDecode(file);
+    };
+
+    function codedMessageImageHandler(file) {
+        setCodedMessageImage(file);
+    };
+
+    function messageImageHandler(file) {
+        setMessageImage(file);
+    };
+
     function renderComponent() {
         if(tabValue==='encode') {
             return <Container>
                 <Row>
                     <Col>
-                        <ImageUpload message={strings.modeToggler.messageImageMessage[appCtx.language]}/>
+                        <ImageUpload func={codedMessageImageHandler}
+                            message={strings.modeToggler.messageImageMessage[appCtx.language]}/>
                     </Col>
                     <Col>
-                        <ImageUpload message={strings.modeToggler.toCodeImageMessage[appCtx.language]}/>
+                        <ImageUpload func={messageImageHandler}
+                            message={strings.modeToggler.toCodeImageMessage[appCtx.language]}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <Button variant='outline-dark' disabled className={classes.executeButton}>
+                        <Button variant='outline-dark' disabled={!codedMessageImage || !messageImage} 
+                            className={classes.executeButton}>
                             {strings.modeToggler.buttonMessage.encode[appCtx.language]}
                         </Button>
                     </Col>
@@ -67,11 +91,13 @@ function ModeToggler(props){
                                     {strings.modeToggler.decodingModes.b[appCtx.language]}
                                 </Button>
                             </ButtonGroup>
-                            <ImageUpload message={strings.modeToggler.toDecodeImageMessage[appCtx.language]}/>
+                            <ImageUpload func={imageToDecodeHandler} 
+                                message={strings.modeToggler.toDecodeImageMessage[appCtx.language]}/>
                         </Col>
                     </Row>
                     <Row>
-                        <Button variant='outline-dark' disabled className={classes.executeButton}>
+                        <Button variant='outline-dark' disabled={imageToDecode ? false : true} 
+                            className={classes.executeButton}>
                             {strings.modeToggler.buttonMessage.decode[appCtx.language]}
                         </Button>
                     </Row>

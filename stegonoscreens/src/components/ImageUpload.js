@@ -8,9 +8,15 @@ import upload from '../static/icons/upload.svg';
 function ImageUpload(props) {
     const [displayedImage, setDisplayedImage] = useState(upload);
 
-    function displayImageHandler(event){
-        const file = URL.createObjectURL(event.target.files[0]);
+    function displayImage(file) {
         setDisplayedImage(file);
+    };
+
+    function submitHandler(event, func){
+        const file = URL.createObjectURL(event.target.files[0]);
+
+        func(file);
+        displayImage(file);
     };
 
     return <div className={classes.container}>
@@ -19,7 +25,7 @@ function ImageUpload(props) {
         </div>
         <Form.Label>{props.message}</Form.Label>
         <Form.Control type='file' accept='image/png' size='sm' 
-            onChange={displayImageHandler}>
+            onChange={(e) => submitHandler(e, props.func)}>
         </Form.Control>
     </div>;
 };
