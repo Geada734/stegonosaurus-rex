@@ -13,10 +13,11 @@ function ImageUpload(props) {
     };
 
     function submitHandler(event, func){
-        const file = URL.createObjectURL(event.target.files[0]);
+        const file = event.target.files[0]
+        const fileForDisplay = URL.createObjectURL(file);
 
         func(file);
-        displayImage(file);
+        displayImage(fileForDisplay);
     };
 
     return <div className={classes.container}>

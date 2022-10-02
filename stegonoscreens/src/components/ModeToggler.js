@@ -1,5 +1,7 @@
 import { useState, useContext } from 'react';
 
+import axios from 'axios';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -35,6 +37,22 @@ function ModeToggler(props){
         setDecodeMode('t');
 
         setTabValue(mode);
+    };
+
+    function submitDecodeHandler() {
+        const formData = new FormData();
+
+        formData.append('img', imageToDecode);
+        formData.append('filename', imageToDecode.name)
+
+        axios.post("http://localhost:5000/decode", formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+        })
+        .then(response => console.log(response));
+
+        setShowLoading(true);
     };
 
     function decodeModeHandler(e, dMode) {
@@ -105,7 +123,7 @@ function ModeToggler(props){
                         </Col>
                     </Row>
                     <Row>
-                        <Button variant='outline-dark' onClick={showModalHandler}
+                        <Button variant='outline-dark' onClick={submitDecodeHandler}
                             disabled={imageToDecode ? false : true} 
                             className={classes.executeButton}>
                             {strings.modeToggler.buttonMessage.decode[appCtx.language]}
