@@ -30,6 +30,8 @@ function ModeToggler(props){
 
     const [showLoading, setShowLoading] = useState(false);
 
+    const[decodeResult, setDecodeResult] = useState('');
+
     function modeHandler(mode) {
         setCodedMessageImage(null);
         setMessageImage(null);
@@ -42,6 +44,8 @@ function ModeToggler(props){
     function submitDecodeHandler() {
         const formData = new FormData();
 
+        setShowLoading(true);
+
         formData.append('img', imageToDecode);
         formData.append('filename', imageToDecode.name)
 
@@ -50,9 +54,11 @@ function ModeToggler(props){
               'Content-Type': 'multipart/form-data',
             }
         })
-        .then(response => console.log(response));
-
-        setShowLoading(true);
+        .then(response => { 
+            setShowLoading(false); 
+            setDecodeResult('data:image/png;base64, ' + response.data.result);
+        })
+        .catch(error => console.log(error));
     };
 
     function decodeModeHandler(e, dMode) {
@@ -146,6 +152,7 @@ function ModeToggler(props){
             </Nav.Item>
         </Nav>
         { renderComponent() }
+        <img src={decodeResult}></img>
         <LoadingModal showModal={showLoading}></LoadingModal>
     </div>;
 };
