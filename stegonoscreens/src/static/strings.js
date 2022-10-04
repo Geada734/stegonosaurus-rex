@@ -233,8 +233,8 @@ const strings = {
                 "es": "IMPORTANTE"
             },
             "warningText": {
-                "en": "All uploaded images must be multi-band .png files.",
-                "es": "Todas las imagenes deben de ser .png multibanda."
+                "en": "All uploaded images must be multi-band .png file, and smaller than 2MB.",
+                "es": "Todas las imagenes deben de ser .png multibanda, y más pequeñas de 2MB."
             }
         }
     },
@@ -292,6 +292,19 @@ const strings = {
         "loading": {
             "en": "Processing images...",
             "es": "Procesando imágenes..."
+        }
+    },
+
+    "resultsModal": {
+        "header": {
+            "en": "Results",
+            "es": "Resultados"
+        },
+        "download": {
+            "en": "Your download will start automatically, otherwise, feel free to " +
+                "download the displayed image.",
+            "es": "Tu descarga comenzará en breve, de lo contrario, solamente haz click " +
+                "derecho en la imagen, y descargala."
         }
     }
 };

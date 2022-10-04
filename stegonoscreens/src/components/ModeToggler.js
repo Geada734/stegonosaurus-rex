@@ -77,6 +77,7 @@ function ModeToggler(props){
               'download',
               results.fileName,
             );
+            
             document.body.appendChild(link);
             link.click();
             link.parentNode.removeChild(link);

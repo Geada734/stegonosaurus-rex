@@ -9,6 +9,7 @@ import strings from '../static/strings.js';
 import classes from './ImageDisplayModal.module.css';
 
 function ImageDisplayModal(props) {
+    const appCtx = useContext(AppContext);
 
     function handleClose(){
         props.showHandler(false);
@@ -17,13 +18,10 @@ function ImageDisplayModal(props) {
     return <Modal size='lg' show={props.showModal} onHide={handleClose} 
         className={classes.resultsModal}>
         <Modal.Header closeButton>
-            <Modal.Title>Results</Modal.Title>
+            <Modal.Title>{strings.resultsModal.header[appCtx.language]}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <span>
-                Your download will start automatically, otherwise, feel free to 
-                download the displayed image.
-            </span>
+            <span>{strings.resultsModal.download[appCtx.language]}</span>
             <div className={classes.imageContainer}>
                 <img src={props.image} className={classes.result}/>
             </div>

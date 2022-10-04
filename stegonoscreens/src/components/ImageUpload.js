@@ -14,10 +14,19 @@ function ImageUpload(props) {
 
     function submitHandler(event, func){
         const file = event.target.files[0]
-        const fileForDisplay = URL.createObjectURL(file);
 
-        func(file);
-        displayImage(fileForDisplay);
+        // 2097152
+        if(file.size <= 397152){
+            const fileForDisplay = URL.createObjectURL(file);
+
+            console.log(file.size);
+
+            func(file);
+            displayImage(fileForDisplay);
+        }
+        else{
+            console.log('tooDamnBig');
+        };
     };
 
     return <div className={classes.container}>
