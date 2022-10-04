@@ -57,9 +57,29 @@ function ModeToggler(props){
             }
         })
         .then(response => { 
-            setResult('data:image/png;base64, ' + response.data.result);
+            const res = 'data:image/png;base64, ' + response.data.result;
+            const resName = response.data.filename;
+
+            setResult(res);
             setShowLoading(false); 
             setShowResult(true);
+
+            return {
+                    fileData: res,
+                    fileName: resName
+            };
+        })
+        .then(results => {
+            const link = document.createElement('a');
+            link.href = results.fileData;
+
+            link.setAttribute(
+              'download',
+              results.fileName,
+            );
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
         })
         .catch(error => console.log(error));
     };
@@ -155,8 +175,8 @@ function ModeToggler(props){
             </Nav.Item>
         </Nav>
         { renderComponent() }
-        <LoadingModal showModal={showLoading}></LoadingModal>
-        <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult}></ImageDisplayModal>
+        <LoadingModal showModal={showLoading} />
+        <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult} />
     </div>;
 };
 

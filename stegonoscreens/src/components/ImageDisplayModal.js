@@ -14,11 +14,16 @@ function ImageDisplayModal(props) {
         props.showHandler(false);
     };
 
-    return <Modal size='lg' show={props.showModal} onHide={handleClose}>
+    return <Modal size='lg' show={props.showModal} onHide={handleClose} 
+        className={classes.resultsModal}>
         <Modal.Header closeButton>
-            Results
+            <Modal.Title>Results</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+            <span>
+                Your download will start automatically, otherwise, feel free to 
+                download the displayed image.
+            </span>
             <div className={classes.imageContainer}>
                 <img src={props.image} className={classes.result}/>
             </div>
