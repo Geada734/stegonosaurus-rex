@@ -13,6 +13,7 @@ import classes from './ModeToggler.module.css';
 
 import ImageUpload from './ImageUpload';
 import LoadingModal from './LoadingModal';
+import ImageDisplayModal from './ImageDisplayModal';
 
 import AppContext from '../store/app-context';
 
@@ -29,8 +30,9 @@ function ModeToggler(props){
     const [imageToDecode, setImageToDecode] = useState(null);
 
     const [showLoading, setShowLoading] = useState(false);
+    const [showResult, setShowResult] = useState(false);
 
-    const[decodeResult, setDecodeResult] = useState('');
+    const[result, setResult] = useState('');
 
     function modeHandler(mode) {
         setCodedMessageImage(null);
@@ -55,8 +57,9 @@ function ModeToggler(props){
             }
         })
         .then(response => { 
+            setResult('data:image/png;base64, ' + response.data.result);
             setShowLoading(false); 
-            setDecodeResult('data:image/png;base64, ' + response.data.result);
+            setShowResult(true);
         })
         .catch(error => console.log(error));
     };
@@ -152,8 +155,8 @@ function ModeToggler(props){
             </Nav.Item>
         </Nav>
         { renderComponent() }
-        <img src={decodeResult}></img>
         <LoadingModal showModal={showLoading}></LoadingModal>
+        <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult}></ImageDisplayModal>
     </div>;
 };
 
