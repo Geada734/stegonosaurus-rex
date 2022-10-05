@@ -54,6 +54,7 @@ function ModeToggler(props){
 
         formData.append('img', imageToDecode);
         formData.append('filename', imageToDecode.name)
+        formData.append('mode', decodeMode)
 
         axios.post("http://localhost:5000/decode", formData, {
             headers: {
