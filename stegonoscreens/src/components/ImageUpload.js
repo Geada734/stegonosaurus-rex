@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import classes from './ImageUpload.module.css';
+
+import ErrorModal from './ErrorModal';
 
 import Form from 'react-bootstrap/Form';
 
+import errors from '../static/errors.js';
 import upload from '../static/icons/upload.svg';
 
 function ImageUpload(props) {
     const [displayedImage, setDisplayedImage] = useState(upload);
-
-    function displayImage(file) {
-        setDisplayedImage(file);
-    };
+    const [error, setError] = useState(null);
+    const [showError, setShowError] = useState(false);
 
     function submitHandler(event, func){
         const file = event.target.files[0]
@@ -25,8 +26,22 @@ function ImageUpload(props) {
             displayImage(fileForDisplay);
         }
         else{
-            console.log('tooDamnBig');
+            setError(errors.imgTooLarge)
+            showErrorModal();
         };
+    };
+
+    function displayImage(file) {
+        setDisplayedImage(file);
+    };
+
+    function showErrorModal(){
+        setShowError(true);
+    };
+
+    function closeErrorModal(){
+        setError(null);
+        setShowError(false);
     };
 
     return <div className={classes.container}>
@@ -37,6 +52,7 @@ function ImageUpload(props) {
         <Form.Control type='file' accept='image/png' size='sm' 
             onChange={(e) => submitHandler(e, props.func)}>
         </Form.Control>
+        <ErrorModal showModal={showError} showHandler={closeErrorModal} error={error}/>
     </div>;
 };
 
