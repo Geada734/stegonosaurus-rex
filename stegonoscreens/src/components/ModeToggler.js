@@ -14,6 +14,7 @@ import classes from './ModeToggler.module.css';
 import ImageUpload from './ImageUpload';
 import LoadingModal from './LoadingModal';
 import ImageDisplayModal from './ImageDisplayModal';
+import ErrorModal from './ErrorModal';
 
 import AppContext from '../store/app-context';
 
@@ -21,6 +22,9 @@ import strings from '../static/strings.js';
 
 function ModeToggler(props){
     const appCtx = useContext(AppContext);
+
+    const [error, setError] = useState(null);
+    const [showError, setShowError] = useState(false);
 
     const [tabValue, setTabValue] = useState('encode'); 
     const [decodeMode, setDecodeMode] = useState('t');
@@ -82,7 +86,7 @@ function ModeToggler(props){
             link.click();
             link.parentNode.removeChild(link);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log(error.response.data));
     };
 
     function decodeModeHandler(e, dMode) {
@@ -105,6 +109,11 @@ function ModeToggler(props){
     function showModalHandler(e){
         e.preventDefault();
         setShowLoading(true);
+    };
+
+    function closeErrorModal(){
+        setError(null);
+        setShowError(false);
     };
 
     function renderComponent() {
@@ -178,6 +187,7 @@ function ModeToggler(props){
         { renderComponent() }
         <LoadingModal showModal={showLoading} />
         <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult} />
+        <ErrorModal error={error} showHandler={closeErrorModal}></ErrorModal>
     </div>;
 };
 

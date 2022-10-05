@@ -15,7 +15,7 @@ function ImageDisplayModal(props) {
         props.showHandler(false);
     };
 
-    return <Modal size='lg' show={props.showModal} onHide={handleClose} 
+    return <Modal size='md' show={props.showModal} onHide={handleClose} 
         className={classes.resultsModal}>
         <Modal.Header closeButton>
             <Modal.Title>{strings.resultsModal.header[appCtx.language]}</Modal.Title>

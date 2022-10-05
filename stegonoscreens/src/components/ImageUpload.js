@@ -19,8 +19,6 @@ function ImageUpload(props) {
         if(file.size <= 2097152){
             const fileForDisplay = URL.createObjectURL(file);
 
-            console.log(file.size);
-
             func(file);
             displayImage(fileForDisplay);
         }
