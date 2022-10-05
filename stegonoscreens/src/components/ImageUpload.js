@@ -16,8 +16,7 @@ function ImageUpload(props) {
     function submitHandler(event, func){
         const file = event.target.files[0]
 
-        // 2097152
-        if(file.size <= 397152){
+        if(file.size <= 2097152){
             const fileForDisplay = URL.createObjectURL(file);
 
             console.log(file.size);

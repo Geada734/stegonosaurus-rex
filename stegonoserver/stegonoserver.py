@@ -4,6 +4,7 @@ from io import BytesIO
 from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Api, Resource
+from stegonosaurus import stego_functions as sf
 
 app = Flask(__name__)
 CORS(app)
@@ -30,6 +31,8 @@ class DecodeAPI(Resource):
         filename = request.form.get("filename")
 
         img = Image.open(file)
+        
+        img = sf.decode(img, 't')
 
         buffered = BytesIO()
         img.save(buffered, format="PNG")
@@ -37,7 +40,7 @@ class DecodeAPI(Resource):
 
         return {
             "result": img_str.decode("utf-8"),
-            "filename": "decoded" + filename
+            "filename": "decoded_" + filename
             }
 
 api.add_resource(DummyAPI, "/dummy")
