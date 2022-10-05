@@ -42,10 +42,11 @@ class DecodeAPI(Resource):
     def post(self):
         file = request.files["img"]
         filename = request.form.get("filename")
+        mode = request.form.get("mode")
 
         img = Image.open(file)
 
-        img = sf.decode(img, 't')
+        img = sf.decode(img, mode)
 
         buffered = BytesIO()
         img.save(buffered, format="PNG")
