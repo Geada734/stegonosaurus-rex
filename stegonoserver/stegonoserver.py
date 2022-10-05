@@ -1,7 +1,7 @@
 import base64
 from PIL import Image
 from io import BytesIO
-from flask import Flask, request
+from flask import Flask, request, json, Response
 from flask_cors import CORS
 from flask_restful import Api, Resource
 from stegonosaurus import stego_functions as sf
@@ -9,6 +9,19 @@ from stegonosaurus import stego_functions as sf
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    response = Response(mimetype="application/json")
+    response.data = json.dumps({
+        "code": "001",
+        "name": "name",
+        "description": "Desc",
+    })
+    
+    response.status_code = 500
+    
+    return response
 
 class DummyAPI(Resource):
     def get(self):
@@ -31,17 +44,21 @@ class DecodeAPI(Resource):
         filename = request.form.get("filename")
 
         img = Image.open(file)
-        
+
         img = sf.decode(img, 't')
 
         buffered = BytesIO()
         img.save(buffered, format="PNG")
         img_str = base64.b64encode(buffered.getvalue())
+        
+        response = Response(mimetype="application/json")
+        response.status_code = 200
+        response.data = json.dumps({
+                "result": img_str.decode("utf-8"),
+                "filename": "decoded_" + filename
+        })
 
-        return {
-            "result": img_str.decode("utf-8"),
-            "filename": "decoded_" + filename
-            }
+        return response
 
 api.add_resource(DummyAPI, "/dummy")
 api.add_resource(DecodeAPI, "/decode")
