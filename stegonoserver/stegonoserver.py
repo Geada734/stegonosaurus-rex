@@ -1,26 +1,49 @@
 import base64
 from PIL import Image
 from io import BytesIO
-from flask import Flask, request, json, Response
 from flask_cors import CORS
 from flask_restful import Api, Resource
+from flask import Flask, request, json, Response
+from werkzeug.exceptions import HTTPException
 from stegonosaurus import stego_functions as sf
+from stegonosaurus import stego_exceptions as se
 
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
+@app.errorhandler(se.StegonosaurusIncorrectFormatException)
+def handle_stego_format_exception(e):
+    response = Response(mimetype="application/json")
+    response.data = json.dumps({
+        "error_code_name": "wrongFormat",
+        "error_message": e.message
+    })
+
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    print(type(e))
+    print(e)
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+
+    response.status_code = 500
+
+    return response
+
 @app.errorhandler(Exception)
 def handle_error(e):
     response = Response(mimetype="application/json")
     response.data = json.dumps({
-        "code": "001",
-        "name": "name",
-        "description": "Desc",
+        "error_code_name": "unknown",
+        "error_message": "Unknown internal error"
     })
-    
+
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    print(type(e))
+    print(e)
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+
     response.status_code = 500
-    
+
     return response
 
 class DummyAPI(Resource):
@@ -45,7 +68,6 @@ class DecodeAPI(Resource):
         mode = request.form.get("mode")
 
         img = Image.open(file)
-
         img = sf.decode(img, mode)
 
         buffered = BytesIO()
