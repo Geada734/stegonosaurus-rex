@@ -13,9 +13,8 @@ function ErrorModal(props){
         props.showHandler();
     };
 
-    function renderComponent(){
-        if(props.error){
-            return  <Modal size='md' onHide={closeHandler} show={props.showModal}>
+    if(props.error){
+        return  <Modal size='md' onHide={closeHandler} show={props.showModal}>
             <Modal.Header closeButton>
                 <Modal.Title>{props.error.code}</Modal.Title>
             </Modal.Header>
@@ -24,13 +23,9 @@ function ErrorModal(props){
                 <span>{props.error[appCtx.language].message}</span>
             </Modal.Body>
         </Modal>
-        }
-        else{
-            return <Modal />;
-        };
     };
 
-    return renderComponent();
+    return null;
 };
 
 export default ErrorModal;

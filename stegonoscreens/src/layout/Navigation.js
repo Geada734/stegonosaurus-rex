@@ -33,7 +33,9 @@ function Navigation(){
                     {strings.navItems.map(navItem => 
                         <Nav key={navItem.key}>
                             <Nav.Link>
-                                <Link className={classes.navItem} to={navItem.path}>{navItem.name[appCtx.language]}</Link>
+                                <Link className={classes.navItem} to={navItem.path}>
+                                    {navItem.name[appCtx.language]}
+                                </Link>
                             </Nav.Link>
                         </Nav>
                     )}
