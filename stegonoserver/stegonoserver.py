@@ -23,7 +23,7 @@ def handle_stego_format_exception(e):
     print("xxxxxxxxxxxxxxxxxxxxxxxxx")
     print(type(e))
     print(e)
-    print("xxxxxxxxxxxxxxaxxxxxxxxxxx")
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
 
     response.status_code = 500
 
