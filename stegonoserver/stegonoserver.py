@@ -73,17 +73,41 @@ class DecodeAPI(Resource):
         buffered = BytesIO()
         img.save(buffered, format="PNG")
         img_str = base64.b64encode(buffered.getvalue())
-        
+
         response = Response(mimetype="application/json")
         response.status_code = 200
         response.data = json.dumps({
                 "result": img_str.decode("utf-8"),
                 "filename": "decoded_" + filename
         })
-        
+
         img.close()
+
+        return response
+
+class EncodeAPI(Resource):
+    def post(self):
+        coded_file = request.files["coded"]
+        img_file = request.files["img"]
+        filename = request.form.get("filename")
+
+        coded = Image.open(coded_file)
+        img = Image.open(img_file)
+        img = sf.encode(coded, img)
+
+        buffered = BytesIO()
+        img.save(buffered, format="PNG")
+        img_str = base64.b64encode(buffered.getvalue())
+        
+        response = Response(mimetype="application/json")
+        response.status_code = 200
+        response.data = json.dumps({
+                "result": img_str.decode("utf-8"),
+                "filename": "encoded_" + filename
+        })
 
         return response
 
 api.add_resource(DummyAPI, "/dummy")
 api.add_resource(DecodeAPI, "/decode")
+api.add_resource(EncodeAPI, "/encode")
