@@ -1,3 +1,5 @@
+import config from '../configs/config.json';
+
 import { useState, useContext } from 'react';
 
 import axios from 'axios';
@@ -57,7 +59,7 @@ function ModeToggler(props){
         formData.append('filename', imageToDecode.name)
         formData.append('mode', decodeMode)
 
-        axios.post("http://localhost:5000/decode", formData, {
+        axios.post(config.flaskServer + "/decode", formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             }
