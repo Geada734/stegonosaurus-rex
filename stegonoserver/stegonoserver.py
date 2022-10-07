@@ -16,14 +16,14 @@ api = Api(app)
 def handle_stego_format_exception(e):
     response = Response(mimetype="application/json")
     response.data = json.dumps({
-        "error_code_name": "wrongFormat",
+        "error_codename": "wrongFormat",
         "error_message": e.message
     })
 
     print("xxxxxxxxxxxxxxxxxxxxxxxxx")
     print(type(e))
     print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    print("xxxxxxxxxxxxxxaxxxxxxxxxxx")
 
     response.status_code = 500
 
@@ -33,7 +33,7 @@ def handle_stego_format_exception(e):
 def handle_error(e):
     response = Response(mimetype="application/json")
     response.data = json.dumps({
-        "error_code_name": "unknown",
+        "error_codename": "unknown",
         "error_message": "Unknown internal error"
     })
 
