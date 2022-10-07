@@ -22,7 +22,7 @@ const errors = {
         }
     },
     "unknown": {
-        "code": "ERR09",
+        "code": "ERR99",
         "en": {
             "summary": "Something went wrong...",
             "message": "There has been an unknown error, please try again later."
