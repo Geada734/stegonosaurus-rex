@@ -19,6 +19,7 @@ import ErrorModal from './ErrorModal';
 import AppContext from '../store/app-context';
 
 import strings from '../static/strings.js';
+import errors from '../static/errors.js';
 
 function ModeToggler(props){
     const appCtx = useContext(AppContext);
@@ -87,7 +88,20 @@ function ModeToggler(props){
             link.click();
             link.parentNode.removeChild(link);
         })
-        .catch(error => console.log(error.response.data));
+        .catch(e => {
+            let errorKey;
+
+            if(e.response.status === 500) { 
+                errorKey = e.response.data.error_codename;
+            }
+            else{
+                errorKey = "unknown";
+            };
+
+            setShowLoading(false);
+            setError(errors[errorKey]);
+            setShowError(true);
+        });
     };
 
     function decodeModeHandler(e, dMode) {
@@ -188,7 +202,7 @@ function ModeToggler(props){
         { renderComponent() }
         <LoadingModal showModal={showLoading} />
         <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult} />
-        <ErrorModal error={error} showHandler={closeErrorModal}></ErrorModal>
+        <ErrorModal error={error} showModal={showError} showHandler={closeErrorModal}></ErrorModal>
     </div>;
 };
 

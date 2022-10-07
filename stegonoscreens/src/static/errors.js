@@ -9,6 +9,28 @@ const errors = {
             "summary":  "La imagen es demasiado grande",
             "message": "Por favor, sube archivos menores a 2MB."
         }
+    },
+    "wrongFormat": {
+        "code": "ERR02",
+        "en": {
+            "summary": "Wrong File Format",
+            "message": "All uploaded images must be multi-band .png files."
+        },
+        "es": {
+            "summary": "Formato Incorrecto",
+            "message": "Todas las imágenes subidas deben ser archivos .png multibanda."
+        }
+    },
+    "unknown": {
+        "code": "ERR09",
+        "en": {
+            "summary": "Something went wrong...",
+            "message": "There has been an unknown error, please try again later."
+        },
+        "es": {
+            "summary": "Algo salió mal...",
+            "message": "Ocurrió un error desconocido, por favor inténtalo más tarde."
+        }
     }
 };
 
