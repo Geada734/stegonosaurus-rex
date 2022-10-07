@@ -80,6 +80,8 @@ class DecodeAPI(Resource):
                 "result": img_str.decode("utf-8"),
                 "filename": "decoded_" + filename
         })
+        
+        img.close()
 
         return response
 
