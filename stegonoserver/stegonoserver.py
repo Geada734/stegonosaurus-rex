@@ -29,6 +29,23 @@ def handle_stego_format_exception(e):
 
     return response
 
+@app.errorhandler(se.StegonosaurusIncorrectSizeException)
+def handle_stego_size_exception(e):
+    response = Response(mimetype="application/json")
+    response.data = json.dumps({
+        "error_codename": "wrongSize",
+        "error_message": e.message
+    })
+
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    print(type(e))
+    print(e)
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+
+    response.status_code = 500
+
+    return response
+
 @app.errorhandler(Exception)
 def handle_error(e):
     response = Response(mimetype="application/json")
@@ -105,6 +122,9 @@ class EncodeAPI(Resource):
                 "result": img_str.decode("utf-8"),
                 "filename": "encoded_" + filename
         })
+
+        coded.close()
+        img.close()
 
         return response
 

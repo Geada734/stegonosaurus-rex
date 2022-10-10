@@ -21,6 +21,19 @@ const errors = {
             "message": "Todas las imágenes subidas deben ser archivos .png multibanda."
         }
     },
+    "wrongSize": {
+        "code": "ERR03",
+        "en": {
+            "summary": "Wrong File Sizes",
+            "message": "The image with the message shouldn't be larger in eight axis " +
+                        "than the image to use for encoding."
+        },
+        "es": {
+            "summary": "Tamaños de archivo incorrectos",
+            "message": "La imagen que contiene el mensaje no debe ser más grande en ningún eje " +
+                        "que la imagen que se usará para codificar."
+        }
+    },
     "unknown": {
         "code": "ERR99",
         "en": {
