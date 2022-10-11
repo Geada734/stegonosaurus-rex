@@ -50,74 +50,24 @@ function ModeToggler(props){
         setTabValue(mode);
     };
 
-    function submitDecodeHandler(e) {
+    function submitHandler(e, endpoint){
         e.preventDefault();
         setShowLoading(true);
         
         const formData = new FormData();
 
-        formData.append('img', imageToDecode);
-        formData.append('filename', imageToDecode.name)
-        formData.append('mode', decodeMode)
+        if(endpoint==='encode') {
+            formData.append('coded', codedMessageImage);
+            formData.append('img', messageImage);
+            formData.append('filename', messageImage.name)
 
-        axios.post(config.flaskServer + "/decode", formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            }
-        })
-        .then(response => { 
-            const res = 'data:image/png;base64, ' + response.data.result;
-            const resName = response.data.filename;
-
-            setResult(res);
-            setShowLoading(false); 
-            setShowResult(true);
-
-            return {
-                    fileData: res,
-                    fileName: resName
-            };
-        })
-        .then(results => {
-            const link = document.createElement('a');
-            link.href = results.fileData;
-
-            link.setAttribute(
-              'download',
-              results.fileName,
-            );
-            
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
-        })
-        .catch(e => {
-            let errorKey;
-
-            if(e.response.status === 500) { 
-                errorKey = e.response.data.error_codename;
-            }
-            else{
-                errorKey = "unknown";
-            };
-
-            setShowLoading(false);
-            setError(errors[errorKey]);
-            setShowError(true);
-        });
-    };
-
-    function submitEncodeHandler(e) {
-        e.preventDefault();
-        setShowLoading(true);
+        } else if(endpoint==='decode') {
+            formData.append('img', imageToDecode);
+            formData.append('filename', imageToDecode.name)
+            formData.append('mode', decodeMode)
+        };
         
-        const formData = new FormData();
-
-        formData.append('coded', codedMessageImage);
-        formData.append('img', messageImage);
-        formData.append('filename', messageImage.name)
-
-        axios.post(config.flaskServer + "/encode", formData, {
+        axios.post(config.flaskServer + '/' + endpoint, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             }
@@ -201,7 +151,7 @@ function ModeToggler(props){
                 </Row>
                 <Row>
                     <Col>
-                        <Button variant='outline-dark' onClick={submitEncodeHandler}
+                        <Button variant='outline-dark' onClick={(e) => submitHandler(e, 'encode')}
                             disabled={!codedMessageImage || !messageImage} 
                             className={classes.executeButton}>
                             {strings.modeToggler.buttonMessage.encode[appCtx.language]}
@@ -232,7 +182,7 @@ function ModeToggler(props){
                         </Col>
                     </Row>
                     <Row>
-                        <Button variant='outline-dark' onClick={submitDecodeHandler}
+                        <Button variant='outline-dark' onClick={(e) => submitHandler(e, 'decode')}
                             disabled={imageToDecode ? false : true} 
                             className={classes.executeButton}>
                             {strings.modeToggler.buttonMessage.decode[appCtx.language]}
