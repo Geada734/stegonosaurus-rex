@@ -1,16 +1,22 @@
+import json
 import base64
 from PIL import Image
 from io import BytesIO
+from bson import json_util
 from flask_cors import CORS
+from pymongo import MongoClient
 from flask_restful import Api, Resource
 from flask import Flask, request, json, Response
-from werkzeug.exceptions import HTTPException
+from pymongo import MongoClient
 from stegonosaurus import stego_functions as sf
 from stegonosaurus import stego_exceptions as se
 
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
+db_client = MongoClient('localhost', 27017)
+db = db_client.test
+mongotest = db.test
 
 @app.errorhandler(se.StegonosaurusIncorrectFormatException)
 def handle_stego_format_exception(e):
@@ -65,7 +71,10 @@ def handle_error(e):
 
 class DummyAPI(Resource):
     def get(self):
-        response_body = {"body": "Hello"}
+        db_content = list(mongotest.find())
+        data = json_util.dumps(db_content)
+
+        response_body = {"db_content": json.loads(data)}
         return response_body
 
     def post(self):
