@@ -15,8 +15,8 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 db_client = MongoClient('localhost', 27017)
-db = db_client.test
-mongotest = db.test
+db = db_client.stegonodb
+faqs_db = db.faqs
 
 @app.errorhandler(se.StegonosaurusIncorrectFormatException)
 def handle_stego_format_exception(e):
@@ -71,10 +71,8 @@ def handle_error(e):
 
 class DummyAPI(Resource):
     def get(self):
-        db_content = list(mongotest.find())
-        data = json_util.dumps(db_content)
-
-        response_body = {"db_content": json.loads(data)}
+        response_body = {"result": "hello"}
+        
         return response_body
 
     def post(self):
@@ -137,6 +135,18 @@ class EncodeAPI(Resource):
 
         return response
 
+class FAQsAPI(Resource):
+    def get(self):
+        db_content = list(faqs_db.find())
+        data = json_util.dumps(db_content)
+        
+        response = Response(mimetype="application/json")
+        response.status_code = 200
+        response.data = json.dumps({"db_content": json.loads(data)})
+
+        return response
+
 api.add_resource(DummyAPI, "/dummy")
 api.add_resource(DecodeAPI, "/decode")
 api.add_resource(EncodeAPI, "/encode")
+api.add_resource(FAQsAPI, "/faqs")
