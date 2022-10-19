@@ -14,7 +14,12 @@ from stegonosaurus import stego_exceptions as se
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-db_client = MongoClient('localhost', 27017)
+
+with open("config/config.json") as configFile:
+    config = json.load(configFile)
+    configFile.close()
+
+db_client = MongoClient(config["mongoServer"])
 db = db_client.stegonodb
 faqs_db = db.faqs
 
@@ -137,7 +142,8 @@ class EncodeAPI(Resource):
 
 class FAQsAPI(Resource):
     def get(self):
-        db_content = list(faqs_db.find())
+        lang = request.args.get("lang")
+        db_content = list(faqs_db.find({}, {lang: 1}))
         data = json_util.dumps(db_content)
         
         response = Response(mimetype="application/json")
