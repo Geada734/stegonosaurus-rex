@@ -127,7 +127,7 @@ class EncodeAPI(Resource):
         buffered = BytesIO()
         img.save(buffered, format="PNG")
         img_str = base64.b64encode(buffered.getvalue())
-        
+
         response = Response(mimetype="application/json")
         response.status_code = 200
         response.data = json.dumps({
@@ -142,13 +142,12 @@ class EncodeAPI(Resource):
 
 class FAQsAPI(Resource):
     def get(self):
-        lang = request.args.get("lang")
-        db_content = list(faqs_db.find({}, {lang: 1}))
+        db_content = list(faqs_db.find())
         data = json_util.dumps(db_content)
-        
+
         response = Response(mimetype="application/json")
         response.status_code = 200
-        response.data = json.dumps({"db_content": json.loads(data)})
+        response.data = json.dumps({"faqs": json.loads(data)})
 
         return response
 
