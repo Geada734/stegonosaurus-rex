@@ -151,6 +151,21 @@ class FAQsAPI(Resource):
 
         return response
 
+    def put(self):
+        id = int(request.form.get("id"))
+        vote = int(request.form.get("vote"))
+
+        faqs_db.update_one({"id": id}, {"$inc": {"rating": vote}})
+
+        response = Response(mimetype="application/json")
+        response.status_code = 200
+
+        response.data = json.dumps({
+            "message": "Vote submitted succesfully."
+        })
+
+        return response
+
 api.add_resource(DummyAPI, "/dummy")
 api.add_resource(DecodeAPI, "/decode")
 api.add_resource(EncodeAPI, "/encode")

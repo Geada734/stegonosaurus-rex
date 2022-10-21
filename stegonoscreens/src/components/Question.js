@@ -1,7 +1,9 @@
 import { useState, useContext } from 'react';
+import axios from 'axios';
 
 import Button from 'react-bootstrap/esm/Button';
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
+import Spinner from 'react-bootstrap/Spinner';
 import { HandThumbsUp } from 'react-bootstrap-icons';
 import { HandThumbsDown } from 'react-bootstrap-icons';
 
@@ -12,18 +14,37 @@ import AppContext from '../store/app-context';
 import strings from '../static/strings.js';
 
 function Question(props){
-    const [rating, setRating] = useState('unrated');
     const appCtx = useContext(AppContext);
+
+    const [userRating, setUserRating] = useState('unrated');
+    const [loading, setLoading] = useState(false);
 
     function rate(e, value){
         e.preventDefault();
 
-        if(value!==rating) {
-            setRating(value)
+        if(value!==userRating) {
+            setUserRating(value)
         }
         else {
-            setRating('unrated');
+            setUserRating('unrated');
         };
+    };
+
+    function renderButtonGroup() {
+        if(loading){
+            return <Spinner animation='border' role='status'></Spinner>
+        }
+
+        return <ButtonGroup>
+            <Button variant='outline-success' onClick={(e) => rate(e, 'up')}
+            active={userRating === 'up' ? true : false}>
+                <HandThumbsUp />
+            </Button>
+            <Button variant='outline-danger' onClick={(e) => rate(e, 'down')}
+            active={userRating === 'down' ? true : false}>
+                <HandThumbsDown />
+            </Button>
+        </ButtonGroup>;
     };
 
     return <div>
@@ -33,20 +54,11 @@ function Question(props){
             </div>
             <div>
                 <span className={classes.useful}>
-                    {rating === 'unrated' ? strings.useful.unrated[appCtx.language] : strings.useful.rated[appCtx.language] }
+                    {userRating === 'unrated' ? strings.useful.unrated[appCtx.language] : strings.useful.rated[appCtx.language] }
                 </span> 
                 <div>
                     <div>
-                        <ButtonGroup>
-                            <Button variant='outline-success' onClick={(e) => rate(e, 'up')}
-                            active={rating === 'up' ? true : false}>
-                                <HandThumbsUp />
-                            </Button>
-                            <Button variant='outline-danger' onClick={(e) => rate(e, 'down')}
-                            active={rating === 'down' ? true : false}>
-                                <HandThumbsDown />
-                            </Button>
-                        </ButtonGroup>
+                        {renderButtonGroup()}
                     </div>
                 </div>
             </div>

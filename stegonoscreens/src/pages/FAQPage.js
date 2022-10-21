@@ -27,7 +27,7 @@ function FAQPage(){
         <h1>{strings.pageTitles.faqs[appCtx.language]}</h1>
         <div className={classes.questions}>
             {
-                faqs.map(q => <Question question={q[appCtx.language].question} key={q.id} answer={q[appCtx.language].answer} />)
+                faqs.map(q => <Question question={q[appCtx.language].question} key={q.id} rating={q.rating} answer={q[appCtx.language].answer} />)
             }
         </div>
     </section>
