@@ -34,6 +34,18 @@ const errors = {
                         "que la imagen que se usará para codificar."
         }
     },
+    "noMongoDB": {
+        "code": "ERR04",
+        "en": {
+            "summary": "No Database Connection",
+            "message": "There was a problem connecting to the FAQs database, please, try again later."
+        },
+        "es": {
+            "summary": "Base de Datos sin Conexión",
+            "message": "Ocurrió un problema al conectarse a la base de datos, por favor inténtalo más tarde."
+        }
+
+    },
     "unknown": {
         "code": "ERR99",
         "en": {

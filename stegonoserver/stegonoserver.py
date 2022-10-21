@@ -159,7 +159,7 @@ class EncodeAPI(Resource):
 
 class FAQsAPI(Resource):
     def get(self):
-        db_content = list(faqs_db.find())
+        db_content = list(faqs_db.find({}, {"_id": 0, "rating": 0}))
         data = json_util.dumps(db_content)
 
         response = Response(mimetype="application/json")

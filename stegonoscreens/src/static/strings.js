@@ -289,9 +289,13 @@ const strings = {
     },
 
     "loadingModal": {
-        "loading": {
+        "processingImages": {
             "en": "Processing images...",
             "es": "Procesando imágenes..."
+        },
+        "loadingFAQs": {
+            "en": "Loading FAQs...",
+            "es": "Cargando preguntas frecuentes..."
         }
     },
 

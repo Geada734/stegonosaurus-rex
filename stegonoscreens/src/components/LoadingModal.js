@@ -14,7 +14,7 @@ function LoadingModal(props) {
 
     return <Modal show={props.showModal} size='sm'>
         <Modal.Header>
-            <Modal.Title>{strings.loadingModal.loading[appCtx.language]}</Modal.Title>
+            <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <div className={classes.spinnerContainer}>
