@@ -4,7 +4,7 @@ from PIL import Image
 from io import BytesIO
 from bson import json_util
 from flask_cors import CORS
-from pymongo import MongoClient
+from pymongo import MongoClient, errors
 from flask_restful import Api, Resource
 from flask import Flask, request, json, Response
 from pymongo import MongoClient
@@ -46,6 +46,23 @@ def handle_stego_size_exception(e):
     response.data = json.dumps({
         "error_codename": "wrongSize",
         "error_message": e.message
+    })
+
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    print(type(e))
+    print(e)
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+
+    response.status_code = 500
+
+    return response
+
+@app.errorhandler(errors.ServerSelectionTimeoutError)
+def handle_server_selection_timeout_error(e):
+    response = Response(mimetype="application/json")
+    response.data = json.dumps({
+        "error_codename": "noMongoDB",
+        "error_message": "There's no available Mongo DB to connect to."
     })
 
     print("xxxxxxxxxxxxxxxxxxxxxxxxx")
