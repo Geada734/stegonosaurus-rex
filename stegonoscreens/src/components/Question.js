@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+
 import axios from 'axios';
 
 import Button from 'react-bootstrap/esm/Button';
@@ -9,6 +10,8 @@ import { HandThumbsDown } from 'react-bootstrap-icons';
 
 import classes from './Question.module.css';
 
+import config from '../configs/config.json';
+
 import AppContext from '../store/app-context';
 
 import strings from '../static/strings.js';
@@ -16,18 +19,41 @@ import strings from '../static/strings.js';
 function Question(props){
     const appCtx = useContext(AppContext);
 
-    const [userRating, setUserRating] = useState('unrated');
+    const [userRating, setUserRating] = useState(0);
     const [loading, setLoading] = useState(false);
 
-    function rate(e, value){
+    function rate(e, id, value){
         e.preventDefault();
 
+        let vote = 0;
+
         if(value!==userRating) {
-            setUserRating(value)
+            if(userRating===0) {
+                vote = value;
+            }
+            else {
+                vote = value * 2;
+            };
+            setUserRating(value);
         }
         else {
-            setUserRating('unrated');
+            setUserRating(0);
+            vote = value * -1;
         };
+        
+        const formData = new FormData();
+
+        formData.append("id", id);
+        formData.append("vote", vote);
+
+        setLoading(true);
+
+        axios.put(config.flaskServer + '/faqs', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+        })
+        .then( () => setLoading(false));
     };
 
     function renderButtonGroup() {
@@ -36,12 +62,12 @@ function Question(props){
         }
 
         return <ButtonGroup>
-            <Button variant='outline-success' onClick={(e) => rate(e, 'up')}
-            active={userRating === 'up' ? true : false}>
+            <Button variant='outline-success' onClick={(e) => rate(e, props.id, 1)}
+            active={userRating === 1 ? true : false}>
                 <HandThumbsUp />
             </Button>
-            <Button variant='outline-danger' onClick={(e) => rate(e, 'down')}
-            active={userRating === 'down' ? true : false}>
+            <Button variant='outline-danger' onClick={(e) => rate(e, props.id, -1)}
+            active={userRating === -1 ? true : false}>
                 <HandThumbsDown />
             </Button>
         </ButtonGroup>;
@@ -54,7 +80,7 @@ function Question(props){
             </div>
             <div>
                 <span className={classes.useful}>
-                    {userRating === 'unrated' ? strings.useful.unrated[appCtx.language] : strings.useful.rated[appCtx.language] }
+                    {userRating === 0 ? strings.useful.unrated[appCtx.language] : strings.useful.rated[appCtx.language] }
                 </span> 
                 <div>
                     <div>
