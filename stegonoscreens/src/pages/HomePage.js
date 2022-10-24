@@ -8,7 +8,7 @@ import AppContext from "../store/app-context";
 
 import strings from "../static/strings";
 
-function HomePages() {
+function HomePage() {
     const appCtx = useContext(AppContext);
 
     return <section>
@@ -24,4 +24,4 @@ function HomePages() {
         </section>
 };
 
-export default HomePages;
+export default HomePage;

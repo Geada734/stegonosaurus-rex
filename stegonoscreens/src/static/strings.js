@@ -28,7 +28,6 @@ const strings = {
                 "es": "Página Principal"
             },
             "path": "/",
-            "element": <HomePage />,
             "key": "home" 
         },
         {
@@ -37,7 +36,6 @@ const strings = {
                 "es": "Acerca De"
             },
             "path": "/about",
-            "element": <AboutPage />,
             "key": "about" 
         },
         {
@@ -46,7 +44,6 @@ const strings = {
                 "es": "Preguntas Frecuentes"
             },
             "path": "/faq",
-            "element": <FAQPage />,
             "key": "faq" 
         }
     ],

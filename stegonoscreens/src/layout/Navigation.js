@@ -26,7 +26,7 @@ function Navigation(){
                 <Navbar.Brand className='text-white font-weight-bold'>
                     <img src={logo} alt='Logo' className={classes.logo}
                     height="60em" width="60em"/>
-                    Stegonosaurus
+                    Stegonosaurus-Rex
                 </Navbar.Brand>
                 <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse>
