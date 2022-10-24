@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 
 import axios from 'axios';
+import parse from 'html-react-parser'
 
 import Button from 'react-bootstrap/esm/Button';
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
@@ -76,7 +77,7 @@ function Question(props){
     return <div>
             <h3>{props.question}</h3>
             <div className={classes.answer + ' col-11'}>
-                {props.answer}
+                {parse(props.answer)}
             </div>
             <div>
                 <span className={classes.useful}>

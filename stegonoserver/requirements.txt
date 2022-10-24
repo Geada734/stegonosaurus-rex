@@ -15,6 +15,7 @@ mccabe==0.7.0
 Pillow==9.2.0
 platformdirs==2.5.2
 pylint==2.15.3
+pymongo==4.2.0
 pytz==2022.2.1
 six==1.16.0
 tomli==2.0.1
