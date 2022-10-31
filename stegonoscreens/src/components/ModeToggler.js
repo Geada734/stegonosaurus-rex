@@ -207,7 +207,7 @@ function ModeToggler(props){
         { renderComponent() }
         <LoadingModal showModal={showLoading} title={strings.loadingModal.processingImages[appCtx.language]}/>
         <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult} />
-        <ErrorModal error={error} showModal={showError} showHandler={closeErrorModal}></ErrorModal>
+        <ErrorModal error={error} showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
     </div>;
 };
 

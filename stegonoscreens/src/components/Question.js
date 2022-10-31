@@ -3,6 +3,8 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import parse from 'html-react-parser'
 
+import ErrorModal from './ErrorModal';
+
 import Button from 'react-bootstrap/esm/Button';
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import Spinner from 'react-bootstrap/Spinner';
@@ -16,12 +18,20 @@ import config from '../configs/config.json';
 import AppContext from '../store/app-context';
 
 import strings from '../static/strings.js';
+import errors from '../static/errors.js';
 
 function Question(props){
     const appCtx = useContext(AppContext);
 
     const [userRating, setUserRating] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState(null);
+
+    function closeErrorModal() {
+        setError(null);
+        setShowError(false);
+    };
 
     function rate(e, id, value){
         e.preventDefault();
@@ -54,7 +64,22 @@ function Question(props){
               'Content-Type': 'multipart/form-data',
             }
         })
-        .then( () => setLoading(false));
+        .then( () => setLoading(false))
+        .catch(e => {
+            let errorKey;
+
+            if(e.response.status === 500) { 
+                errorKey = e.response.data.error_codename;
+            }
+            else{
+                errorKey = "unknown";
+            };
+
+            setLoading(false);
+            setUserRating(0);
+            setError(errors[errorKey]);
+            setShowError(true);
+        });
     };
 
     function renderButtonGroup() {
@@ -89,6 +114,7 @@ function Question(props){
                     </div>
                 </div>
             </div>
+            <ErrorModal error={error} showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
         </div>
 };
 

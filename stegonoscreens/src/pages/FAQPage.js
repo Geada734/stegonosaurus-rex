@@ -59,7 +59,7 @@ function FAQPage(){
             }
         </div>
         <LoadingModal showModal={showLoading} title={strings.loadingModal.loadingFAQs[appCtx.language]}/>
-        <ErrorModal error={error} showModal={showError} showHandler={closeErrorModal}></ErrorModal>
+        <ErrorModal error={error} showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
     </section>
 };
 

@@ -10,7 +10,7 @@ function ErrorModal(props){
     const appCtx = useContext(AppContext);
 
     function closeHandler(){
-        props.showHandler();
+        props.closeHandler();
     };
 
     if(props.error){
