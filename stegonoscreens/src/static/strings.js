@@ -235,7 +235,17 @@ const strings = {
             }
         }
     },
-
+    
+    "notFoundPage": {
+        "header": {
+            "en": "Not Found",
+            "es": "Página No Encontrada"
+        },
+        "summary": {
+            "en": "The page you tried to reach does not exist within the application.",
+            "es": "La página que buscas, no existe en la aplicación."
+        }
+    },
     "modeToggler": {
         "modes": {
             "encode": {
