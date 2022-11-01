@@ -20,7 +20,6 @@ function FAQPage(){
     
     const [faqs, setFaqs] = useState([]);
     const [showLoading, setShowLoading] = useState(false);
-    const [error, setError] = useState(null);
     const [showError, setShowError] = useState(false);
 
     useEffect(() => {
@@ -40,14 +39,14 @@ function FAQPage(){
                 errorKey = "unknown";
             };
 
+            appCtx.raiseError(errors[errorKey]);
             setShowLoading(false);
-            setError(errors[errorKey]);
             setShowError(true);
         })
     }, []);
 
     function closeErrorModal() {
-        setError(null);
+        appCtx.raiseError(null);
         setShowError(false);
     };
 
@@ -59,7 +58,7 @@ function FAQPage(){
             }
         </div>
         <LoadingModal showModal={showLoading} title={strings.loadingModal.loadingFAQs[appCtx.language]}/>
-        <ErrorModal error={error} showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
+        <ErrorModal showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
     </section>
 };
 

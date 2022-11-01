@@ -75,7 +75,6 @@ function Question(props){
             };
 
             appCtx.raiseError(errors[errorKey]);
-            console.log(errors[errorKey]);
             setLoading(false);
             setUserRating(0);
             setShowError(true);
