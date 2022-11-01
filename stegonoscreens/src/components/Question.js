@@ -26,10 +26,9 @@ function Question(props){
     const [userRating, setUserRating] = useState(0);
     const [loading, setLoading] = useState(false);
     const [showError, setShowError] = useState(false);
-    const [error, setError] = useState(null);
 
     function closeErrorModal() {
-        setError(null);
+        appCtx.raiseError(null);
         setShowError(false);
     };
 
@@ -75,9 +74,10 @@ function Question(props){
                 errorKey = "unknown";
             };
 
+            appCtx.raiseError(errors[errorKey]);
+            console.log(errors[errorKey]);
             setLoading(false);
             setUserRating(0);
-            setError(errors[errorKey]);
             setShowError(true);
         });
     };
@@ -114,7 +114,7 @@ function Question(props){
                     </div>
                 </div>
             </div>
-            <ErrorModal error={error} showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
+            <ErrorModal showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
         </div>
 };
 

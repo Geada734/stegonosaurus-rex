@@ -20,11 +20,10 @@ function App() {
 
   const [showLoading, setShowLoading] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [error, setError] = useState(null);
 
   function closeErrorModal(){
     setShowError(false);
-    setError(null);
+    appCtx.raiseError(null);
   };
 
   return (<main>
@@ -37,7 +36,7 @@ function App() {
         </Routes>
       </Layout>
       <LoadingModal showModal={showLoading} title={strings.loadingModal.loadingFAQs[appCtx.language]}/>
-      <ErrorModal error={error} showModal={showError} closeHandler={setShowError}></ErrorModal>
+      <ErrorModal showModal={showError} closeHandler={setShowError}></ErrorModal>
     </main>
   );
 }
