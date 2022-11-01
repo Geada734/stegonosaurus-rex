@@ -38,8 +38,8 @@ function FAQPage(){
             else{
                 errorKey = "unknown";
             };
-
-            appCtx.raiseError(errors[errorKey]);
+            
+            appCtx.raiseError(errors[errorKey])
             setShowLoading(false);
             setShowError(true);
         })

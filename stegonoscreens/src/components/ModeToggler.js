@@ -26,9 +26,6 @@ import errors from '../static/errors.js';
 function ModeToggler(props){
     const appCtx = useContext(AppContext);
 
-    const [error, setError] = useState(null);
-    const [showError, setShowError] = useState(false);
-
     const [tabValue, setTabValue] = useState('encode'); 
     const [decodeMode, setDecodeMode] = useState('t');
 
@@ -38,6 +35,7 @@ function ModeToggler(props){
 
     const [showLoading, setShowLoading] = useState(false);
     const [showResult, setShowResult] = useState(false);
+    const [showError, setShowError] = useState(false);
 
     const[result, setResult] = useState('');
 
@@ -108,8 +106,8 @@ function ModeToggler(props){
                 errorKey = "unknown";
             };
 
+            appCtx.raiseError(errors[errorKey]);
             setShowLoading(false);
-            setError(errors[errorKey]);
             setShowError(true);
         });
     };
@@ -132,7 +130,7 @@ function ModeToggler(props){
     };
 
     function closeErrorModal(){
-        setError(null);
+        appCtx.raiseError(null);
         setShowError(false);
     };
 
@@ -207,7 +205,7 @@ function ModeToggler(props){
         { renderComponent() }
         <LoadingModal showModal={showLoading} title={strings.loadingModal.processingImages[appCtx.language]}/>
         <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult} />
-        <ErrorModal error={error} showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
+        <ErrorModal showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
     </div>;
 };
 
