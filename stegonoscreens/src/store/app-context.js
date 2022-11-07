@@ -10,7 +10,9 @@ const AppContext = createContext({
     loadingText: '',
     setLoadingText: (text) => {},
     showLoading: false,
-    setShowLoading: (flag) => {} 
+    setShowLoading: (flag) => {},
+    result: '',
+    showResult: (flag) => {} 
 });
 
 export function AppContextProvider(props){
@@ -19,6 +21,8 @@ export function AppContextProvider(props){
     const [showedError, setShowedError] = useState(false);
     const [loadingText, setLoadingText] = useState('');
     const [showLoading, setShowLoading] = useState(false);
+    const [result, setResult] = useState('');
+    const [showResult, setShowResult] = useState(false);
 
     function changeLanguageHandler(lang){
         setUserLanguage(lang);
@@ -40,6 +44,14 @@ export function AppContextProvider(props){
         setShowLoading(flag);
     };
 
+    function setResultHandler(result) {
+        setResult(result);
+    };
+
+    function setShowResultHandler(flag) {
+        setShowResult(flag);
+    };
+
     const context = {
         language: userLanguage,
         changeLanguage: changeLanguageHandler,
@@ -50,7 +62,11 @@ export function AppContextProvider(props){
         loadingText: loadingText,
         setLoadingText: setLoadingTextHandler,
         showLoading: showLoading,
-        setShowLoading: setShowLoadingHandler
+        setShowLoading: setShowLoadingHandler,
+        result: result,
+        setResult: setResultHandler,
+        showResult: showResult,
+        setShowResult: setShowResultHandler
 
     };
 

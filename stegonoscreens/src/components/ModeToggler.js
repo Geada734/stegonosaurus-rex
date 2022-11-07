@@ -14,7 +14,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import classes from './ModeToggler.module.css';
 
 import ImageUpload from './ImageUpload';
-import ImageDisplayModal from './ImageDisplayModal';
 
 import AppContext from '../store/app-context';
 
@@ -30,10 +29,6 @@ function ModeToggler(props){
     const [codedMessageImage, setCodedMessageImage] = useState(null);
     const [messageImage, setMessageImage] = useState(null);
     const [imageToDecode, setImageToDecode] = useState(null);
-
-    const [showResult, setShowResult] = useState(false);
-
-    const[result, setResult] = useState('');
 
     function modeHandler(mode) {
         setCodedMessageImage(null);
@@ -71,10 +66,10 @@ function ModeToggler(props){
             const res = 'data:image/png;base64, ' + response.data.result;
             const resName = response.data.filename;
 
-            setResult(res);
+            appCtx.setResult(res);
             appCtx.setLoadingText('');
             appCtx.setShowLoading(false); 
-            setShowResult(true);
+            appCtx.setShowResult(true);
 
             return {
                     fileData: res,
@@ -197,7 +192,6 @@ function ModeToggler(props){
             </Nav.Item>
         </Nav>
         { renderComponent() }
-        <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult} />
     </div>;
 };
 

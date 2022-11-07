@@ -6,16 +6,17 @@ import AppContext from '../store/app-context.js'
 
 import strings from '../static/strings.js';
 
-import classes from './ImageDisplayModal.module.css';
+import classes from './ResultModal.module.css';
 
-function ImageDisplayModal(props) {
+function ResultModal(props) {
     const appCtx = useContext(AppContext);
 
     function handleClose(){
-        props.showHandler(false);
+        appCtx.setShowResult(false);
+        appCtx.setResult('');
     };
 
-    return <Modal size='md' show={props.showModal} onHide={handleClose} 
+    return <Modal size='md' show={appCtx.showResult} onHide={handleClose} 
         className={classes.resultsModal}>
         <Modal.Header closeButton>
             <Modal.Title>{strings.resultsModal.header[appCtx.language]}</Modal.Title>
@@ -23,10 +24,10 @@ function ImageDisplayModal(props) {
         <Modal.Body>
             <span>{strings.resultsModal.download[appCtx.language]}</span>
             <div className={classes.imageContainer}>
-                <img src={props.image} className={classes.result}/>
+                <img src={appCtx.result} className={classes.result}/>
             </div>
         </Modal.Body>
     </Modal>
 };
 
-export default ImageDisplayModal;
+export default ResultModal;

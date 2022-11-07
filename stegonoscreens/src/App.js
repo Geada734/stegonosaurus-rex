@@ -1,10 +1,6 @@
-import {useState, useContext} from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import classes from './App.css';
-import strings from './static/strings';
-
-import AppContext from './store/app-context';
 
 import Layout from './layout/Layout';
 import HomePage from './pages/HomePage';
@@ -13,18 +9,9 @@ import FAQPage from './pages/FAQPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ErrorModal from './components/ErrorModal';
 import LoadingModal from './components/LoadingModal';
-import ImageDisplayModal from './components/ImageDisplayModal';
+import ResultModal from './components/ResultModal';
 
 function App() {
-  const appCtx = useContext(AppContext);
-
-  const [showLoading, setShowLoading] = useState(false);
-  const [showError, setShowError] = useState(false);
-
-  function closeErrorModal(){
-    setShowError(false);
-    appCtx.raiseError(null);
-  };
 
   return (<main>
       <Layout className={classes.app}>
@@ -35,8 +22,9 @@ function App() {
             <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </Layout>
-      <LoadingModal showModal={showLoading} title={strings.loadingModal.loadingFAQs[appCtx.language]}/>
-      <ErrorModal></ErrorModal>
+      <LoadingModal />
+      <ErrorModal />
+      <ResultModal />
     </main>
   );
 }
