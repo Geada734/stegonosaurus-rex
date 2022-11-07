@@ -8,8 +8,8 @@ from pymongo import MongoClient, errors
 from flask_restful import Api, Resource
 from flask import Flask, request, json, Response
 from pymongo import MongoClient
-from stegonosaurus import stego_functions as sf
-from stegonosaurus import stego_exceptions as se
+from stegonosaurus import stegofunctions as sf
+from stegonosaurus import stegoexceptions as se
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +23,7 @@ db_client = MongoClient(config["mongoServer"])
 db = db_client.stegonodb
 faqs_db = db.faqs
 
-@app.errorhandler(se.StegonosaurusIncorrectFormatException)
+@app.errorhandler(se.StegonosaurusIncorrectFormatError)
 def handle_stego_format_exception(e):
     response = Response(mimetype="application/json")
     response.data = json.dumps({
@@ -40,11 +40,28 @@ def handle_stego_format_exception(e):
 
     return response
 
-@app.errorhandler(se.StegonosaurusIncorrectSizeException)
+@app.errorhandler(se.StegonosaurusIncorrectSizeError)
 def handle_stego_size_exception(e):
     response = Response(mimetype="application/json")
     response.data = json.dumps({
         "error_codename": "wrongSize",
+        "error_message": e.message
+    })
+
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    print(type(e))
+    print(e)
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+
+    response.status_code = 500
+
+    return response
+
+@app.errorhandler(se.StegonosaurusInvalidDecodeModeError)
+def handle_stego_decode_mode_exception(e):
+    response = Response(mimetype="application/json")
+    response.data = json.dumps({
+        "error_codename": "wrongDecodeMode",
         "error_message": e.message
     })
 
