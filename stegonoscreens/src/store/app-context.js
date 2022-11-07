@@ -4,12 +4,15 @@ const AppContext = createContext({
     language: 'en',
     changeLanguage: (lang) => {},
     error: null,
-    raiseError: (error) => {} 
+    raiseError: (error) => {},
+    showError: false,
+    setShowError: (flag) => {} 
 });
 
 export function AppContextProvider(props){
     const [userLanguage, setUserLanguage] = useState('en');
     const [raisedError, setRaisedError] = useState(null);
+    const [showedError, setShowedError] = useState(false);
 
     function changeLanguageHandler(lang){
         setUserLanguage(lang);
@@ -19,11 +22,17 @@ export function AppContextProvider(props){
         setRaisedError(err);
     };
 
+    function showErrorHandler(flag) {
+        setShowedError(flag);
+    };
+
     const context = {
         language: userLanguage,
         changeLanguage: changeLanguageHandler,
         error: raisedError,
-        raiseError: raiseErrorHandler
+        raiseError: raiseErrorHandler,
+        showError: showedError,
+        setShowError: showErrorHandler
     };
 
     return <AppContext.Provider value={context}>

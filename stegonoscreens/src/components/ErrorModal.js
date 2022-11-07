@@ -10,11 +10,12 @@ function ErrorModal(props){
     const appCtx = useContext(AppContext);
 
     function closeHandler(){
-        props.closeHandler();
+        appCtx.setShowError(false);
+        appCtx.raiseError(null);
     };
 
     if(appCtx.error){
-        return  <Modal size='md' onHide={closeHandler} show={props.showModal}>
+        return  <Modal size='md' onHide={closeHandler} show={appCtx.showError}>
             <Modal.Header closeButton>
                 <Modal.Title>{appCtx.error.code}</Modal.Title>
             </Modal.Header>

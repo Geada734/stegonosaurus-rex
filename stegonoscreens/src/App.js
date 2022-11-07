@@ -36,7 +36,7 @@ function App() {
         </Routes>
       </Layout>
       <LoadingModal showModal={showLoading} title={strings.loadingModal.loadingFAQs[appCtx.language]}/>
-      <ErrorModal showModal={showError} closeHandler={setShowError}></ErrorModal>
+      <ErrorModal></ErrorModal>
     </main>
   );
 }

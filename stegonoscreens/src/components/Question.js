@@ -27,11 +27,6 @@ function Question(props){
     const [loading, setLoading] = useState(false);
     const [showError, setShowError] = useState(false);
 
-    function closeErrorModal() {
-        appCtx.raiseError(null);
-        setShowError(false);
-    };
-
     function rate(e, id, value){
         e.preventDefault();
 
@@ -77,7 +72,7 @@ function Question(props){
             appCtx.raiseError(errors[errorKey]);
             setLoading(false);
             setUserRating(0);
-            setShowError(true);
+            appCtx.setShowError(true)
         });
     };
 
@@ -113,7 +108,6 @@ function Question(props){
                     </div>
                 </div>
             </div>
-            <ErrorModal showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
         </div>
 };
 

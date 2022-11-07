@@ -35,7 +35,6 @@ function ModeToggler(props){
 
     const [showLoading, setShowLoading] = useState(false);
     const [showResult, setShowResult] = useState(false);
-    const [showError, setShowError] = useState(false);
 
     const[result, setResult] = useState('');
 
@@ -108,7 +107,7 @@ function ModeToggler(props){
 
             appCtx.raiseError(errors[errorKey]);
             setShowLoading(false);
-            setShowError(true);
+            appCtx.setShowError(true);
         });
     };
 
@@ -127,11 +126,6 @@ function ModeToggler(props){
 
     function messageImageHandler(file) {
         setMessageImage(file);
-    };
-
-    function closeErrorModal(){
-        appCtx.raiseError(null);
-        setShowError(false);
     };
 
     function renderComponent() {
@@ -205,7 +199,6 @@ function ModeToggler(props){
         { renderComponent() }
         <LoadingModal showModal={showLoading} title={strings.loadingModal.processingImages[appCtx.language]}/>
         <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult} />
-        <ErrorModal showModal={showError} closeHandler={closeErrorModal}></ErrorModal>
     </div>;
 };
 
