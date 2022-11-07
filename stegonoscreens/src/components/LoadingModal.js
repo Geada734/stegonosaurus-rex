@@ -5,16 +5,14 @@ import Modal from 'react-bootstrap/Modal';
 
 import AppContext from '../store/app-context.js'
 
-import strings from '../static/strings.js';
-
 import classes from './LoadingModal.module.css';
 
 function LoadingModal(props) {
     const appCtx = useContext(AppContext);
 
-    return <Modal show={props.showModal} size='sm'>
+    return <Modal show={appCtx.showLoading} size='sm'>
         <Modal.Header>
-            <Modal.Title>{props.title}</Modal.Title>
+            <Modal.Title>{appCtx.loadingText}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <div className={classes.spinnerContainer}>

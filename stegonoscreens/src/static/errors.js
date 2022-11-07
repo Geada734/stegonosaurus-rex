@@ -25,7 +25,7 @@ const errors = {
         "code": "ERR03",
         "en": {
             "summary": "Wrong File Sizes",
-            "message": "The image with the message shouldn't be larger in eight axis " +
+            "message": "The image with the message shouldn't be larger in either axis " +
                         "than the image to use for encoding."
         },
         "es": {

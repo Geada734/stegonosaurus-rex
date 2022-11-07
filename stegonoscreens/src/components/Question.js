@@ -1,9 +1,7 @@
 import { useState, useContext } from 'react';
 
 import axios from 'axios';
-import parse from 'html-react-parser'
-
-import ErrorModal from './ErrorModal';
+import parse from 'html-react-parser';
 
 import Button from 'react-bootstrap/esm/Button';
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
@@ -25,7 +23,6 @@ function Question(props){
 
     const [userRating, setUserRating] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [showError, setShowError] = useState(false);
 
     function rate(e, id, value){
         e.preventDefault();

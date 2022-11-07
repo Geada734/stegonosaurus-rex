@@ -14,9 +14,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import classes from './ModeToggler.module.css';
 
 import ImageUpload from './ImageUpload';
-import LoadingModal from './LoadingModal';
 import ImageDisplayModal from './ImageDisplayModal';
-import ErrorModal from './ErrorModal';
 
 import AppContext from '../store/app-context';
 
@@ -33,7 +31,6 @@ function ModeToggler(props){
     const [messageImage, setMessageImage] = useState(null);
     const [imageToDecode, setImageToDecode] = useState(null);
 
-    const [showLoading, setShowLoading] = useState(false);
     const [showResult, setShowResult] = useState(false);
 
     const[result, setResult] = useState('');
@@ -49,7 +46,8 @@ function ModeToggler(props){
 
     function submitHandler(e, endpoint){
         e.preventDefault();
-        setShowLoading(true);
+        appCtx.setLoadingText(strings.loadingModal.processingImages[appCtx.language]);
+        appCtx.setShowLoading(true);
         
         const formData = new FormData();
 
@@ -74,7 +72,8 @@ function ModeToggler(props){
             const resName = response.data.filename;
 
             setResult(res);
-            setShowLoading(false); 
+            appCtx.setLoadingText('');
+            appCtx.setShowLoading(false); 
             setShowResult(true);
 
             return {
@@ -105,8 +104,9 @@ function ModeToggler(props){
                 errorKey = "unknown";
             };
 
+            appCtx.setShowLoading(false);
+            appCtx.setLoadingText('');
             appCtx.raiseError(errors[errorKey]);
-            setShowLoading(false);
             appCtx.setShowError(true);
         });
     };
@@ -197,7 +197,6 @@ function ModeToggler(props){
             </Nav.Item>
         </Nav>
         { renderComponent() }
-        <LoadingModal showModal={showLoading} title={strings.loadingModal.processingImages[appCtx.language]}/>
         <ImageDisplayModal showModal={showResult} image={result} showHandler={setShowResult} />
     </div>;
 };

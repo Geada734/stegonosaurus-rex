@@ -9,8 +9,6 @@ import classes from './FAQPage.module.css'
 import AppContext from '../store/app-context';
 
 import Question from '../components/Question';
-import LoadingModal from '../components/LoadingModal';
-import ErrorModal from '../components/ErrorModal';
 
 import strings from '../static/strings.js';
 import errors from '../static/errors.js';
@@ -19,15 +17,16 @@ function FAQPage(){
     const appCtx = useContext(AppContext);
     
     const [faqs, setFaqs] = useState([]);
-    const [showLoading, setShowLoading] = useState(false);
 
     useEffect(() => {
-        setShowLoading(true);
+        appCtx.setLoadingText(strings.loadingModal.loadingFAQs[appCtx.language]);
+        appCtx.setShowLoading(true);
 
         axios.get(config.flaskServer + "/faqs")
         .then(response => {
             setFaqs(response.data.faqs);
-            setShowLoading(false);
+            appCtx.setShowLoading(false);
+            appCtx.setLoadingText('');
         }).catch(e => {
             let errorKey;
 
@@ -38,8 +37,9 @@ function FAQPage(){
                 errorKey = "unknown";
             };
 
-            appCtx.raiseError(errors[errorKey])
-            setShowLoading(false);
+            appCtx.setShowLoading(false);
+            appCtx.setLoadingText('');
+            appCtx.raiseError(errors[errorKey]);
             appCtx.setShowError(true);
         })
     }, []);
@@ -51,7 +51,6 @@ function FAQPage(){
                 faqs.map(q => <Question question={q[appCtx.language].question} id={q.id} key={q.id} rating={q.rating} answer={q[appCtx.language].answer} />)
             }
         </div>
-        <LoadingModal showModal={showLoading} title={strings.loadingModal.loadingFAQs[appCtx.language]}/>
     </section>
 };
 
