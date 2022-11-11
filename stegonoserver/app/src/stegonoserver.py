@@ -1,15 +1,15 @@
 import json
 import base64
-from PIL import Image
 from io import BytesIO
 from bson import json_util
 from flask_cors import CORS
-from pymongo import MongoClient, errors
-from flask_restful import Api, Resource
-from flask import Flask, request, json, Response
 from pymongo import MongoClient
+from flask_restful import Api, Resource
+from pymongo import MongoClient, errors as me
+from PIL import Image, UnidentifiedImageError
 from stegonosaurus import stegofunctions as sf
 from stegonosaurus import stegoexceptions as se
+from flask import Flask, request, json, Response
 
 app = Flask(__name__)
 CORS(app)
@@ -74,12 +74,29 @@ def handle_stego_decode_mode_exception(e):
 
     return response
 
-@app.errorhandler(errors.ServerSelectionTimeoutError)
+@app.errorhandler(me.ServerSelectionTimeoutError)
 def handle_server_selection_timeout_error(e):
     response = Response(mimetype="application/json")
     response.data = json.dumps({
         "error_codename": "noMongoDB",
         "error_message": "There's no available Mongo DB to connect to."
+    })
+
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    print(type(e))
+    print(e)
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+
+    response.status_code = 500
+
+    return response
+
+@app.errorhandler(UnidentifiedImageError)
+def handle_unidentified_image_error(e):
+    response = Response(mimetype="application/json")
+    response.data = json.dumps({
+        "error_codename": "wrongFormat",
+        "error_message": "The file provided is not a valid image."
     })
 
     print("xxxxxxxxxxxxxxxxxxxxxxxxx")
@@ -111,7 +128,7 @@ def handle_error(e):
 class DummyAPI(Resource):
     def get(self):
         response_body = {"result": "hello"}
-        
+
         return response_body
 
     def post(self):

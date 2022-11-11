@@ -13,7 +13,7 @@ const errors = {
     "wrongFormat": {
         "code": "ERR02",
         "en": {
-            "summary": "Wrong File Format",
+            "summary": "Wrong Image Format",
             "message": "All uploaded images must be multi-band .png files."
         },
         "es": {
