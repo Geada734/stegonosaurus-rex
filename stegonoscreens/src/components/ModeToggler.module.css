@@ -1,4 +1,14 @@
 .executeButton {
     margin-top: 10px;
     width: 100%;
+}
+
+.captchaContainer {
+    width: 100%;
+}
+
+.captchaContainer div {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
 };

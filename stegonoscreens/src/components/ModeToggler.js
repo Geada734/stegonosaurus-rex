@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import classes from './ModeToggler.module.css';
 
@@ -192,6 +193,9 @@ function ModeToggler(props){
             </Nav.Item>
         </Nav>
         { renderComponent() }
+        <div className={classes.captchaContainer}>
+            <ReCAPTCHA sitekey={config.siteKey} />
+        </div>
     </div>;
 };
 
