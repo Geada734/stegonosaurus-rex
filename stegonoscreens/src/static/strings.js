@@ -292,6 +292,14 @@ const strings = {
                 "en": "Decode",
                 "es": "Decodificar"
             }
+        },
+        "componentLoadingError": {
+            "en": "Error loading component",
+            "es": "Error cargando component"
+        },
+        "invalidCaptchaMessage": {
+            "en": "Invalid Captcha",
+            "es": "Captcha Invalido"
         }
     },
 

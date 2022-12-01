@@ -5,10 +5,16 @@
 
 .captchaContainer {
     width: 100%;
+    text-align: center;
 }
 
 .captchaContainer div {
     margin-right: auto;
     margin-left: auto;
     margin-top: 10px;
+}
+
+.invalidCaptchaText {
+    font-size: 12px;
+    color: #F00;
 };
