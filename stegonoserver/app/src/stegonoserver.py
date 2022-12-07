@@ -1,5 +1,6 @@
 import json
 import base64
+import requests as req
 from io import BytesIO
 from bson import json_util
 from flask_cors import CORS
@@ -146,6 +147,13 @@ class DecodeAPI(Resource):
         file = request.files["img"]
         filename = request.form.get("filename")
         mode = request.form.get("mode")
+        captcha_value = request.form.get("captchaValue")
+
+        if(captcha_value):
+            catpcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config["captchaSecret"] + "&response=" + captcha_value
+            captcha_response = req.post(catpcha_url)
+            
+            print(captcha_response.status_code)
 
         img = Image.open(file)
         img = sf.decode(img, mode)

@@ -46,12 +46,15 @@ function ModeToggler(props){
 
     function submitHandler(e, endpoint){
         e.preventDefault();
-        if(captchaRef.current.getValue()){
+        const captchaValue = captchaRef.current.getValue();
+
+        if(captchaValue){
             captchaRef.current.reset();
             appCtx.setLoadingText(strings.loadingModal.processingImages[appCtx.language]);
             appCtx.setShowLoading(true);
             
             const formData = new FormData();
+            formData.append('captchaValue', captchaValue);
 
             if(endpoint==='encode') {
                 formData.append('coded', codedMessageImage);
