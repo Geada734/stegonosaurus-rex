@@ -148,12 +148,23 @@ class DecodeAPI(Resource):
         filename = request.form.get("filename")
         mode = request.form.get("mode")
         captcha_value = request.form.get("captchaValue")
+        response = Response(mimetype="application/json")
 
         if(captcha_value):
             catpcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config["captchaSecret"] + "&response=" + captcha_value
-            captcha_response = req.post(catpcha_url)
-            
-            print(captcha_response.status_code)
+            captcha_response = req.post(catpcha_url).json()
+
+            if captcha_response["success"]:
+                print(captcha_response)
+            else:
+                print(captcha_response)
+                response.status_code = 500
+                response.data = json.dumps({
+                    "error_codename": "unknown",
+                    "error_message": "Unknown internal error"
+                })
+
+                return response
 
         img = Image.open(file)
         img = sf.decode(img, mode)
@@ -162,7 +173,6 @@ class DecodeAPI(Resource):
         img.save(buffered, format="PNG")
         img_str = base64.b64encode(buffered.getvalue())
 
-        response = Response(mimetype="application/json")
         response.status_code = 200
         response.data = json.dumps({
                 "result": img_str.decode("utf-8"),
@@ -178,6 +188,24 @@ class EncodeAPI(Resource):
         coded_file = request.files["coded"]
         img_file = request.files["img"]
         filename = request.form.get("filename")
+        captcha_value = request.form.get("captchaValue")
+        response = Response(mimetype="application/json")
+
+        if(captcha_value):
+            catpcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config["captchaSecret"] + "&response=" + captcha_value
+            captcha_response = req.post(catpcha_url).json()
+
+            if captcha_response["success"]:
+                print(captcha_response)
+            else:
+                print(captcha_response)
+                response.status_code = 500
+                response.data = json.dumps({
+                    "error_codename": "unknown",
+                    "error_message": "Unknown internal error"
+                })
+
+                return response
 
         coded = Image.open(coded_file)
         img = Image.open(img_file)

@@ -15,7 +15,6 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import classes from './ModeToggler.module.css';
 
 import ImageUpload from './ImageUpload';
-
 import AppContext from '../store/app-context';
 
 import strings from '../static/strings.js';
@@ -211,8 +210,8 @@ function ModeToggler(props){
         </Nav>
         { renderComponent() }
         <div className={classes.captchaContainer}>
-            <ReCAPTCHA sitekey={config.siteKey} ref={captchaRef} onChange={onCaptchaChanged}/>
             <span hidden={!invalidCaptcha} className={classes.invalidCaptchaText}>{strings.modeToggler.invalidCaptchaMessage[appCtx.language]}</span>
+            <ReCAPTCHA sitekey={config.siteKey} ref={captchaRef} onChange={onCaptchaChanged}/>
         </div>
     </div>;
 };
