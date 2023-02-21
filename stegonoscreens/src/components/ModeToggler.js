@@ -1,6 +1,6 @@
 import config from '../configs/config.json';
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 
 import axios from 'axios';
 
@@ -10,11 +10,11 @@ import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import classes from './ModeToggler.module.css';
 
 import ImageUpload from './ImageUpload';
-
 import AppContext from '../store/app-context';
 
 import strings from '../static/strings.js';
@@ -22,6 +22,10 @@ import errors from '../static/errors.js';
 
 function ModeToggler(props){
     const appCtx = useContext(AppContext);
+
+    const captchaRef = useRef(null);
+
+    const [invalidCaptcha, setInvalidCaptcha] = useState(false);
 
     const [tabValue, setTabValue] = useState('encode'); 
     const [decodeMode, setDecodeMode] = useState('t');
@@ -41,69 +45,78 @@ function ModeToggler(props){
 
     function submitHandler(e, endpoint){
         e.preventDefault();
-        appCtx.setLoadingText(strings.loadingModal.processingImages[appCtx.language]);
-        appCtx.setShowLoading(true);
-        
-        const formData = new FormData();
+        const captchaValue = captchaRef.current.getValue();
 
-        if(endpoint==='encode') {
-            formData.append('coded', codedMessageImage);
-            formData.append('img', messageImage);
-            formData.append('filename', messageImage.name)
-
-        } else if(endpoint==='decode') {
-            formData.append('img', imageToDecode);
-            formData.append('filename', imageToDecode.name)
-            formData.append('mode', decodeMode)
-        };
-        
-        axios.post(config.flaskServer + '/' + endpoint, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            }
-        })
-        .then(response => { 
-            const res = 'data:image/png;base64, ' + response.data.result;
-            const resName = response.data.filename;
-
-            appCtx.setResult(res);
-            appCtx.setLoadingText('');
-            appCtx.setShowLoading(false); 
-            appCtx.setShowResult(true);
-
-            return {
-                    fileData: res,
-                    fileName: resName
-            };
-        })
-        .then(results => {
-            const link = document.createElement('a');
-            link.href = results.fileData;
-
-            link.setAttribute(
-              'download',
-              results.fileName,
-            );
+        if(captchaValue){
+            captchaRef.current.reset();
+            appCtx.setLoadingText(strings.loadingModal.processingImages[appCtx.language]);
+            appCtx.setShowLoading(true);
             
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
-        })
-        .catch(e => {
-            let errorKey;
+            const formData = new FormData();
+            formData.append('captchaValue', captchaValue);
 
-            if(e.response.status === 500) { 
-                errorKey = e.response.data.error_codename;
-            }
-            else{
-                errorKey = "unknown";
+            if(endpoint==='encode') {
+                formData.append('coded', codedMessageImage);
+                formData.append('img', messageImage);
+                formData.append('filename', messageImage.name)
+
+            } else if(endpoint==='decode') {
+                formData.append('img', imageToDecode);
+                formData.append('filename', imageToDecode.name)
+                formData.append('mode', decodeMode)
             };
+            
+            axios.post(config.flaskServer + '/' + endpoint, formData, {
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                }
+            })
+            .then(response => { 
+                const res = 'data:image/png;base64, ' + response.data.result;
+                const resName = response.data.filename;
 
-            appCtx.setShowLoading(false);
-            appCtx.setLoadingText('');
-            appCtx.raiseError(errors[errorKey]);
-            appCtx.setShowError(true);
-        });
+                appCtx.setResult(res);
+                appCtx.setLoadingText('');
+                appCtx.setShowLoading(false); 
+                appCtx.setShowResult(true);
+
+                return {
+                        fileData: res,
+                        fileName: resName
+                };
+            })
+            .then(results => {
+                const link = document.createElement('a');
+                link.href = results.fileData;
+
+                link.setAttribute(
+                'download',
+                results.fileName,
+                );
+                
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            })
+            .catch(e => {
+                let errorKey;
+
+                if(e.response.status === 500) { 
+                    errorKey = e.response.data.error_codename;
+                }
+                else{
+                    errorKey = "unknown";
+                };
+
+                appCtx.setShowLoading(false);
+                appCtx.setLoadingText('');
+                appCtx.raiseError(errors[errorKey]);
+                appCtx.setShowError(true);
+            });
+        }
+        else{
+            setInvalidCaptcha(true);
+        };
     };
 
     function decodeModeHandler(e, dMode) {
@@ -121,6 +134,10 @@ function ModeToggler(props){
 
     function messageImageHandler(file) {
         setMessageImage(file);
+    };
+
+    function onCaptchaChanged(value) {
+        value ? setInvalidCaptcha(false) : setInvalidCaptcha(true);
     };
 
     function renderComponent() {
@@ -179,7 +196,7 @@ function ModeToggler(props){
             </div>;
         };
 
-        return <div>Error loading component</div>;
+        return <div>{strings.modeToggler.componentLoadingError[appCtx.language]}</div>;
     };
 
     return <div>
@@ -192,6 +209,10 @@ function ModeToggler(props){
             </Nav.Item>
         </Nav>
         { renderComponent() }
+        <div className={classes.captchaContainer}>
+            <span hidden={!invalidCaptcha} className={classes.invalidCaptchaText}>{strings.modeToggler.invalidCaptchaMessage[appCtx.language]}</span>
+            <ReCAPTCHA sitekey={config.siteKey} ref={captchaRef} onChange={onCaptchaChanged}/>
+        </div>
     </div>;
 };
 
