@@ -1,6 +1,7 @@
 import json
 import base64
 import requests as req
+import utils.security_utils as sec
 from io import BytesIO
 from bson import json_util
 from flask_cors import CORS
@@ -141,6 +142,17 @@ class DummyAPI(Resource):
         img_str = base64.b64encode(buffered.getvalue())
 
         return {"result": img_str.decode("utf-8")}
+    
+class Token(Resource):
+    def get(self):
+        token = sec.encode_token("first_run")
+        response = Response(mimetype="application/json")
+        response.status_code = 200
+        response.data = json.dumps({
+            "token":  token
+        })
+        
+        return response
 
 class DecodeAPI(Resource):
     def post(self):
@@ -257,3 +269,4 @@ api.add_resource(DummyAPI, "/dummy")
 api.add_resource(DecodeAPI, "/decode")
 api.add_resource(EncodeAPI, "/encode")
 api.add_resource(FAQsAPI, "/faqs")
+api.add_resource(Token, "/token")
