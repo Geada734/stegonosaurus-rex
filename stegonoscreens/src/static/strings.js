@@ -101,66 +101,6 @@ const strings = {
         }
     },
 
-    "faqs": [
-        {
-            "question": {
-                "en": "why dis?",
-                "es": "porke esto"
-            },
-            "answer": {
-                "en":<div> 
-                    <p>cuz dis.</p>
-                </div>,
-                "es": <div>
-                    <p>por ezto</p>
-                </div>
-            },
-            "key": 1
-        },
-        {
-            "question": {
-                "en": "how dis?",
-                "es": "komo?"
-            },
-            "answer": {
-                "en": <div> 
-                    <p>like dis.</p>
-                </div>,
-                "es": <div>
-                    <p>azi</p>
-                </div>
-            },
-            "key": 2
-        },
-        {
-            "question": {
-                "en": "lorem ipsum?",
-                "es": "lorem ipsum?"
-            },
-            "answer": {
-                "en": <div>
-                    <p>
-                        litora est pellentesque scelerisque,
-                        vestibulum ridiculus lectus non. Erat aenean 
-                        ornare eu accumsan montes ridiculus dapibus
-                        sapien euismod, vitae laoreet litora netus
-                        torquent parturient magnis
-                    </p>
-                </div>,
-                "es": <div>
-                    <p>
-                        litora est pellentesque scelerisque,
-                        vestibulum ridiculus lectus non. Erat aenean 
-                        ornare eu accumsan montes ridiculus dapibus
-                        sapien euismod, vitae laoreet litora netus
-                        torquent parturient magnis
-                    </p>
-                </div>
-            },
-            "key": 3
-        }
-    ],
-
     "useful": {
         "unrated": {
             "en": "Was this answer useful?",
@@ -231,7 +171,7 @@ const strings = {
             },
             "warningText": {
                 "en": "All uploaded images must be multi-band .png file, and smaller than 2MB.",
-                "es": "Todas las imagenes deben de ser .png multibanda, y más pequeñas de 2MB."
+                "es": "Todas las imágenes deben de ser .png multibanda, y más pequeñas de 2MB."
             }
         }
     },
@@ -243,7 +183,7 @@ const strings = {
         },
         "summary": {
             "en": "The page you tried to reach does not exist within the application.",
-            "es": "La página que buscas, no existe en la aplicación."
+            "es": "La página que buscas no existe en la aplicación."
         }
     },
     "modeToggler": {
@@ -273,7 +213,7 @@ const strings = {
         },
         "messageImageMessage": {
             "en": "Upload the image that has your coded message:",
-            "es": "Sube la imagen que trae to mensaje codificado:"
+            "es": "Sube la imagen que trae tu mensaje codificado:"
         },
         "toCodeImageMessage": {
             "en": "Upload image to be encoded:",
@@ -295,11 +235,11 @@ const strings = {
         },
         "componentLoadingError": {
             "en": "Error loading component",
-            "es": "Error cargando component"
+            "es": "Error cargando componente"
         },
         "invalidCaptchaMessage": {
             "en": "Invalid Captcha",
-            "es": "Captcha Invalido"
+            "es": "Captcha Inválido"
         }
     },
 
@@ -323,7 +263,7 @@ const strings = {
             "en": "Your download will start automatically, otherwise, feel free to " +
                 "download the displayed image.",
             "es": "Tu descarga comenzará en breve, de lo contrario, solamente haz click " +
-                "derecho en la imagen, y descargala."
+                "derecho en la imagen, y descárgala manualmente."
         }
     }
 };
