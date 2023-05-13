@@ -142,7 +142,7 @@ class DummyAPI(Resource):
         img_str = base64.b64encode(buffered.getvalue())
 
         return {"result": img_str.decode("utf-8")}
-    
+
 class Token(Resource):
     def get(self):
         token = sec.encode_token("first_run")
@@ -151,7 +151,7 @@ class Token(Resource):
         response.data = json.dumps({
             "token":  token
         })
-        
+
         return response
 
 class DecodeAPI(Resource):
@@ -163,13 +163,7 @@ class DecodeAPI(Resource):
         response = Response(mimetype="application/json")
 
         if(captcha_value):
-            catpcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config["captchaSecret"] + "&response=" + captcha_value
-            captcha_response = req.post(catpcha_url).json()
-
-            if captcha_response["success"]:
-                print(captcha_response)
-            else:
-                print(captcha_response)
+            if(not sec.validate_captcha(captcha_value)):
                 response.status_code = 500
                 response.data = json.dumps({
                     "error_codename": "unknown",
@@ -204,13 +198,7 @@ class EncodeAPI(Resource):
         response = Response(mimetype="application/json")
 
         if(captcha_value):
-            catpcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config["captchaSecret"] + "&response=" + captcha_value
-            captcha_response = req.post(catpcha_url).json()
-
-            if captcha_response["success"]:
-                print(captcha_response)
-            else:
-                print(captcha_response)
+            if(not sec.validate_captcha(captcha_value)):
                 response.status_code = 500
                 response.data = json.dumps({
                     "error_codename": "unknown",
