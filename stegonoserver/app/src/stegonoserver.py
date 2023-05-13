@@ -2,6 +2,7 @@ import json
 import base64
 import requests as req
 import utils.security_utils as sec
+import utils.decorators as dec
 from io import BytesIO
 from bson import json_util
 from flask_cors import CORS
@@ -128,6 +129,7 @@ def handle_error(e):
     return response
 
 class DummyAPI(Resource):
+    @dec.jwt_secured
     def get(self):
         response_body = {"result": "hello"}
 
