@@ -26,7 +26,6 @@ pymongo==4.2.0
 pytz==2022.2.1
 requests==2.28.1
 six==1.16.0
-stegonosaurus @ file:///Users/p_geada_r/Documents/playground/frankensteins/stegonosaurus-rex/stegonoserver/lib/stegonosaurus-1.1.4-py3-none-any.whl
 tomli==2.0.1
 tomlkit==0.11.5
 typing-extensions==4.3.0
