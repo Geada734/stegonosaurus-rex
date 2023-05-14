@@ -46,6 +46,28 @@ const errors = {
         }
 
     },
+    "invalidToken": {
+        "code": "ERR05",
+        "en": {
+            "summary": "Invalid Session",
+            "message": "The current session is invalid, please refresh the page."
+        },
+        "es": {
+            "summary": "Sesión Inválida",
+            "message": "La sesión actual es inválida, por favor actualiza la página."
+        }
+    },
+    "serverDown": {
+        "code": "ERR06",
+        "en": {
+            "summary": "Server Down",
+            "message": "The server is currently down, try again later."
+        },
+        "es": {
+            "summary": "Servidor No Disponible",
+            "message": "El servidor no se encuentra disponible en este momento, intenta de nuevo más tarde."
+        }
+    },
     "unknown": {
         "code": "ERR99",
         "en": {
