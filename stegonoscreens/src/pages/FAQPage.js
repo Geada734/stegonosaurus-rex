@@ -30,7 +30,7 @@ function FAQPage(){
         }).catch(e => {
             let errorKey;
 
-            if(e.response.status === 500) { 
+            if(e.response.status === 500 || e.response.status === 401) { 
                 errorKey = e.response.data.error_codename;
             }
             else{

@@ -240,6 +240,10 @@ const strings = {
     },
 
     "loadingModal": {
+        "loadingApp": {
+            "en": "Loading...",
+            "es": "Cargando..."
+        },
         "processingImages": {
             "en": "Processing images...",
             "es": "Procesando imágenes..."
