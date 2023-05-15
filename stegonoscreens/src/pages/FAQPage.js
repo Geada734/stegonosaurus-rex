@@ -22,7 +22,11 @@ function FAQPage(){
         appCtx.setLoadingText(strings.loadingModal.loadingFAQs[appCtx.language]);
         appCtx.setShowLoading(true);
 
-        axios.get(config.flaskServer + "/faqs")
+        axios.get(config.flaskServer + "/faqs", {
+            headers: {
+                Authorization: "Bearer " + appCtx.token
+            }
+        })
         .then(response => {
             setFaqs(response.data.faqs);
             appCtx.setShowLoading(false);

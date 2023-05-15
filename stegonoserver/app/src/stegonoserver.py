@@ -230,6 +230,7 @@ class EncodeAPI(Resource):
         return response
 
 class FAQsAPI(Resource):
+    @dec.jwt_secured
     def get(self):
         db_content = list(faqs_db.find({}, {"_id": 0, "rating": 0}))
         data = json_util.dumps(db_content)
@@ -240,6 +241,7 @@ class FAQsAPI(Resource):
 
         return response
 
+    @dec.jwt_secured
     def put(self):
         id = int(request.form.get("id"))
         vote = int(request.form.get("vote"))

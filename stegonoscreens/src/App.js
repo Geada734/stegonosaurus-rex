@@ -33,16 +33,7 @@ function App() {
   };
 
   function raiseError(e) {
-    let errorKey;
-
-    if(e.response.status === 500 || e.response.status === 401) { 
-        errorKey = e.response.data.error_codename;
-    }
-    else{
-        errorKey = "unknown";
-    };
-
-    appCtx.raiseError(errors[errorKey]);
+    appCtx.raiseError(errors['serverDown']);
     appCtx.setShowError(true);
   };
 
