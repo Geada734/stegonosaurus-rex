@@ -22,7 +22,11 @@ function FAQPage(){
         appCtx.setLoadingText(strings.loadingModal.loadingFAQs[appCtx.language]);
         appCtx.setShowLoading(true);
 
-        axios.get(config.flaskServer + "/faqs")
+        axios.get(config.flaskServer + "/faqs", {
+            headers: {
+                Authorization: "Bearer " + appCtx.token
+            }
+        })
         .then(response => {
             setFaqs(response.data.faqs);
             appCtx.setShowLoading(false);
@@ -30,7 +34,7 @@ function FAQPage(){
         }).catch(e => {
             let errorKey;
 
-            if(e.response.status === 500) { 
+            if(e.response.status === 500 || e.response.status === 401) { 
                 errorKey = e.response.data.error_codename;
             }
             else{

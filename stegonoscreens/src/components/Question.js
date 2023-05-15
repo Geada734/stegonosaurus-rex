@@ -53,13 +53,14 @@ function Question(props){
         axios.put(config.flaskServer + '/faqs', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
+              'Authorization': 'Bearer ' + appCtx.token
             }
         })
         .then( () => setLoading(false))
         .catch(e => {
             let errorKey;
 
-            if(e.response.status === 500) { 
+            if(e.response.status === 500 || e.response.status === 401) { 
                 errorKey = e.response.data.error_codename;
             }
             else{

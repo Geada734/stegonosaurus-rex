@@ -1,7 +1,3 @@
-import HomePage from "../pages/HomePage";
-import AboutPage from "../pages/AboutPage";
-import FAQPage from "../pages/FAQPage";
-
 import en from './flags/en.png';
 import es from './flags/es.png';
 
@@ -244,6 +240,10 @@ const strings = {
     },
 
     "loadingModal": {
+        "loadingApp": {
+            "en": "Loading...",
+            "es": "Cargando..."
+        },
         "processingImages": {
             "en": "Processing images...",
             "es": "Procesando imágenes..."

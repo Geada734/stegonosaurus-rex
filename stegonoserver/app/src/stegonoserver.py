@@ -1,6 +1,8 @@
 import json
 import base64
 import requests as req
+import utils.security_utils as sec
+import utils.decorators as dec
 from io import BytesIO
 from bson import json_util
 from flask_cors import CORS
@@ -127,6 +129,7 @@ def handle_error(e):
     return response
 
 class DummyAPI(Resource):
+    @dec.jwt_secured
     def get(self):
         response_body = {"result": "hello"}
 
@@ -142,7 +145,19 @@ class DummyAPI(Resource):
 
         return {"result": img_str.decode("utf-8")}
 
+class Token(Resource):
+    def get(self):
+        token = sec.encode_token("first_run")
+        response = Response(mimetype="application/json")
+        response.status_code = 200
+        response.data = json.dumps({
+            "token":  token
+        })
+
+        return response
+
 class DecodeAPI(Resource):
+    @dec.jwt_secured
     def post(self):
         file = request.files["img"]
         filename = request.form.get("filename")
@@ -151,13 +166,7 @@ class DecodeAPI(Resource):
         response = Response(mimetype="application/json")
 
         if(captcha_value):
-            catpcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config["captchaSecret"] + "&response=" + captcha_value
-            captcha_response = req.post(catpcha_url).json()
-
-            if captcha_response["success"]:
-                print(captcha_response)
-            else:
-                print(captcha_response)
+            if(not sec.validate_captcha(captcha_value)):
                 response.status_code = 500
                 response.data = json.dumps({
                     "error_codename": "unknown",
@@ -184,6 +193,7 @@ class DecodeAPI(Resource):
         return response
 
 class EncodeAPI(Resource):
+    @dec.jwt_secured
     def post(self):
         coded_file = request.files["coded"]
         img_file = request.files["img"]
@@ -192,13 +202,7 @@ class EncodeAPI(Resource):
         response = Response(mimetype="application/json")
 
         if(captcha_value):
-            catpcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config["captchaSecret"] + "&response=" + captcha_value
-            captcha_response = req.post(catpcha_url).json()
-
-            if captcha_response["success"]:
-                print(captcha_response)
-            else:
-                print(captcha_response)
+            if(not sec.validate_captcha(captcha_value)):
                 response.status_code = 500
                 response.data = json.dumps({
                     "error_codename": "unknown",
@@ -228,6 +232,7 @@ class EncodeAPI(Resource):
         return response
 
 class FAQsAPI(Resource):
+    @dec.jwt_secured
     def get(self):
         db_content = list(faqs_db.find({}, {"_id": 0, "rating": 0}))
         data = json_util.dumps(db_content)
@@ -238,6 +243,7 @@ class FAQsAPI(Resource):
 
         return response
 
+    @dec.jwt_secured
     def put(self):
         id = int(request.form.get("id"))
         vote = int(request.form.get("vote"))
@@ -257,3 +263,4 @@ api.add_resource(DummyAPI, "/dummy")
 api.add_resource(DecodeAPI, "/decode")
 api.add_resource(EncodeAPI, "/encode")
 api.add_resource(FAQsAPI, "/faqs")
+api.add_resource(Token, "/token")

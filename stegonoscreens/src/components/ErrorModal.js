@@ -15,8 +15,8 @@ function ErrorModal(props){
     };
 
     if(appCtx.error){
-        return  <Modal size='md' onHide={closeHandler} show={appCtx.showError}>
-            <Modal.Header closeButton>
+        return  <Modal size='md' onHide={closeHandler} show={appCtx.showError} backdrop='static'>
+            <Modal.Header closeButton={appCtx.error.code !== 'ERR06' ? true : false}>
                 <Modal.Title>{appCtx.error.code}</Modal.Title>
             </Modal.Header>
             <Modal.Body>

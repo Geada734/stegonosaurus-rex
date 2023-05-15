@@ -12,7 +12,9 @@ const AppContext = createContext({
     showLoading: false,
     setShowLoading: (flag) => {},
     result: '',
-    showResult: (flag) => {} 
+    showResult: (flag) => {},
+    token: '',
+    setToken: (token) => token 
 });
 
 export function AppContextProvider(props){
@@ -23,6 +25,7 @@ export function AppContextProvider(props){
     const [showLoading, setShowLoading] = useState(false);
     const [result, setResult] = useState('');
     const [showResult, setShowResult] = useState(false);
+    const [token, setToken] = useState('');
 
     function changeLanguageHandler(lang){
         setUserLanguage(lang);
@@ -51,6 +54,10 @@ export function AppContextProvider(props){
     function setShowResultHandler(flag) {
         setShowResult(flag);
     };
+    
+    function setTokenHandler(token) {
+        setToken(token);
+    };
 
     const context = {
         language: userLanguage,
@@ -66,7 +73,9 @@ export function AppContextProvider(props){
         result: result,
         setResult: setResultHandler,
         showResult: showResult,
-        setShowResult: setShowResultHandler
+        setShowResult: setShowResultHandler,
+        token: token,
+        setToken: setTokenHandler
 
     };
 

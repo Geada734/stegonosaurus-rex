@@ -1,5 +1,5 @@
 {
   "name": "stegonoserver",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Flask server acting as a backend for the Stegonosaurus-Rex webapp."
 }
