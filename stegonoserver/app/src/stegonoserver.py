@@ -157,6 +157,7 @@ class Token(Resource):
         return response
 
 class DecodeAPI(Resource):
+    @dec.jwt_secured
     def post(self):
         file = request.files["img"]
         filename = request.form.get("filename")
@@ -192,6 +193,7 @@ class DecodeAPI(Resource):
         return response
 
 class EncodeAPI(Resource):
+    @dec.jwt_secured
     def post(self):
         coded_file = request.files["coded"]
         img_file = request.files["img"]

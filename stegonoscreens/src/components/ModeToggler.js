@@ -69,6 +69,7 @@ function ModeToggler(props){
             axios.post(config.flaskServer + '/' + endpoint, formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + appCtx.token
                 }
             })
             .then(response => { 
@@ -101,7 +102,7 @@ function ModeToggler(props){
             .catch(e => {
                 let errorKey;
 
-                if(e.response.status === 500) { 
+                if(e.response.status === 500 || e.response.status === 401) { 
                     errorKey = e.response.data.error_codename;
                 }
                 else{
