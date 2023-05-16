@@ -12,7 +12,6 @@ def jwt_secured(fn):
                         "error_message": "Invalid JWT token"})
 
         auth = request.headers.get('Authorization')
-        print(auth)
 
         if auth:
             token = auth.split(" ")
