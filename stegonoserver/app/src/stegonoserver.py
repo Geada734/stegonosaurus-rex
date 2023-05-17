@@ -6,7 +6,6 @@ import utils.decorators as dec
 from io import BytesIO
 from bson import json_util
 from flask_cors import CORS
-from pymongo import MongoClient
 from flask_restful import Api, Resource
 from pymongo import MongoClient, errors as me
 from PIL import Image, UnidentifiedImageError

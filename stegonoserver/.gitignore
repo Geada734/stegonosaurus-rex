@@ -131,4 +131,3 @@ dmypy.json
 # local
 /lib
 /config
-db_builder.py
