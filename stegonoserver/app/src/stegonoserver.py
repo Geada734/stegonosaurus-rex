@@ -1,8 +1,8 @@
 import json
 import base64
-import requests as req
 import utils.security_utils as sec
 import utils.decorators as dec
+import utils.error_handlers as err
 from io import BytesIO
 from bson import json_util
 from flask_cors import CORS
@@ -11,7 +11,7 @@ from pymongo import MongoClient, errors as me
 from PIL import Image, UnidentifiedImageError
 from stegonosaurus import stegofunctions as sf
 from stegonosaurus import stegoexceptions as se
-from flask import Flask, request, json, Response
+from flask import Flask, request, Response
 
 app = Flask(__name__)
 CORS(app)
@@ -27,105 +27,27 @@ faqs_db = db.faqs
 
 @app.errorhandler(se.StegonosaurusIncorrectFormatError)
 def handle_stego_format_exception(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "wrongFormat",
-        "error_message": e.message
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "wrongFormat", e.message)
 
 @app.errorhandler(se.StegonosaurusIncorrectSizeError)
 def handle_stego_size_exception(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "wrongSize",
-        "error_message": e.message
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "wrongSize", e.message)
 
 @app.errorhandler(se.StegonosaurusInvalidDecodeModeError)
 def handle_stego_decode_mode_exception(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "wrongDecodeMode",
-        "error_message": e.message
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "wrongDecodeMode", e.message)
 
 @app.errorhandler(me.ServerSelectionTimeoutError)
 def handle_server_selection_timeout_error(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "noMongoDB",
-        "error_message": "There's no available Mongo DB to connect to."
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "noMongoDB", "No Mongo DB available.")
 
 @app.errorhandler(UnidentifiedImageError)
 def handle_unidentified_image_error(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "wrongFormat",
-        "error_message": "The file provided is not a valid image."
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "wrongFormat", "The file provided is not a valid image.")
 
 @app.errorhandler(Exception)
 def handle_error(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "unknown",
-        "error_message": "Unknown internal error"
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "unknown", "Unknown internal error.")
 
 class DummyAPI(Resource):
     @dec.jwt_secured
