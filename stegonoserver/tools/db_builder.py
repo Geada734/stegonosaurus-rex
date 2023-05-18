@@ -6,7 +6,7 @@ def main():
         config = json.load(configFile)
         configFile.close()
 
-    with open("utilities/static/questions.json") as faqsFile:
+    with open("static/questions.json") as faqsFile:
         faqs = json.load(faqsFile)
         faqsFile.close()
 

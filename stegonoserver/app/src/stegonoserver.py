@@ -1,17 +1,15 @@
 import json
-import base64
-import requests as req
 import utils.security_utils as sec
 import utils.decorators as dec
-from io import BytesIO
+import utils.error_handlers as err
+import utils.stegono_utils as stegono
 from bson import json_util
 from flask_cors import CORS
 from flask_restful import Api, Resource
 from pymongo import MongoClient, errors as me
-from PIL import Image, UnidentifiedImageError
-from stegonosaurus import stegofunctions as sf
+from PIL import UnidentifiedImageError
 from stegonosaurus import stegoexceptions as se
-from flask import Flask, request, json, Response
+from flask import Flask, request, Response
 
 app = Flask(__name__)
 CORS(app)
@@ -27,105 +25,27 @@ faqs_db = db.faqs
 
 @app.errorhandler(se.StegonosaurusIncorrectFormatError)
 def handle_stego_format_exception(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "wrongFormat",
-        "error_message": e.message
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "wrongFormat", e.message)
 
 @app.errorhandler(se.StegonosaurusIncorrectSizeError)
 def handle_stego_size_exception(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "wrongSize",
-        "error_message": e.message
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "wrongSize", e.message)
 
 @app.errorhandler(se.StegonosaurusInvalidDecodeModeError)
 def handle_stego_decode_mode_exception(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "wrongDecodeMode",
-        "error_message": e.message
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "wrongDecodeMode", e.message)
 
 @app.errorhandler(me.ServerSelectionTimeoutError)
 def handle_server_selection_timeout_error(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "noMongoDB",
-        "error_message": "There's no available Mongo DB to connect to."
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "noMongoDB", "No Mongo DB available.")
 
 @app.errorhandler(UnidentifiedImageError)
 def handle_unidentified_image_error(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "wrongFormat",
-        "error_message": "The file provided is not a valid image."
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "wrongFormat", "The file provided is not a valid image.")
 
 @app.errorhandler(Exception)
 def handle_error(e):
-    response = Response(mimetype="application/json")
-    response.data = json.dumps({
-        "error_codename": "unknown",
-        "error_message": "Unknown internal error"
-    })
-
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-    response.status_code = 500
-
-    return response
+    return err.handle_exception(e, "unknown", "Unknown internal error.")
 
 class DummyAPI(Resource):
     @dec.jwt_secured
@@ -134,19 +54,9 @@ class DummyAPI(Resource):
 
         return response_body
 
-    def post(self):
-        args = request.files["file"]
-        img = Image.open(args)
-
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue())
-
-        return {"result": img_str.decode("utf-8")}
-
 class Token(Resource):
     def get(self):
-        token = sec.encode_token("first_run")
+        token = sec.encode_token()
         response = Response(mimetype="application/json")
         response.status_code = 200
         response.data = json.dumps({
@@ -174,22 +84,7 @@ class DecodeAPI(Resource):
 
                 return response
 
-        img = Image.open(file)
-        img = sf.decode(img, mode)
-
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue())
-
-        response.status_code = 200
-        response.data = json.dumps({
-                "result": img_str.decode("utf-8"),
-                "filename": "decoded_" + filename
-        })
-
-        img.close()
-
-        return response
+        return stegono.decode(file, filename, mode, response)
 
 class EncodeAPI(Resource):
     @dec.jwt_secured
@@ -210,25 +105,7 @@ class EncodeAPI(Resource):
 
                 return response
 
-        coded = Image.open(coded_file)
-        img = Image.open(img_file)
-        img = sf.encode(coded, img)
-
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue())
-
-        response = Response(mimetype="application/json")
-        response.status_code = 200
-        response.data = json.dumps({
-                "result": img_str.decode("utf-8"),
-                "filename": "encoded_" + filename
-        })
-
-        coded.close()
-        img.close()
-
-        return response
+        return stegono.encode(coded_file, img_file, filename, response)
 
 class FAQsAPI(Resource):
     @dec.jwt_secured
@@ -244,10 +121,10 @@ class FAQsAPI(Resource):
 
     @dec.jwt_secured
     def put(self):
-        id = int(request.form.get("id"))
+        q_id = int(request.form.get("id"))
         vote = int(request.form.get("vote"))
 
-        faqs_db.update_one({"id": id}, {"$inc": {"rating": vote}})
+        faqs_db.update_one({"id": q_id}, {"$inc": {"rating": vote}})
 
         response = Response(mimetype="application/json")
         response.status_code = 200
