@@ -1,15 +1,13 @@
 import json
-import base64
 import utils.security_utils as sec
 import utils.decorators as dec
 import utils.error_handlers as err
-from io import BytesIO
+import utils.stegono_utils as su
 from bson import json_util
 from flask_cors import CORS
 from flask_restful import Api, Resource
 from pymongo import MongoClient, errors as me
-from PIL import Image, UnidentifiedImageError
-from stegonosaurus import stegofunctions as sf
+from PIL import UnidentifiedImageError
 from stegonosaurus import stegoexceptions as se
 from flask import Flask, request, Response
 
@@ -56,19 +54,9 @@ class DummyAPI(Resource):
 
         return response_body
 
-    def post(self):
-        args = request.files["file"]
-        img = Image.open(args)
-
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue())
-
-        return {"result": img_str.decode("utf-8")}
-
 class Token(Resource):
     def get(self):
-        token = sec.encode_token("first_run")
+        token = sec.encode_token()
         response = Response(mimetype="application/json")
         response.status_code = 200
         response.data = json.dumps({
@@ -96,22 +84,7 @@ class DecodeAPI(Resource):
 
                 return response
 
-        img = Image.open(file)
-        img = sf.decode(img, mode)
-
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue())
-
-        response.status_code = 200
-        response.data = json.dumps({
-                "result": img_str.decode("utf-8"),
-                "filename": "decoded_" + filename
-        })
-
-        img.close()
-
-        return response
+        return su.decode(file, filename, mode, response)
 
 class EncodeAPI(Resource):
     @dec.jwt_secured
@@ -132,25 +105,7 @@ class EncodeAPI(Resource):
 
                 return response
 
-        coded = Image.open(coded_file)
-        img = Image.open(img_file)
-        img = sf.encode(coded, img)
-
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        img_str = base64.b64encode(buffered.getvalue())
-
-        response = Response(mimetype="application/json")
-        response.status_code = 200
-        response.data = json.dumps({
-                "result": img_str.decode("utf-8"),
-                "filename": "encoded_" + filename
-        })
-
-        coded.close()
-        img.close()
-
-        return response
+        return su.encode(coded_file, img_file, filename, response)
 
 class FAQsAPI(Resource):
     @dec.jwt_secured
@@ -166,10 +121,10 @@ class FAQsAPI(Resource):
 
     @dec.jwt_secured
     def put(self):
-        id = int(request.form.get("id"))
+        q_id = int(request.form.get("id"))
         vote = int(request.form.get("vote"))
 
-        faqs_db.update_one({"id": id}, {"$inc": {"rating": vote}})
+        faqs_db.update_one({"id": q_id}, {"$inc": {"rating": vote}})
 
         response = Response(mimetype="application/json")
         response.status_code = 200

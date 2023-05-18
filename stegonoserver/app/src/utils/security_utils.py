@@ -9,7 +9,7 @@ with open("config/config.json") as configFile:
 
 secret_key = config["jwtSecret"]
 
-def encode_token(username):
+def encode_token():
     timestamp = int(round(time.time() * 1000))
 
     token_components = {"timestamp": timestamp}
