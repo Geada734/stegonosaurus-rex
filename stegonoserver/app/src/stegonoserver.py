@@ -2,7 +2,7 @@ import json
 import utils.security_utils as sec
 import utils.decorators as dec
 import utils.error_handlers as err
-import utils.stegono_utils as su
+import utils.stegono_utils as stegono
 from bson import json_util
 from flask_cors import CORS
 from flask_restful import Api, Resource
@@ -84,7 +84,7 @@ class DecodeAPI(Resource):
 
                 return response
 
-        return su.decode(file, filename, mode, response)
+        return stegono.decode(file, filename, mode, response)
 
 class EncodeAPI(Resource):
     @dec.jwt_secured
@@ -105,7 +105,7 @@ class EncodeAPI(Resource):
 
                 return response
 
-        return su.encode(coded_file, img_file, filename, response)
+        return stegono.encode(coded_file, img_file, filename, response)
 
 class FAQsAPI(Resource):
     @dec.jwt_secured
