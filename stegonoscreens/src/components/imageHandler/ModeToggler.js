@@ -20,7 +20,7 @@ import AppContext from '../../store/app-context';
 import strings from '../../static/strings.js';
 import errors from '../../static/errors.js';
 
-function ModeToggler(props){
+function ModeToggler(){
     const appCtx = useContext(AppContext);
 
     const captchaRef = useRef(null);
@@ -112,7 +112,6 @@ function ModeToggler(props){
                 appCtx.setShowLoading(false);
                 appCtx.setLoadingText('');
                 appCtx.raiseError(errors[errorKey]);
-                appCtx.setShowError(true);
             });
         }
         else{

@@ -7,7 +7,7 @@ import AppContext from '../../store/app-context.js'
 
 import classes from './style/LoadingModal.module.css';
 
-function LoadingModal(props) {
+function LoadingModal() {
     const appCtx = useContext(AppContext);
 
     return <Modal show={appCtx.showLoading} size='sm'>

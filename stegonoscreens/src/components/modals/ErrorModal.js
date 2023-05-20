@@ -6,11 +6,10 @@ import AppContext from '../../store/app-context.js';
 
 import classes from './style/ErrorModal.module.css';
 
-function ErrorModal(props){
+function ErrorModal(){
     const appCtx = useContext(AppContext);
 
     function closeHandler(){
-        appCtx.setShowError(false);
         appCtx.raiseError(null);
     };
 

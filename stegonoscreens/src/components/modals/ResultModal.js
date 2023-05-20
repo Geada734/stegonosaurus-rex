@@ -8,7 +8,7 @@ import strings from '../../static/strings.js';
 
 import classes from './style/ResultModal.module.css';
 
-function ResultModal(props) {
+function ResultModal() {
     const appCtx = useContext(AppContext);
 
     function handleClose(){

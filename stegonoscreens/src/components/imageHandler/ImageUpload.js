@@ -25,7 +25,6 @@ function ImageUpload(props) {
             }
             else{
                 appCtx.raiseError(errors.imgTooLarge)
-                appCtx.setShowError(true);
             };
         } else{
             func(null);

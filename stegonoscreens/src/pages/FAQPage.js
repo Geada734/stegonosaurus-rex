@@ -44,7 +44,6 @@ function FAQPage(){
             appCtx.setShowLoading(false);
             appCtx.setLoadingText('');
             appCtx.raiseError(errors[errorKey]);
-            appCtx.setShowError(true);
         })
     }, []);
 

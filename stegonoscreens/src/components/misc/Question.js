@@ -70,7 +70,6 @@ function Question(props){
             appCtx.raiseError(errors[errorKey]);
             setLoading(false);
             setUserRating(0);
-            appCtx.setShowError(true)
         });
     };
 

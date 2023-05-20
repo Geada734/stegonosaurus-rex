@@ -6,7 +6,6 @@ const AppContext = createContext({
     error: null,
     raiseError: (error) => {},
     showError: false,
-    setShowError: (flag) => {},
     loadingText: '',
     setLoadingText: (text) => {},
     showLoading: false,
@@ -33,6 +32,8 @@ export function AppContextProvider(props){
 
     function raiseErrorHandler(err) {
         setRaisedError(err);
+        if(err) setShowedError(true);
+        else setShowedError(false);
     };
 
     function showErrorHandler(flag) {
@@ -65,7 +66,6 @@ export function AppContextProvider(props){
         error: raisedError,
         raiseError: raiseErrorHandler,
         showError: showedError,
-        setShowError: showErrorHandler,
         loadingText: loadingText,
         setLoadingText: setLoadingTextHandler,
         showLoading: showLoading,
