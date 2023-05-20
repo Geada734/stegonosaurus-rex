@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import classes from "./HomePage.module.css";
+import classes from "./style/HomePage.module.css";
 
-import ModeToggler from '../components/ModeToggler';
+import ModeToggler from '../components/imageHandler/ModeToggler';
 
 import AppContext from "../store/app-context";
 

@@ -1,13 +1,15 @@
+import config from '../configs/config.json';
+
 const errors = {
     "imgTooLarge": {
         "code": "ERR01",
         "en": {
             "summary":  "The image is too large",
-            "message": "Please submit files smaller than 2 MB."
+            "message": "Please submit files smaller than " + config.imageSizeDisplay + "."
         },
         "es": {
             "summary":  "La imagen es demasiado grande",
-            "message": "Por favor, sube archivos menores a 2MB."
+            "message": "Por favor, sube archivos menores " + config.imageSizeDisplay + "."
         }
     },
     "wrongFormat": {

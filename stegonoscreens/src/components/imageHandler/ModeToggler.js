@@ -1,4 +1,4 @@
-import config from '../configs/config.json';
+import config from '../../configs/config.json';
 
 import { useState, useContext, useRef } from 'react';
 
@@ -12,13 +12,13 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ReCAPTCHA from 'react-google-recaptcha';
 
-import classes from './ModeToggler.module.css';
+import classes from './style/ModeToggler.module.css';
 
 import ImageUpload from './ImageUpload';
-import AppContext from '../store/app-context';
+import AppContext from '../../store/app-context';
 
-import strings from '../static/strings.js';
-import errors from '../static/errors.js';
+import strings from '../../static/strings.js';
+import errors from '../../static/errors.js';
 
 function ModeToggler(props){
     const appCtx = useContext(AppContext);

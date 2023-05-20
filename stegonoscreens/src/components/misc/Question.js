@@ -9,14 +9,14 @@ import Spinner from 'react-bootstrap/Spinner';
 import { HandThumbsUp } from 'react-bootstrap-icons';
 import { HandThumbsDown } from 'react-bootstrap-icons';
 
-import classes from './Question.module.css';
+import classes from './style/Question.module.css';
 
-import config from '../configs/config.json';
+import config from '../../configs/config.json';
 
-import AppContext from '../store/app-context';
+import AppContext from '../../store/app-context';
 
-import strings from '../static/strings.js';
-import errors from '../static/errors.js';
+import strings from '../../static/strings.js';
+import errors from '../../static/errors.js';
 
 function Question(props){
     const appCtx = useContext(AppContext);

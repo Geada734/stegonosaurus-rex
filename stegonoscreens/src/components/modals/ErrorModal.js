@@ -2,9 +2,9 @@ import { useContext } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 
-import AppContext from '../store/app-context.js';
+import AppContext from '../../store/app-context.js';
 
-import classes from './ErrorModal.module.css';
+import classes from './style/ErrorModal.module.css';
 
 function ErrorModal(props){
     const appCtx = useContext(AppContext);

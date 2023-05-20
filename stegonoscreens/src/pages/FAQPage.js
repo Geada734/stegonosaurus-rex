@@ -4,11 +4,11 @@ import { useState, useContext, useEffect } from 'react';
 
 import axios from 'axios';
 
-import classes from './FAQPage.module.css'
+import classes from './style/FAQPage.module.css'
 
 import AppContext from '../store/app-context';
 
-import Question from '../components/Question';
+import Question from '../components/misc/Question';
 
 import strings from '../static/strings.js';
 import errors from '../static/errors.js';

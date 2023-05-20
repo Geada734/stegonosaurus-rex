@@ -2,11 +2,11 @@ import { useContext } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 
-import AppContext from '../store/app-context.js'
+import AppContext from '../../store/app-context.js'
 
-import strings from '../static/strings.js';
+import strings from '../../static/strings.js';
 
-import classes from './ResultModal.module.css';
+import classes from './style/ResultModal.module.css';
 
 function ResultModal(props) {
     const appCtx = useContext(AppContext);

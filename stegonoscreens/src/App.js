@@ -7,9 +7,9 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import FAQPage from './pages/FAQPage';
 import NotFoundPage from './pages/NotFoundPage';
-import ErrorModal from './components/ErrorModal';
-import LoadingModal from './components/LoadingModal';
-import ResultModal from './components/ResultModal';
+import ErrorModal from './components/modals/ErrorModal';
+import LoadingModal from './components/modals/LoadingModal';
+import ResultModal from './components/modals/ResultModal';
 
 import AppContext from './store/app-context';
 import * as api from './apis/appApi.js';

@@ -1,5 +1,6 @@
 import en from './flags/en.png';
 import es from './flags/es.png';
+import config from '../configs/config.json';
 
 const strings = {
     "pageTitles": {
@@ -166,8 +167,8 @@ const strings = {
                 "es": "IMPORTANTE"
             },
             "warningText": {
-                "en": "All uploaded images must be multi-band .png file, and smaller than 2MB.",
-                "es": "Todas las imágenes deben de ser .png multibanda, y más pequeñas de 2MB."
+                "en": "All uploaded images must be multi-band .png file, and smaller than " + config.imageSizeDisplay + ".",
+                "es": "Todas las imágenes deben de ser .png multibanda, y más pequeñas de " + config.imageSizeDisplay + "."
             }
         }
     },
