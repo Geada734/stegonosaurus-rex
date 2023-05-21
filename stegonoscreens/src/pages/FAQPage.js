@@ -9,9 +9,9 @@ import classes from './style/FAQPage.module.css'
 import AppContext from '../store/app-context';
 
 import Question from '../components/misc/Question';
+import * as errorHandlers from '../utils/errorHandlers';
 
 import strings from '../static/strings.js';
-import errors from '../static/errors.js';
 
 function FAQPage(){
     const appCtx = useContext(AppContext);
@@ -32,18 +32,10 @@ function FAQPage(){
             appCtx.setShowLoading(false);
             appCtx.setLoadingText('');
         }).catch(e => {
-            let errorKey;
-
-            if(e.response.status === 500 || e.response.status === 401) { 
-                errorKey = e.response.data.error_codename;
-            }
-            else{
-                errorKey = "unknown";
-            };
+            errorHandlers.handleRestError(e, appCtx.raiseError);
 
             appCtx.setShowLoading(false);
             appCtx.setLoadingText('');
-            appCtx.raiseError(errors[errorKey]);
         })
     }, []);
 

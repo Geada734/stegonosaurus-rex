@@ -18,7 +18,7 @@ import ImageUpload from './ImageUpload';
 import AppContext from '../../store/app-context';
 
 import strings from '../../static/strings.js';
-import errors from '../../static/errors.js';
+import * as errorHandlers from '../../utils/errorHandlers';
 
 function ModeToggler(){
     const appCtx = useContext(AppContext);
@@ -100,18 +100,9 @@ function ModeToggler(){
                 link.parentNode.removeChild(link);
             })
             .catch(e => {
-                let errorKey;
-
-                if(e.response.status === 500 || e.response.status === 401) { 
-                    errorKey = e.response.data.error_codename;
-                }
-                else{
-                    errorKey = "unknown";
-                };
-
                 appCtx.setShowLoading(false);
                 appCtx.setLoadingText('');
-                appCtx.raiseError(errors[errorKey]);
+                errorHandlers.handleRestError(e, appCtx.raiseError);
             });
         }
         else{
