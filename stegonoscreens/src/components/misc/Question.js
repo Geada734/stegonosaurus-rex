@@ -1,6 +1,5 @@
 import { useState, useContext } from 'react';
 
-import axios from 'axios';
 import parse from 'html-react-parser';
 
 import Button from 'react-bootstrap/esm/Button';
@@ -11,8 +10,8 @@ import { HandThumbsDown } from 'react-bootstrap-icons';
 
 import classes from './style/Question.module.css';
 
-import config from '../../configs/config.json';
 import * as errorHandlers from '../../utils/errorHandlers';
+import * as api from '../../apis/faqsApi';
 
 import AppContext from '../../store/app-context';
 
@@ -50,18 +49,18 @@ function Question(props){
 
         setLoading(true);
 
-        axios.put(config.flaskServer + '/faqs', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'Authorization': 'Bearer ' + appCtx.token
-            }
-        })
-        .then( () => setLoading(false))
-        .catch(e => {
-            errorHandlers.handleRestError(e, appCtx.raiseError);
-            setLoading(false);
-            setUserRating(0);
-        });
+        api.rateQuestion(handleResponse, handleError, appCtx.token, formData);
+
+    };
+
+    function handleResponse() {
+        setLoading(false);
+    };
+
+    function handleError(e) {
+        errorHandlers.handleRestError(e, appCtx.raiseError);
+        setLoading(false);
+        setUserRating(0);
     };
 
     function renderButtonGroup() {

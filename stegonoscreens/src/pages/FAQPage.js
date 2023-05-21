@@ -1,8 +1,4 @@
-import config from '../configs/config.json';
-
 import { useState, useContext, useEffect } from 'react';
-
-import axios from 'axios';
 
 import classes from './style/FAQPage.module.css'
 
@@ -10,6 +6,7 @@ import AppContext from '../store/app-context';
 
 import Question from '../components/misc/Question';
 import * as errorHandlers from '../utils/errorHandlers';
+import * as api from '../apis/faqsApi';
 
 import strings from '../static/strings.js';
 
@@ -20,21 +17,18 @@ function FAQPage(){
 
     useEffect(() => {
         appCtx.popLoading(strings.loadingModal.loadingFAQs[appCtx.language]);
-
-        axios.get(config.flaskServer + "/faqs", {
-            headers: {
-                Authorization: "Bearer " + appCtx.token
-            }
-        })
-        .then(response => {
-            setFaqs(response.data.faqs);
-            appCtx.popLoading('');
-        }).catch(e => {
-            errorHandlers.handleRestError(e, appCtx.raiseError);
-
-            appCtx.popLoading('');
-        })
+        api.getFaqs(handleFaqs, handleError, appCtx.token);
     }, []);
+
+    function handleFaqs(response) {
+        setFaqs(response.data.faqs)
+        appCtx.popLoading('');
+    };
+
+    function handleError(e) {
+        errorHandlers.handleRestError(e, appCtx.raiseError);
+        appCtx.popLoading('');
+    };
 
     return <section>
         <h1>{strings.pageTitles.faqs[appCtx.language]}</h1>

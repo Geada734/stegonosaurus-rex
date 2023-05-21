@@ -32,8 +32,7 @@ function App() {
   };
 
   function raiseError(e) {
-    appCtx.setShowLoading(false);
-    appCtx.setLoadingText('');
+    appCtx.popLoading('');
     appCtx.raiseError(errors['serverDown']);
   };
 

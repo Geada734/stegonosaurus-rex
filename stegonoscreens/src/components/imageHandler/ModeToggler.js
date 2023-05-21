@@ -2,8 +2,6 @@ import config from '../../configs/config.json';
 
 import { useState, useContext, useRef } from 'react';
 
-import axios from 'axios';
-
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -19,6 +17,7 @@ import AppContext from '../../store/app-context';
 
 import strings from '../../static/strings.js';
 import * as errorHandlers from '../../utils/errorHandlers';
+import * as api from '../../apis/stegonoApi';
 
 function ModeToggler(){
     const appCtx = useContext(AppContext);
@@ -57,53 +56,54 @@ function ModeToggler(){
             if(endpoint==='encode') {
                 formData.append('coded', codedMessageImage);
                 formData.append('img', messageImage);
-                formData.append('filename', messageImage.name)
+                formData.append('filename', messageImage.name);
+                
+                api.encode(handleResponse, handleResults, handleError, appCtx.token, formData);
 
             } else if(endpoint==='decode') {
                 formData.append('img', imageToDecode);
                 formData.append('filename', imageToDecode.name)
                 formData.append('mode', decodeMode)
+
+                api.decode(handleResponse, handleResults, handleError, appCtx.token, formData);
             };
             
-            axios.post(config.flaskServer + '/' + endpoint, formData, {
-                headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + appCtx.token
-                }
-            })
-            .then(response => { 
-                const res = 'data:image/png;base64, ' + response.data.result;
-                const resName = response.data.filename;
-                
-                appCtx.popLoading('');
-                appCtx.popResult(res);
-
-                return {
-                        fileData: res,
-                        fileName: resName
-                };
-            })
-            .then(results => {
-                const link = document.createElement('a');
-                link.href = results.fileData;
-
-                link.setAttribute(
-                'download',
-                results.fileName,
-                );
-                
-                document.body.appendChild(link);
-                link.click();
-                link.parentNode.removeChild(link);
-            })
-            .catch(e => {
-                appCtx.popLoading('');
-                errorHandlers.handleRestError(e, appCtx.raiseError);
-            });
         }
         else{
             setInvalidCaptcha(true);
         };
+    };
+
+    function handleResponse(response) {
+        const res = 'data:image/png;base64, ' + response.data.result;
+        const resName = response.data.filename;
+
+        appCtx.popLoading('');
+        appCtx.popResult(res);
+
+        return {
+                fileData: res,
+                fileName: resName
+        };
+    };
+
+    function handleResults(results) {
+        const link = document.createElement('a');
+        link.href = results.fileData;
+
+        link.setAttribute(
+        'download',
+        results.fileName,
+        );
+        
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+    };
+
+    function handleError(e) {
+        appCtx.popLoading('');
+        errorHandlers.handleRestError(e, appCtx.raiseError);
     };
 
     function decodeModeHandler(e, dMode) {
