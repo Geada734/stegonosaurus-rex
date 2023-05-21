@@ -21,15 +21,14 @@ function App() {
   const [ready, setReady] = useState(false);
 
   useEffect(()=> {
-    appCtx.setShowLoading(true);
-    appCtx.setLoadingText(strings.loadingModal.loadingApp[appCtx.language]);
+    appCtx.popLoading(strings.loadingModal.loadingApp[appCtx.language]);
     api.getToken(setToken, raiseError);
   }, [])
 
   function setToken(token) {
     appCtx.setToken(token);
     setReady(true);
-    appCtx.setShowLoading(false);
+    appCtx.popLoading('');
   };
 
   function raiseError(e) {

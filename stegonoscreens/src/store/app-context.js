@@ -7,9 +7,8 @@ const AppContext = createContext({
     raiseError: (error) => {},
     showError: false,
     loadingText: '',
-    setLoadingText: (text) => {},
+    popLoading: (text) => {},
     showLoading: false,
-    setShowLoading: (flag) => {},
     result: '',
     showResult: (flag) => {},
     token: '',
@@ -36,16 +35,10 @@ export function AppContextProvider(props){
         else setShowedError(false);
     };
 
-    function showErrorHandler(flag) {
-        setShowedError(flag);
-    };
-
-    function setLoadingTextHandler(text) {
+    function popLoadingHandler(text) {
         setLoadingText(text);
-    };
-
-    function setShowLoadingHandler(flag) {
-        setShowLoading(flag);
+        if(text && text.trim() !== '') setShowLoading(true);
+        else setShowLoading(false);
     };
 
     function setResultHandler(result) {
@@ -67,9 +60,8 @@ export function AppContextProvider(props){
         raiseError: raiseErrorHandler,
         showError: showedError,
         loadingText: loadingText,
-        setLoadingText: setLoadingTextHandler,
+        popLoading: popLoadingHandler,
         showLoading: showLoading,
-        setShowLoading: setShowLoadingHandler,
         result: result,
         setResult: setResultHandler,
         showResult: showResult,

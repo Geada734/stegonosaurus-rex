@@ -49,8 +49,7 @@ function ModeToggler(){
 
         if(captchaValue){
             captchaRef.current.reset();
-            appCtx.setLoadingText(strings.loadingModal.processingImages[appCtx.language]);
-            appCtx.setShowLoading(true);
+            appCtx.popLoading(strings.loadingModal.processingImages[appCtx.language]);
             
             const formData = new FormData();
             formData.append('captchaValue', captchaValue);
@@ -77,8 +76,7 @@ function ModeToggler(){
                 const resName = response.data.filename;
 
                 appCtx.setResult(res);
-                appCtx.setLoadingText('');
-                appCtx.setShowLoading(false); 
+                appCtx.popLoading('');
                 appCtx.setShowResult(true);
 
                 return {
@@ -100,8 +98,7 @@ function ModeToggler(){
                 link.parentNode.removeChild(link);
             })
             .catch(e => {
-                appCtx.setShowLoading(false);
-                appCtx.setLoadingText('');
+                appCtx.popLoading('');
                 errorHandlers.handleRestError(e, appCtx.raiseError);
             });
         }

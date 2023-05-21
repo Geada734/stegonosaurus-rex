@@ -19,8 +19,7 @@ function FAQPage(){
     const [faqs, setFaqs] = useState([]);
 
     useEffect(() => {
-        appCtx.setLoadingText(strings.loadingModal.loadingFAQs[appCtx.language]);
-        appCtx.setShowLoading(true);
+        appCtx.popLoading(strings.loadingModal.loadingFAQs[appCtx.language]);
 
         axios.get(config.flaskServer + "/faqs", {
             headers: {
@@ -29,13 +28,11 @@ function FAQPage(){
         })
         .then(response => {
             setFaqs(response.data.faqs);
-            appCtx.setShowLoading(false);
-            appCtx.setLoadingText('');
+            appCtx.popLoading('');
         }).catch(e => {
             errorHandlers.handleRestError(e, appCtx.raiseError);
 
-            appCtx.setShowLoading(false);
-            appCtx.setLoadingText('');
+            appCtx.popLoading('');
         })
     }, []);
 
