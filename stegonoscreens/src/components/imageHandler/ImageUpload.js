@@ -1,42 +1,35 @@
-import { useState } from 'react';
-import classes from './ImageUpload.module.css';
-
-import ErrorModal from './ErrorModal';
+import { useState, useContext } from 'react';
+import classes from './style/ImageUpload.module.css';
 
 import Form from 'react-bootstrap/Form';
 
-import errors from '../static/errors.js';
-import upload from '../static/icons/upload.svg';
+import AppContext from '../../store/app-context.js'
+import config from '../../configs/config.json'
+import errors from '../../static/errors.js';
+import upload from '../../static/icons/upload.svg';
 
 function ImageUpload(props) {
-    const sizeLimit = 2097152;
+    const sizeLimit = config.imageSizeLimit;
 
+    const appCtx = useContext(AppContext);
     const [displayedImage, setDisplayedImage] = useState(upload);
-    const [error, setError] = useState(null);
-    const [showError, setShowError] = useState(false);
 
-    function submitHandler(event, func){
+    function submitHandler(event, imageHandler){
         const file = event.target.files[0]
         if(file) {
             if(file.size <= sizeLimit){
                 const fileForDisplay = URL.createObjectURL(file);
 
-                func(file);
+                imageHandler(file);
                 setDisplayedImage(fileForDisplay);
             }
             else{
-                setError(errors.imgTooLarge)
-                setShowError(true);
+                appCtx.raiseError(errors.imgTooLarge)
             };
         } else{
-            func(null);
+            imageHandler(null);
             setDisplayedImage(upload);
         }
-    };
-
-    function closeErrorModal(){
-        setError(null);
-        setShowError(false);
     };
 
     return <div className={classes.container}>
@@ -45,9 +38,8 @@ function ImageUpload(props) {
         </div>
         <Form.Label>{props.message}</Form.Label>
         <Form.Control type='file' accept='image/png' size='sm' 
-            onChange={(e) => submitHandler(e, props.func)}>
+            onChange={(e) => submitHandler(e, props.imageHandler)}>
         </Form.Control>
-        <ErrorModal showModal={showError} showHandler={closeErrorModal} error={error}/>
     </div>;
 };
 

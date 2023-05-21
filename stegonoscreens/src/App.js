@@ -7,9 +7,9 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import FAQPage from './pages/FAQPage';
 import NotFoundPage from './pages/NotFoundPage';
-import ErrorModal from './components/ErrorModal';
-import LoadingModal from './components/LoadingModal';
-import ResultModal from './components/ResultModal';
+import ErrorModal from './components/modals/ErrorModal';
+import LoadingModal from './components/modals/LoadingModal';
+import ResultModal from './components/modals/ResultModal';
 
 import AppContext from './store/app-context';
 import * as api from './apis/appApi.js';
@@ -21,20 +21,19 @@ function App() {
   const [ready, setReady] = useState(false);
 
   useEffect(()=> {
-    appCtx.setShowLoading(true);
-    appCtx.setLoadingText(strings.loadingModal.loadingApp[appCtx.language]);
-    api.getToken(setToken, raiseError);
+    appCtx.popLoading(strings.loadingModal.loadingApp[appCtx.language]);
+    api.getToken(handleToken, handleError);
   }, [])
 
-  function setToken(token) {
+  function handleToken(token) {
     appCtx.setToken(token);
     setReady(true);
-    appCtx.setShowLoading(false);
+    appCtx.popLoading('');
   };
 
-  function raiseError(e) {
+  function handleError(e) {
+    appCtx.popLoading('');
     appCtx.raiseError(errors['serverDown']);
-    appCtx.setShowError(true);
   };
 
   if(ready){

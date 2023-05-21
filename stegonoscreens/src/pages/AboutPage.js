@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import classes from './AboutPage.module.css';
+import classes from './style/AboutPage.module.css';
 
 import AppContext from '../store/app-context';
 

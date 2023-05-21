@@ -1,4 +1,4 @@
-import classes from './Layout.module.css';
+import classes from './style/Layout.module.css';
 
 import Navigation from './Navigation';
 

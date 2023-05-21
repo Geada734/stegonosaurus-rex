@@ -6,13 +6,12 @@ const AppContext = createContext({
     error: null,
     raiseError: (error) => {},
     showError: false,
-    setShowError: (flag) => {},
     loadingText: '',
-    setLoadingText: (text) => {},
+    popLoading: (text) => {},
     showLoading: false,
-    setShowLoading: (flag) => {},
     result: '',
-    showResult: (flag) => {},
+    popResult: (result) => {},
+    showResult: false,
     token: '',
     setToken: (token) => token 
 });
@@ -33,26 +32,20 @@ export function AppContextProvider(props){
 
     function raiseErrorHandler(err) {
         setRaisedError(err);
+        if(err) setShowedError(true);
+        else setShowedError(false);
     };
 
-    function showErrorHandler(flag) {
-        setShowedError(flag);
-    };
-
-    function setLoadingTextHandler(text) {
+    function popLoadingHandler(text) {
         setLoadingText(text);
+        if(text && text.trim() !== '') setShowLoading(true);
+        else setShowLoading(false);
     };
 
-    function setShowLoadingHandler(flag) {
-        setShowLoading(flag);
-    };
-
-    function setResultHandler(result) {
-        setResult(result);
-    };
-
-    function setShowResultHandler(flag) {
-        setShowResult(flag);
+    function popResultHandler(result) {
+        setResult(result)
+        if(result && result.trim() !== '') setShowResult(true);
+        else setShowResult(false);
     };
     
     function setTokenHandler(token) {
@@ -65,15 +58,12 @@ export function AppContextProvider(props){
         error: raisedError,
         raiseError: raiseErrorHandler,
         showError: showedError,
-        setShowError: showErrorHandler,
         loadingText: loadingText,
-        setLoadingText: setLoadingTextHandler,
+        popLoading: popLoadingHandler,
         showLoading: showLoading,
-        setShowLoading: setShowLoadingHandler,
         result: result,
-        setResult: setResultHandler,
+        popResult: popResultHandler,
         showResult: showResult,
-        setShowResult: setShowResultHandler,
         token: token,
         setToken: setTokenHandler
 

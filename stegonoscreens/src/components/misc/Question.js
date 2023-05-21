@@ -1,6 +1,5 @@
 import { useState, useContext } from 'react';
 
-import axios from 'axios';
 import parse from 'html-react-parser';
 
 import Button from 'react-bootstrap/esm/Button';
@@ -9,14 +8,14 @@ import Spinner from 'react-bootstrap/Spinner';
 import { HandThumbsUp } from 'react-bootstrap-icons';
 import { HandThumbsDown } from 'react-bootstrap-icons';
 
-import classes from './Question.module.css';
+import classes from './style/Question.module.css';
 
-import config from '../configs/config.json';
+import * as errorHandlers from '../../utils/errorHandlers';
+import * as api from '../../apis/faqsApi';
 
-import AppContext from '../store/app-context';
+import AppContext from '../../store/app-context';
 
-import strings from '../static/strings.js';
-import errors from '../static/errors.js';
+import strings from '../../static/strings.js';
 
 function Question(props){
     const appCtx = useContext(AppContext);
@@ -26,11 +25,28 @@ function Question(props){
 
     function rate(e, id, value){
         e.preventDefault();
+        setLoading(true);
 
+        let formData = createVoteForm(id, value, userRating);
+
+        api.rateQuestion(handleResponse, handleError, appCtx.token, formData);
+    };
+
+    function handleResponse() {
+        setLoading(false);
+    };
+
+    function handleError(e) {
+        errorHandlers.handleRestError(e, appCtx.raiseError);
+        setLoading(false);
+        setUserRating(0);
+    };
+
+    function createVoteForm(id, value, rating) {
         let vote = 0;
 
-        if(value!==userRating) {
-            if(userRating===0) {
+        if(value !== rating) {
+            if(rating === 0) {
                 vote = value;
             }
             else {
@@ -48,30 +64,8 @@ function Question(props){
         formData.append("id", id);
         formData.append("vote", vote);
 
-        setLoading(true);
+        return formData;
 
-        axios.put(config.flaskServer + '/faqs', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'Authorization': 'Bearer ' + appCtx.token
-            }
-        })
-        .then( () => setLoading(false))
-        .catch(e => {
-            let errorKey;
-
-            if(e.response.status === 500 || e.response.status === 401) { 
-                errorKey = e.response.data.error_codename;
-            }
-            else{
-                errorKey = "unknown";
-            };
-
-            appCtx.raiseError(errors[errorKey]);
-            setLoading(false);
-            setUserRating(0);
-            appCtx.setShowError(true)
-        });
     };
 
     function renderButtonGroup() {
