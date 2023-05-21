@@ -14,20 +14,20 @@ function ImageUpload(props) {
     const appCtx = useContext(AppContext);
     const [displayedImage, setDisplayedImage] = useState(upload);
 
-    function submitHandler(event, func){
+    function submitHandler(event, imageHandler){
         const file = event.target.files[0]
         if(file) {
             if(file.size <= sizeLimit){
                 const fileForDisplay = URL.createObjectURL(file);
 
-                func(file);
+                imageHandler(file);
                 setDisplayedImage(fileForDisplay);
             }
             else{
                 appCtx.raiseError(errors.imgTooLarge)
             };
         } else{
-            func(null);
+            imageHandler(null);
             setDisplayedImage(upload);
         }
     };
@@ -38,7 +38,7 @@ function ImageUpload(props) {
         </div>
         <Form.Label>{props.message}</Form.Label>
         <Form.Control type='file' accept='image/png' size='sm' 
-            onChange={(e) => submitHandler(e, props.func)}>
+            onChange={(e) => submitHandler(e, props.imageHandler)}>
         </Form.Control>
     </div>;
 };

@@ -21,7 +21,7 @@ function FAQPage(){
     }, []);
 
     function handleFaqs(response) {
-        setFaqs(response.data.faqs)
+        setFaqs(response.data.faqs);
         appCtx.popLoading('');
     };
 

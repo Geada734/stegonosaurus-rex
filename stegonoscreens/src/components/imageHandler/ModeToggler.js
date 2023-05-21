@@ -49,29 +49,41 @@ function ModeToggler(){
         if(captchaValue){
             captchaRef.current.reset();
             appCtx.popLoading(strings.loadingModal.processingImages[appCtx.language]);
-            
-            const formData = new FormData();
-            formData.append('captchaValue', captchaValue);
 
             if(endpoint==='encode') {
-                formData.append('coded', codedMessageImage);
-                formData.append('img', messageImage);
-                formData.append('filename', messageImage.name);
-                
-                api.encode(handleResponse, handleResults, handleError, appCtx.token, formData);
-
+                const encodeForm = createEncodingForm(captchaValue, codedMessageImage, messageImage, messageImage.name);
+                api.encode(handleResponse, handleResults, handleError, appCtx.token, encodeForm);
             } else if(endpoint==='decode') {
-                formData.append('img', imageToDecode);
-                formData.append('filename', imageToDecode.name)
-                formData.append('mode', decodeMode)
-
-                api.decode(handleResponse, handleResults, handleError, appCtx.token, formData);
+                const decodeForm = createDecodingForm(captchaValue, imageToDecode, imageToDecode.name, decodeMode);
+                api.decode(handleResponse, handleResults, handleError, appCtx.token, decodeForm);
             };
             
         }
         else{
             setInvalidCaptcha(true);
         };
+    };
+
+    function createEncodingForm(captcha, coded, message, filename){
+        const formData = new FormData();
+
+        formData.append('captchaValue', captcha);
+        formData.append('coded', coded);
+        formData.append('img', message);
+        formData.append('filename', filename);
+
+        return formData;
+    };
+
+    function createDecodingForm(captcha, image, filename, mode) {
+        const formData = new FormData();
+
+        formData.append('captchaValue', captcha);
+        formData.append('img', image);
+        formData.append('filename', filename);
+        formData.append('mode', mode);
+
+        return formData;
     };
 
     function handleResponse(response) {
@@ -132,11 +144,11 @@ function ModeToggler(){
             return <Container>
                 <Row>
                     <Col>
-                        <ImageUpload func={codedMessageImageHandler}
+                        <ImageUpload imageHandler={codedMessageImageHandler}
                             message={strings.modeToggler.messageImageMessage[appCtx.language]}/>
                     </Col>
                     <Col>
-                        <ImageUpload func={messageImageHandler}
+                        <ImageUpload imageHandler={messageImageHandler}
                             message={strings.modeToggler.toCodeImageMessage[appCtx.language]}/>
                     </Col>
                 </Row>
@@ -168,7 +180,7 @@ function ModeToggler(){
                                     {strings.modeToggler.decodingModes.b[appCtx.language]}
                                 </Button>
                             </ButtonGroup>
-                            <ImageUpload func={imageToDecodeHandler} 
+                            <ImageUpload imageHandler={imageToDecodeHandler} 
                                 message={strings.modeToggler.toDecodeImageMessage[appCtx.language]}/>
                         </Col>
                     </Row>

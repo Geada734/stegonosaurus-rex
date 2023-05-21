@@ -22,16 +22,16 @@ function App() {
 
   useEffect(()=> {
     appCtx.popLoading(strings.loadingModal.loadingApp[appCtx.language]);
-    api.getToken(setToken, raiseError);
+    api.getToken(handleToken, handleError);
   }, [])
 
-  function setToken(token) {
+  function handleToken(token) {
     appCtx.setToken(token);
     setReady(true);
     appCtx.popLoading('');
   };
 
-  function raiseError(e) {
+  function handleError(e) {
     appCtx.popLoading('');
     appCtx.raiseError(errors['serverDown']);
   };
