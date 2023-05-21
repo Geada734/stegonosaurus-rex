@@ -12,8 +12,7 @@ function ResultModal() {
     const appCtx = useContext(AppContext);
 
     function handleClose(){
-        appCtx.setShowResult(false);
-        appCtx.setResult('');
+        appCtx.popResult('');
     };
 
     return <Modal size='md' show={appCtx.showResult} onHide={handleClose} 

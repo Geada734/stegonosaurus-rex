@@ -10,7 +10,8 @@ const AppContext = createContext({
     popLoading: (text) => {},
     showLoading: false,
     result: '',
-    showResult: (flag) => {},
+    popResult: (result) => {},
+    showResult: false,
     token: '',
     setToken: (token) => token 
 });
@@ -41,12 +42,10 @@ export function AppContextProvider(props){
         else setShowLoading(false);
     };
 
-    function setResultHandler(result) {
-        setResult(result);
-    };
-
-    function setShowResultHandler(flag) {
-        setShowResult(flag);
+    function popResultHandler(result) {
+        setResult(result)
+        if(result && result.trim() !== '') setShowResult(true);
+        else setShowResult(false);
     };
     
     function setTokenHandler(token) {
@@ -63,9 +62,8 @@ export function AppContextProvider(props){
         popLoading: popLoadingHandler,
         showLoading: showLoading,
         result: result,
-        setResult: setResultHandler,
+        popResult: popResultHandler,
         showResult: showResult,
-        setShowResult: setShowResultHandler,
         token: token,
         setToken: setTokenHandler
 

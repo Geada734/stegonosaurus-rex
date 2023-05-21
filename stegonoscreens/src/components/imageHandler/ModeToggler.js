@@ -74,10 +74,9 @@ function ModeToggler(){
             .then(response => { 
                 const res = 'data:image/png;base64, ' + response.data.result;
                 const resName = response.data.filename;
-
-                appCtx.setResult(res);
+                
                 appCtx.popLoading('');
-                appCtx.setShowResult(true);
+                appCtx.popResult(res);
 
                 return {
                         fileData: res,
