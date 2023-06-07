@@ -17,6 +17,7 @@ function Navigation(){
 
     function languageHandler(lang) {
         appCtx.changeLanguage(lang);
+        localStorage.setItem("stegoLang", lang);
     };
 
     return (

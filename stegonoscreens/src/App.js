@@ -23,6 +23,8 @@ function App() {
   useEffect(()=> {
     appCtx.popLoading(strings.loadingModal.loadingApp[appCtx.language]);
     api.getToken(handleToken, handleError);
+    const lang = localStorage.getItem("stegoLang");
+    if(lang) appCtx.changeLanguage(lang);
   }, [])
 
   function handleToken(token) {
