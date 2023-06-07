@@ -5,12 +5,12 @@ import config from '../configs/config.json';
 const strings = {
     "pageTitles": {
         "home": {
-            "en": "Welcome to Stegonosaurus!",
-            "es": "¡Bienvenido a Stegonosaurus!"
+            "en": "Welcome to Stegonosaurus-Rex!",
+            "es": "¡Bienvenido a Stegonosaurus-Rex!"
         },
         "about": {
-            "en": "About Stegonosaurus",
-            "es": "Acerca De Stegonosaurus"
+            "en": "About Stegonosaurus-Rex",
+            "es": "Acerca De Stegonosaurus-Rex"
         },
         "faqs": {
             "en": "Frequently Asked Questions",
@@ -148,7 +148,7 @@ const strings = {
                     </p>
                 </section>,
             "es": <section>
-                <h2>1.- Sube la imagen que trae el mensaje oculto:</h2>
+                <h2>1.- Sube la imagen que contiene el mensaje oculto:</h2>
                 <p>
                     Escoge la imagen en negro con el mensaje escrito en letras rojas,
                     esta imagen no debe de ser más alta o ancha que la imagen en la que
@@ -168,7 +168,7 @@ const strings = {
             },
             "warningText": {
                 "en": "All uploaded images must be multi-band .png file, and smaller than " + config.imageSizeDisplay + ".",
-                "es": "Todas las imágenes deben de ser .png multibanda, y más pequeñas de " + config.imageSizeDisplay + "."
+                "es": "Todas las imágenes deben de ser .png multibanda, y menores en tamaño a " + config.imageSizeDisplay + "."
             }
         }
     },
