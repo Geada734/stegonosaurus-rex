@@ -69,7 +69,7 @@ const strings = {
                     <p>
                         The user can encode a secret message into any .png multi-band image, by providing both,
                         the message where the image is going to be hidden in, and another .png multi-band image
-                        with the message in bright letters on a black background.
+                        with the message in bright letters or lines on a black background.
                     </p>
                     <div style={{fontStyle: "italic", color: "#777"}}>Example of images.</div>
                     <p>
@@ -78,7 +78,7 @@ const strings = {
                     </p>
                     <div style={{fontStyle: "italic", color: "#777"}}>"Encoding process" image</div>
                     <p>
-                        After both images have been uploaded to the Flask server, the image with the message in bright letters
+                        After both images have been uploaded to the Flask server, the image with the message in bright letters or lines
                         is going to be searched for the secret message, which will be imprinted into the template image. Once the
                         resulting image is saved it is very important <span style={{fontWeight: "bold"}}>not to make any changes to it
                         or the message might be lost</span>.
@@ -119,10 +119,10 @@ const strings = {
                     <ul>
                         <li>
                             <span style={{fontWeight: "bold"}}>Transparent </span> mode will show the message on top of the original image in bright
-                            red letters.
+                            red.
                         </li>
                         <li>
-                            <span style={{fontWeight: "bold"}}>Black </span> mode will show the message on top of a black background in bright red letters.
+                            <span style={{fontWeight: "bold"}}>Black </span> mode will show the message on top of a black background in bright red.
                         </li>
                     </ul>
                     <div style={{fontStyle: "italic", color: "#777"}}>Examples of both results.</div>
@@ -150,6 +150,11 @@ const strings = {
                         The resulting image will be encoded to base64 and retrievable via the 
                         <span style={{fontStyle: "italic"}}> result </span>attribute.
                     </p>
+                    <div style={{textAlign: "center"}}>
+                        <h3 style={{fontWeight: "bold"}}>
+                            That's it! Have fun!
+                        </h3>
+                    </div>
                 </section>,
             "es": <div>
                 <p>
