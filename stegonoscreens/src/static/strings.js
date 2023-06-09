@@ -55,6 +55,27 @@ const strings = {
                         steganography library's functionalities, running on a headless Flask server (where the magic happens), 
                         a Mongo NoSQL database, and a React.JS UI.
                     </p>
+                    <h3>Usage</h3>
+                    <p>Stegonosaurus-Rex currently provides two usage modes:</p>
+                    <h6>Encoding</h6>
+                    <p>
+                        The user can encode a secret message into any .png multi-band image, by providing both,
+                        the message where the image is going to be hidden in, and another .png multi-band image
+                        with the message in bright letters on a black background.
+                    </p>
+                    <div style={{fontStyle: "italic", color: "#777"}}>Example of images.</div>
+                    <p>
+                        The image containing the message to be encoded <span style={{fontWeight: "bold"}}>cannot be
+                        larger on either axis</span> than the image where the message is going to be hidden in.
+                    </p>
+                    <div style={{fontStyle: "italic", color: "#777"}}>"Encoding process" image</div>
+                    <p>
+                        After both images have been uploaded to the Flask server, the image with the message in bright letters
+                        is going to be searched for the secret message, which will be imprinted into the template image. Once the
+                        resulting image is saved it is very important <span style={{fontWeight: "bold"}}>not to make any changes to it
+                        or the message might be lost</span>.
+                    </p>
+                    <div style={{fontStyle: "italic", color: "#777"}}>Resulting image</div>
                 </section>,
             "es": <div>
                 <p>
@@ -122,8 +143,8 @@ const strings = {
             "en": <section>
                     <h2>1.- Upload the image with the coded message:</h2>
                     <p>
-                        Choose the all-black image with the coded message in red letters. 
-                        This image must not be taller, or wider (or both) than the image you want to hide your 
+                        Choose the all-black image with the coded message in bright letters. 
+                        This image must not be taller, or wider than the image you want to hide your 
                         message.
                     </p>
                     <h2>2.- Upload the image you want to hide your message in:</h2>
@@ -133,9 +154,9 @@ const strings = {
                     </p>
                 </section>,
             "es": <section>
-                <h2>1.- Sube la imagen que contiene el mensaje oculto:</h2>
+                <h2>1.- Sube la imagen con tu mensaje oculto:</h2>
                 <p>
-                    Escoge la imagen en negro con el mensaje escrito en letras rojas,
+                    Escoge la imagen en negro con el mensaje escrito en letras claras,
                     esta imagen no debe de ser más alta o ancha que la imagen en la que
                     quieres esconder el mensaje.
                 </p>
@@ -195,7 +216,7 @@ const strings = {
         },
         "messageImageMessage": {
             "en": "Upload the image that has your coded message:",
-            "es": "Sube la imagen que trae tu mensaje codificado:"
+            "es": "Sube la imagen con tu mensaje codificado:"
         },
         "toCodeImageMessage": {
             "en": "Upload image to be encoded:",
