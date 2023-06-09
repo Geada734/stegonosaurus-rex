@@ -47,30 +47,15 @@ const strings = {
 
     "about": {
         "text":{
-            "en": <div>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipiscing 
-                    elit mi mus, torquent sagittis condimentum in sociosqu 
-                    id luctus. Nam pellentesque mi vehicula id magna vulputate nisl 
-                    tempus ad, dui nisi molestie parturient tortor turpis vel blandit, 
-                    inceptos natoque interdum at congue nibh rhoncus litora. 
-                    Elementum maecenas rhoncus id nunc curae molestie gravida, 
-                    sagittis eu ridiculus congue dis hac, posuere aliquet leo nisl 
-                    himenaeos dui.
-                </p> 
-                <p>
-                    Convallis condimentum eu tincidunt 
-                    penatibus mollis, litora est pellentesque scelerisque, 
-                    vestibulum ridiculus lectus non. Erat aenean ornare eu accumsan 
-                    montes ridiculus dapibus sapien euismod, vitae laoreet litora netus 
-                    torquent parturient magnis. Cubilia eleifend nunc sagittis 
-                    dapibus ullamcorper ultrices quis, augue aptent torquent lacinia 
-                    commodo sed sollicitudin hendrerit, et nostra sodales condimentum 
-                    curabitur dictum. Bibendum mi sagittis accumsan himenaeos quisque 
-                    curabitur, nec in porttitor ligula nostra dapibus, maecenas quis 
-                    at tempor congue.
-                </p>
-            </div>,
+            "en":
+                <section>
+                    <p>
+                        Stegonosaurus-Rex is a fullstack web application that showcases the 
+                        main <a href="https://pypi.org/project/stegonosaurus/">stegonosaurus</a> Python 
+                        steganography library's functionalities, running on a headless Flask server (where the magic happens), 
+                        a Mongo NoSQL database, and a React.JS UI.
+                    </p>
+                </section>,
             "es": <div>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipiscing 

@@ -10,12 +10,8 @@ function AboutPage(){
     const appCtx = useContext(AppContext);
 
     return <section>
-        <div>
-            <h1>{strings.pageTitles.about[appCtx.language]}</h1>
-                <section className={classes.aboutText}>
-                    {strings.about.text[appCtx.language]}
-                </section>
-        </div>
+        <h1>{strings.pageTitles.about[appCtx.language]}</h1>
+        {strings.about.text[appCtx.language]}
     </section>;
 };
 
