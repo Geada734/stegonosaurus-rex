@@ -38,7 +38,7 @@ const strings = {
             "path": "/about",
             "key": "about" 
         },
-        
+
         {
             "name": {
                 "en": "FAQs",
@@ -105,8 +105,27 @@ const strings = {
                     </ul>
                     <p>
                         The resulting image will be encoded to base64 and retrievable via the 
-                        <span style={{"font-style": "italic"}}> result </span>attribute.
+                        <span style={{fontStyle: "italic"}}> result </span>attribute.
                     </p>
+                    <h6>Decoding</h6>
+                    <p>
+                        The user can also decode a message contained within a multi-band .png image.
+                    </p>
+                    <div style={{fontStyle: "italic", color: "#777"}}>Image to decode</div>
+                    <p>
+                        Once the image has been uploaded to the Flask server, it is going to be scanned
+                        to find odd blue values in each pixel. There are two decoding modes:
+                    </p>
+                    <ul>
+                        <li>
+                            <span style={{fontWeight: "bold"}}>Transparent </span> mode will show the message on top of the original image in bright
+                            red letters.
+                        </li>
+                        <li>
+                            <span style={{fontWeight: "bold"}}>Black </span> mode will show the message on top of a black background in bright red letters.
+                        </li>
+                    </ul>
+                    <div style={{fontStyle: "italic", color: "#777"}}>Examples of both results.</div>
                 </section>,
             "es": <div>
                 <p>
