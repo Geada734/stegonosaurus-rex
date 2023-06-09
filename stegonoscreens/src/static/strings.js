@@ -99,7 +99,7 @@ const strings = {
                             The image where the message is going to be hidden.
                         </li>
                         <li>
-                            <span style={{fontStyle: "italic"}}>img_filename: </span> 
+                            <span style={{fontStyle: "italic"}}>filename: </span> 
                             Name of the file where the message is going to be hidden.
                         </li>
                     </ul>
@@ -126,6 +126,30 @@ const strings = {
                         </li>
                     </ul>
                     <div style={{fontStyle: "italic", color: "#777"}}>Examples of both results.</div>
+                    <span style={{fontStyle: "italic"}}>Headless Server Usage</span>
+                    <p>
+                        The <span style={{fontStyle: "italic"}}>/decode </span> 
+                        API can be called directly with the following form body:
+                    </p>
+                    <ul>
+                        <li>
+                            <span style={{fontStyle: "italic"}}>img: </span> 
+                            The image that contains the hidden message.
+                        </li>
+                        <li>
+                            <span style={{fontStyle: "italic"}}>img_filename: </span> 
+                            Filename.
+                        </li>
+                        <li>
+                            <span style={{fontStyle: "italic"}}>mode: </span> 
+                            Decode mode, the only acceptable values for this parameter are "t", or "T"
+                            for transparent mode, and "b" or "B" for black mode.
+                        </li>
+                    </ul>
+                    <p>
+                        The resulting image will be encoded to base64 and retrievable via the 
+                        <span style={{fontStyle: "italic"}}> result </span>attribute.
+                    </p>
                 </section>,
             "es": <div>
                 <p>
