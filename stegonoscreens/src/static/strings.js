@@ -8,10 +8,12 @@ const strings = {
             "en": "Welcome to Stegonosaurus-Rex!",
             "es": "¡Bienvenido a Stegonosaurus-Rex!"
         },
+
         "about": {
             "en": "About Stegonosaurus-Rex",
             "es": "Acerca De Stegonosaurus-Rex"
         },
+
         "faqs": {
             "en": "Frequently Asked Questions",
             "es": "Preguntas Frecuentes"
@@ -27,6 +29,7 @@ const strings = {
             "path": "/",
             "key": "home" 
         },
+
         {
             "name": {
                 "en": "About",
@@ -35,6 +38,7 @@ const strings = {
             "path": "/about",
             "key": "about" 
         },
+        
         {
             "name": {
                 "en": "FAQs",
@@ -54,6 +58,10 @@ const strings = {
                         main <a href="https://pypi.org/project/stegonosaurus/">stegonosaurus</a> Python 
                         steganography library's functionalities, running on a headless Flask server (where the magic happens), 
                         a Mongo NoSQL database, and a React.JS UI.
+                    </p>
+                    <p>
+                        <span style={{fontStyle: "italic"}}>Note: </span> API calls are secured with JWT validation. If you plan to
+                        call the API directly, please contact the server admin to receive a valid usable token.
                     </p>
                     <h3>Usage</h3>
                     <p>Stegonosaurus-Rex currently provides two usage modes:</p>
@@ -190,6 +198,7 @@ const strings = {
                 </p>
             </section>
         },
+
         "warning": {
             "important": {
                 "en": "IMPORTANT",
@@ -212,6 +221,7 @@ const strings = {
             "es": "La página que buscas no existe en la aplicación."
         }
     },
+
     "modeToggler": {
         "modes": {
             "encode": {
@@ -223,10 +233,12 @@ const strings = {
                 "es": "Decodificar"
             }
         },
+
         "decodingModeLabel": {
             "en": "Decoding Mode",
             "es": "Modo de Decodificación"
         },
+
         "decodingModes": {
             "t": {
                 "en": "Transparent",
@@ -237,18 +249,22 @@ const strings = {
                 "es": "En Negro"
             }
         },
+
         "messageImageMessage": {
             "en": "Upload the image that has your coded message:",
             "es": "Sube la imagen con tu mensaje codificado:"
         },
+
         "toCodeImageMessage": {
             "en": "Upload image to be encoded:",
             "es": "Sube la imagen a codificar:" 
         },
+
         "toDecodeImageMessage": {
             "en": "Upload the image you wish to decode:",
             "es": "Sube la imagen a decodificar:"
         },
+
         "buttonMessage": {
             "encode": {
                 "en": "Encode",
@@ -259,10 +275,12 @@ const strings = {
                 "es": "Decodificar"
             }
         },
+
         "componentLoadingError": {
             "en": "Error loading component",
             "es": "Error cargando componente"
         },
+
         "invalidCaptchaMessage": {
             "en": "Invalid Captcha",
             "es": "Captcha Inválido"
@@ -274,10 +292,12 @@ const strings = {
             "en": "Loading...",
             "es": "Cargando..."
         },
+
         "processingImages": {
             "en": "Processing images...",
             "es": "Procesando imágenes..."
         },
+
         "loadingFAQs": {
             "en": "Loading FAQs...",
             "es": "Cargando preguntas frecuentes..."
@@ -289,6 +309,7 @@ const strings = {
             "en": "Results",
             "es": "Resultados"
         },
+
         "download": {
             "en": "Your download will start automatically, otherwise, feel free to " +
                 "download the displayed image.",
