@@ -78,9 +78,9 @@ const strings = {
                     </p>
                     <div style={{fontStyle: "italic", color: "#777"}}>"Encoding process" image</div>
                     <p>
-                        After both images have been uploaded to the Flask server, the image with the message in bright letters or lines
-                        is going to be searched for the secret message, which will be imprinted into the template image. Once the
-                        resulting image is saved it is very important <span style={{fontWeight: "bold"}}>not to make any changes to it
+                        After both images have been uploaded to the Flask server, the black image is going to be searched for 
+                        the secret message, which will be imprinted into the template image. Once the resulting image is saved 
+                        it is very important <span style={{fontWeight: "bold"}}>not to make any changes to it
                         or the message might be lost</span>.
                     </p>
                     <div style={{fontStyle: "italic", color: "#777"}}>Resulting image</div>
@@ -156,30 +156,112 @@ const strings = {
                         </h3>
                     </div>
                 </section>,
-            "es": <div>
+            "es": 
+            <section>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipiscing 
-                    elit mi mus, torquent sagittis condimentum in sociosqu 
-                    id luctus. Nam pellentesque mi vehicula id magna vulputate nisl 
-                    tempus ad, dui nisi molestie parturient tortor turpis vel blandit, 
-                    inceptos natoque interdum at congue nibh rhoncus litora. 
-                    Elementum maecenas rhoncus id nunc curae molestie gravida, 
-                    sagittis eu ridiculus congue dis hac, posuere aliquet leo nisl 
-                    himenaeos dui.
-                </p> 
-                <p>
-                    Convallis condimentum eu tincidunt 
-                    penatibus mollis, litora est pellentesque scelerisque, 
-                    vestibulum ridiculus lectus non. Erat aenean ornare eu accumsan 
-                    montes ridiculus dapibus sapien euismod, vitae laoreet litora netus 
-                    torquent parturient magnis. Cubilia eleifend nunc sagittis 
-                    dapibus ullamcorper ultrices quis, augue aptent torquent lacinia 
-                    commodo sed sollicitudin hendrerit, et nostra sodales condimentum 
-                    curabitur dictum. Bibendum mi sagittis accumsan himenaeos quisque 
-                    curabitur, nec in porttitor ligula nostra dapibus, maecenas quis 
-                    at tempor congue.
+                    Stegonosaurus-Rex es una aplicación web fullstack que muestra las funcionalidades principales
+                    de <a href="https://pypi.org/project/stegonosaurus/">stegonosaurus</a>, la librería de esteganografía
+                    de Python, corriendo sobre un servidor headless de Flask (donde ocurre la magia), una base de datos
+                    NoSQL de Mongo, y una interfaz gráfica creada en React.JS.
                 </p>
-            </div>
+                <p>
+                    <span style={{fontStyle: "italic"}}>Nota: </span> Las llamadas al API del servidor de Flask están aseguradas
+                    con la validación de JWT. Si planeas llamar directamente el API, contacta al administrador del servidor para
+                    recibir una token válida.
+                </p>
+                <h3>Modos de Uso</h3>
+                <p>Stegonosaurus-Rex actualmente cuenta con dos modos de uso:</p>
+                <h6>Codificar</h6>
+                <p>
+                    El usuario puede codificar un mensaje secreto en cualquier imagen .png multibanda al
+                    proveer la imagen en la cual se ocultará el mensaje, y otra imagen .png multibanda con el mensaje
+                    en líneas o letras claras sobre un fondo negro.
+                </p>
+                <div style={{fontStyle: "italic", color: "#777"}}>Example of images.</div>
+                <p>
+                    La imagen que contiene el mensaje secreto <span style={{fontWeight: "bold"}}>no debe ser más alta
+                    o ancha </span> que la imagen en la que se ocultará el mismo.
+                </p>
+                <div style={{fontStyle: "italic", color: "#777"}}>"Encoding process" image</div>
+                <p>
+                    Después de que ambas imágenes sean subidas al servidor, la imagen negra será escaneada en busca
+                    del mensaje oculto, mismo que será impreso en la imagen que se usará de templeta. Una vez que la imagen haya 
+                    sido descargada y guardada es importante <span style={{fontWeight: "bold"}}>no hacer ningún cambio
+                    o el mensaje podría perderse</span>.
+                </p>
+                <div style={{fontStyle: "italic", color: "#777"}}>Resulting image</div>
+                <span style={{fontStyle: "italic"}}>Uso del Servidor Headless</span>
+                <p>
+                    El API <span style={{fontStyle: "italic"}}>/encode </span> puede ser llamado directamente usando
+                    el siguiente cuerpo (form):
+                </p>
+                <ul>
+                    <li>
+                        <span style={{fontStyle: "italic"}}>coded: </span> 
+                        La imagen que contiene el mensaje.
+                    </li>
+                    <li>
+                        <span style={{fontStyle: "italic"}}>img: </span> 
+                        La imagen en la cuál será codificado el mensaje.
+                    </li>
+                    <li>
+                        <span style={{fontStyle: "italic"}}>filename: </span> 
+                        El nombre de la imagen en la cuál se codificará el mensaje.
+                    </li>
+                </ul>
+                <p>
+                    La imagen resultante estará codificada en base 64 en el atributo 
+                    <span style={{fontStyle: "italic"}}> result </span>.
+                </p>
+                <h6>Decoding</h6>
+                <p>
+                    The user can also decode a message contained within a multi-band .png image.
+                </p>
+                <div style={{fontStyle: "italic", color: "#777"}}>Image to decode</div>
+                <p>
+                    Once the image has been uploaded to the Flask server, it is going to be scanned
+                    to find odd blue values in each pixel. There are two decoding modes:
+                </p>
+                <ul>
+                    <li>
+                        <span style={{fontWeight: "bold"}}>Transparent </span> mode will show the message on top of the original image in bright
+                        red.
+                    </li>
+                    <li>
+                        <span style={{fontWeight: "bold"}}>Black </span> mode will show the message on top of a black background in bright red.
+                    </li>
+                </ul>
+                <div style={{fontStyle: "italic", color: "#777"}}>Examples of both results.</div>
+                <span style={{fontStyle: "italic"}}>Headless Server Usage</span>
+                <p>
+                    The <span style={{fontStyle: "italic"}}>/decode </span> 
+                    API can be called directly with the following form body:
+                </p>
+                <ul>
+                    <li>
+                        <span style={{fontStyle: "italic"}}>img: </span> 
+                        The image that contains the hidden message.
+                    </li>
+                    <li>
+                        <span style={{fontStyle: "italic"}}>img_filename: </span> 
+                        Filename.
+                    </li>
+                    <li>
+                        <span style={{fontStyle: "italic"}}>mode: </span> 
+                        Decode mode, the only acceptable values for this parameter are "t", or "T"
+                        for transparent mode, and "b" or "B" for black mode.
+                    </li>
+                </ul>
+                <p>
+                    The resulting image will be encoded to base64 and retrievable via the 
+                    <span style={{fontStyle: "italic"}}> result </span>attribute.
+                </p>
+                <div style={{textAlign: "center"}}>
+                    <h3 style={{fontWeight: "bold"}}>
+                        That's it! Have fun!
+                    </h3>
+                </div>
+            </section>
         }
     },
 
