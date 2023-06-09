@@ -76,6 +76,29 @@ const strings = {
                         or the message might be lost</span>.
                     </p>
                     <div style={{fontStyle: "italic", color: "#777"}}>Resulting image</div>
+                    <span style={{fontStyle: "italic"}}>Headless Server Usage</span>
+                    <p>
+                        The <span style={{fontStyle: "italic"}}>/encode </span> 
+                        API can be called directly with the following form body:
+                    </p>
+                    <ul>
+                        <li>
+                            <span style={{fontStyle: "italic"}}>coded: </span> 
+                            The image containing the message.
+                        </li>
+                        <li>
+                            <span style={{fontStyle: "italic"}}>img: </span> 
+                            The image where the message is going to be hidden.
+                        </li>
+                        <li>
+                            <span style={{fontStyle: "italic"}}>img_filename: </span> 
+                            Name of the file where the message is going to be hidden.
+                        </li>
+                    </ul>
+                    <p>
+                        The resulting image will be encoded to base64 and retrievable via the 
+                        <span style={{"font-style": "italic"}}> result </span>attribute.
+                    </p>
                 </section>,
             "es": <div>
                 <p>
