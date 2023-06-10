@@ -54,9 +54,8 @@ const strings = {
             "en":
                 <section>
                     <p>
-                        Stegonosaurus-Rex is a fullstack web application that showcases the 
-                        main <a href="https://pypi.org/project/stegonosaurus/">stegonosaurus</a> Python 
-                        steganography library's functionalities, running on a headless Flask server (where the magic happens), 
+                        Stegonosaurus-Rex is a fullstack web application that showcases <a href="https://pypi.org/project/stegonosaurus/">stegonosaurus'</a> 
+                        (Python steganography library) main functionalities, running on a headless Flask server (where the magic happens), 
                         a Mongo NoSQL database, and a React.JS UI.
                     </p>
                     <p>
@@ -67,8 +66,8 @@ const strings = {
                     <p>Stegonosaurus-Rex currently provides two usage modes:</p>
                     <h6>Encoding</h6>
                     <p>
-                        The user can encode a secret message into any .png multi-band image, by providing both,
-                        the message where the image is going to be hidden in, and another .png multi-band image
+                        The user can encode a secret message into any .png multi-band image by providing both:
+                        the image where the message is going to be hidden in, and another .png multi-band image
                         with the message in bright letters or lines on a black background.
                     </p>
                     <div style={{fontStyle: "italic", color: "#777"}}>Example of images.</div>
@@ -211,54 +210,54 @@ const strings = {
                 </ul>
                 <p>
                     La imagen resultante estará codificada en base 64 en el atributo 
-                    <span style={{fontStyle: "italic"}}> result </span>.
+                    <span style={{fontStyle: "italic"}}> result</span>.
                 </p>
-                <h6>Decoding</h6>
+                <h6>Decodificar</h6>
                 <p>
-                    The user can also decode a message contained within a multi-band .png image.
+                    El usuario también puede decodificar mensajes ocultos en una imagen .png multibanda.
                 </p>
                 <div style={{fontStyle: "italic", color: "#777"}}>Image to decode</div>
                 <p>
-                    Once the image has been uploaded to the Flask server, it is going to be scanned
-                    to find odd blue values in each pixel. There are two decoding modes:
+                    Una vez que la imagen sea subida al servidor, será escaneada para buscar números nones
+                    en el valor azúl de cada pixel. Hay dos modos de decodificación:
                 </p>
                 <ul>
                     <li>
-                        <span style={{fontWeight: "bold"}}>Transparent </span> mode will show the message on top of the original image in bright
-                        red.
+                        <span style={{fontWeight: "bold"}}>Modo Transparencia </span> mostrará el mensaje sobre la imagen original en rojo
+                        intenso.
                     </li>
                     <li>
-                        <span style={{fontWeight: "bold"}}>Black </span> mode will show the message on top of a black background in bright red.
+                        <span style={{fontWeight: "bold"}}>Modo Negro </span> mostrará el mensaje sobre un fondo negro en rojo intenso.
                     </li>
                 </ul>
                 <div style={{fontStyle: "italic", color: "#777"}}>Examples of both results.</div>
                 <span style={{fontStyle: "italic"}}>Headless Server Usage</span>
                 <p>
-                    The <span style={{fontStyle: "italic"}}>/decode </span> 
-                    API can be called directly with the following form body:
+                    El API <span style={{fontStyle: "italic"}}>/decode </span> puede ser llamado 
+                    directamente usando el siguiente cuerpo (form):
                 </p>
                 <ul>
                     <li>
                         <span style={{fontStyle: "italic"}}>img: </span> 
-                        The image that contains the hidden message.
+                        La imagen que contiene el mensaje oculto.
                     </li>
                     <li>
                         <span style={{fontStyle: "italic"}}>img_filename: </span> 
-                        Filename.
+                        Nombre de archivo.
                     </li>
                     <li>
                         <span style={{fontStyle: "italic"}}>mode: </span> 
-                        Decode mode, the only acceptable values for this parameter are "t", or "T"
-                        for transparent mode, and "b" or "B" for black mode.
+                        Modo de decodificación, los únicos parámetros aceptables son "t" o "T" para transparencia,
+                        y "b" o "B" para modo negro.
                     </li>
                 </ul>
                 <p>
-                    The resulting image will be encoded to base64 and retrievable via the 
-                    <span style={{fontStyle: "italic"}}> result </span>attribute.
+                    La imagen resultante estará codificada en base 64 en el atributo 
+                    <span style={{fontStyle: "italic"}}> result</span>.
                 </p>
                 <div style={{textAlign: "center"}}>
                     <h3 style={{fontWeight: "bold"}}>
-                        That's it! Have fun!
+                        ¡Eso es todo, diviértanse!
                     </h3>
                 </div>
             </section>
