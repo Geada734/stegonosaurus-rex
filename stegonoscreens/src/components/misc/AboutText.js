@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import AppContext from '../../store/app-context';
 import classes from './style/AboutText.module.css';
+import images from '../../static/images/aboutText/index.js';
 
 function AboutText(props) {
     const appCtx = useContext(AppContext);
@@ -24,7 +25,10 @@ function AboutText(props) {
                     the image where the message is going to be hidden in, and another .png multi-band image
                     with the message in bright letters or lines on a black background.
                 </p>
-                <div style={{fontStyle: "italic", color: "#777"}}>Example of images.</div>
+                <div className={classes.imageContainer}>
+                    <img className={classes.normalSizeImg} src={images.lenteja} alt="template image"/>
+                    <img className={classes.normalSizeImg} src={images.coded} alt="back image"/>
+                </div>
                 <p>
                     The image containing the message to be encoded <span className={classes.stress}>cannot be
                     larger on either axis</span> than the image where the message is going to be hidden in.
@@ -36,7 +40,6 @@ function AboutText(props) {
                     it is very important <span className={classes.stress}>not to make any changes to it
                     or the message might be lost</span>.
                 </p>
-                <div style={{fontStyle: "italic", color: "#777"}}>Resulting image</div>
                 <span className={classes.note}>Headless Server Usage</span>
                 <p>
                     The <span className={classes.note}>/encode </span> 
@@ -64,7 +67,6 @@ function AboutText(props) {
                 <p>
                     The user can also decode a message contained within a multi-band .png image.
                 </p>
-                <div style={{fontStyle: "italic", color: "#777"}}>Image to decode</div>
                 <p>
                     Once the image has been uploaded to the Flask server, it is going to be scanned
                     to find odd blue values in each pixel. There are two decoding modes:
@@ -78,7 +80,10 @@ function AboutText(props) {
                         <span className={classes.stress}>Black </span> mode will show the message on top of a black background in bright red.
                     </li>
                 </ul>
-                <div style={{fontStyle: "italic", color: "#777"}}>Examples of both results.</div>
+                <div className={classes.imageContainer}>
+                    <img className={classes.normalSizeImg} src={images.transparent} alt="transparent mode"/>
+                    <img className={classes.normalSizeImg} src={images.black} alt="black mode"/>
+                </div>
                 <span className={classes.note}>Headless Server Usage</span>
                 <p>
                     The <span className={classes.note}>/decode </span> 
@@ -130,7 +135,10 @@ function AboutText(props) {
                 proveer la imagen en la cual se ocultará el mensaje, y otra imagen .png multibanda con el mensaje
                 en líneas o letras claras sobre un fondo negro.
             </p>
-            <div style={{fontStyle: "italic", color: "#777"}}>Example of images.</div>
+            <div className={classes.imageContainer}>
+                <img className={classes.normalSizeImg} src={images.lenteja} alt="imagen templeta"/>
+                <img className={classes.normalSizeImg} src={images.coded} alt="imagen negra"/>
+            </div>
             <p>
                 La imagen que contiene el mensaje secreto <span style={{fontWeight: "bold"}}>no debe ser más alta
                 o ancha </span> que la imagen en la que se ocultará el mismo.
@@ -142,7 +150,6 @@ function AboutText(props) {
                 sido descargada y guardada es importante <span style={{fontWeight: "bold"}}>no hacer ningún cambio
                 o el mensaje podría perderse</span>.
             </p>
-            <div style={{fontStyle: "italic", color: "#777"}}>Resulting image</div>
             <span style={{fontStyle: "italic"}}>Uso del Servidor Headless</span>
             <p>
                 El API <span style={{fontStyle: "italic"}}>/encode </span> puede ser llamado directamente usando
@@ -170,7 +177,6 @@ function AboutText(props) {
             <p>
                 El usuario también puede decodificar mensajes ocultos en una imagen .png multibanda.
             </p>
-            <div style={{fontStyle: "italic", color: "#777"}}>Image to decode</div>
             <p>
                 Una vez que la imagen sea subida al servidor, será escaneada para buscar números nones
                 en el valor azúl de cada pixel. Hay dos modos de decodificación:
@@ -184,7 +190,10 @@ function AboutText(props) {
                     <span style={{fontWeight: "bold"}}>Modo Negro </span> mostrará el mensaje sobre un fondo negro en rojo intenso.
                 </li>
             </ul>
-            <div style={{fontStyle: "italic", color: "#777"}}>Examples of both results.</div>
+            <div className={classes.imageContainer}>
+                <img className={classes.normalSizeImg} src={images.transparent} alt="transparent mode"/>
+                <img className={classes.normalSizeImg} src={images.black} alt="black mode"/>
+            </div>
             <span style={{fontStyle: "italic"}}>Headless Server Usage</span>
             <p>
                 El API <span style={{fontStyle: "italic"}}>/decode </span> puede ser llamado 
