@@ -1,0 +1,25 @@
+.aboutText {
+    text-align: justify;
+}
+
+.note {
+    font-style: italic;
+}
+
+.stress {
+    font-weight: bold;
+}
+
+.thatsIt {
+    text-align: center;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+h6 {
+  font-style: italic;
+  font-weight: bold;
+};
