@@ -26,14 +26,16 @@ function AboutText(props) {
                     with the message in bright letters or lines on a black background.
                 </p>
                 <div className={classes.imageContainer}>
-                    <img className={classes.normalSizeImg} src={images.lenteja} alt="template image"/>
+                    <img className={classes.normalSizeImg} src={images.lenteja} alt="template"/>
                     <img className={classes.normalSizeImg} src={images.coded} alt="back image"/>
                 </div>
                 <p>
                     The image containing the message to be encoded <span className={classes.stress}>cannot be
                     larger on either axis</span> than the image where the message is going to be hidden in.
                 </p>
-                <div style={{fontStyle: "italic", color: "#777"}}>"Encoding process" image</div>
+                <div className={classes.imageContainer}>
+                    <img className={classes.largeImg} src={images.process} alt="process diagram"/>
+                </div>
                 <p>
                     After both images have been uploaded to the Flask server, the black image is going to be searched for 
                     the secret message, which will be imprinted into the template image. Once the resulting image is saved 
@@ -136,14 +138,16 @@ function AboutText(props) {
                 en líneas o letras claras sobre un fondo negro.
             </p>
             <div className={classes.imageContainer}>
-                <img className={classes.normalSizeImg} src={images.lenteja} alt="imagen templeta"/>
+                <img className={classes.normalSizeImg} src={images.lenteja} alt="templeta"/>
                 <img className={classes.normalSizeImg} src={images.coded} alt="imagen negra"/>
             </div>
             <p>
                 La imagen que contiene el mensaje secreto <span style={{fontWeight: "bold"}}>no debe ser más alta
                 o ancha </span> que la imagen en la que se ocultará el mismo.
             </p>
-            <div style={{fontStyle: "italic", color: "#777"}}>"Encoding process" image</div>
+            <div className={classes.imageContainer}>
+                <img className={classes.largeImg} src={images.process} alt="diagrama del proceso"/>
+            </div>
             <p>
                 Después de que ambas imágenes sean subidas al servidor, la imagen negra será escaneada en busca
                 del mensaje oculto, mismo que será impreso en la imagen que se usará de templeta. Una vez que la imagen haya 
