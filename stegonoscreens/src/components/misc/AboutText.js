@@ -142,7 +142,7 @@ function AboutText(props) {
                 <img className={classes.normalSizeImg} src={images.coded} alt="imagen negra"/>
             </div>
             <p>
-                La imagen que contiene el mensaje secreto <span style={{fontWeight: "bold"}}>no debe ser más alta
+                La imagen que contiene el mensaje secreto <span className={classes.stress}>no debe ser más alta
                 o ancha </span> que la imagen en la que se ocultará el mismo.
             </p>
             <div className={classes.imageContainer}>
@@ -151,31 +151,31 @@ function AboutText(props) {
             <p>
                 Después de que ambas imágenes sean subidas al servidor, la imagen negra será escaneada en busca
                 del mensaje oculto, mismo que será impreso en la imagen que se usará de templeta. Una vez que la imagen haya 
-                sido descargada y guardada es importante <span style={{fontWeight: "bold"}}>no hacer ningún cambio
+                sido descargada y guardada es importante <span className={classes.stress}>no hacer ningún cambio
                 o el mensaje podría perderse</span>.
             </p>
-            <span style={{fontStyle: "italic"}}>Uso del Servidor Headless</span>
+            <span className={classes.note}>Uso del Servidor Headless</span>
             <p>
-                El API <span style={{fontStyle: "italic"}}>/encode </span> puede ser llamado directamente usando
+                El API <span className={classes.note}>/encode </span> puede ser llamado directamente usando
                 el siguiente cuerpo (form):
             </p>
             <ul>
                 <li>
-                    <span style={{fontStyle: "italic"}}>coded: </span> 
+                    <span className={classes.note}>coded: </span> 
                     La imagen que contiene el mensaje.
                 </li>
                 <li>
-                    <span style={{fontStyle: "italic"}}>img: </span> 
+                    <span className={classes.note}>img: </span> 
                     La imagen en la cuál será codificado el mensaje.
                 </li>
                 <li>
-                    <span style={{fontStyle: "italic"}}>filename: </span> 
+                    <span className={classes.note}>filename: </span> 
                     El nombre de la imagen en la cuál se codificará el mensaje.
                 </li>
             </ul>
             <p>
                 La imagen resultante estará codificada en base 64 en el atributo 
-                <span style={{fontStyle: "italic"}}> result</span>.
+                <span className={classes.note}> result</span>.
             </p>
             <h6>Decodificar</h6>
             <p>
@@ -187,43 +187,43 @@ function AboutText(props) {
             </p>
             <ul>
                 <li>
-                    <span style={{fontWeight: "bold"}}>Modo Transparencia </span> mostrará el mensaje sobre la imagen original en rojo
+                    <span className={classes.stress}>Modo Transparencia </span> mostrará el mensaje sobre la imagen original en rojo
                     intenso.
                 </li>
                 <li>
-                    <span style={{fontWeight: "bold"}}>Modo Negro </span> mostrará el mensaje sobre un fondo negro en rojo intenso.
+                    <span className={classes.stress}>Modo Negro </span> mostrará el mensaje sobre un fondo negro en rojo intenso.
                 </li>
             </ul>
             <div className={classes.imageContainer}>
                 <img className={classes.normalSizeImg} src={images.transparent} alt="transparent mode"/>
                 <img className={classes.normalSizeImg} src={images.black} alt="black mode"/>
             </div>
-            <span style={{fontStyle: "italic"}}>Headless Server Usage</span>
+            <span className={classes.note}>Headless Server Usage</span>
             <p>
-                El API <span style={{fontStyle: "italic"}}>/decode </span> puede ser llamado 
+                El API <span className={classes.note}>/decode </span> puede ser llamado 
                 directamente usando el siguiente cuerpo (form):
             </p>
             <ul>
                 <li>
-                    <span style={{fontStyle: "italic"}}>img: </span> 
+                    <span className={classes.note}>img: </span> 
                     La imagen que contiene el mensaje oculto.
                 </li>
                 <li>
-                    <span style={{fontStyle: "italic"}}>img_filename: </span> 
+                    <span className={classes.note}>img_filename: </span> 
                     Nombre de archivo.
                 </li>
                 <li>
-                    <span style={{fontStyle: "italic"}}>mode: </span> 
+                    <span className={classes.note}>mode: </span> 
                     Modo de decodificación, los únicos parámetros aceptables son "t" o "T" para transparencia,
                     y "b" o "B" para modo negro.
                 </li>
             </ul>
             <p>
                 La imagen resultante estará codificada en base 64 en el atributo 
-                <span style={{fontStyle: "italic"}}> result</span>.
+                <span className={classes.note}> result</span>.
             </p>
-            <div style={{textAlign: "center"}}>
-                <h3 style={{fontWeight: "bold"}}>
+            <div className={classes.thatsIt}>
+                <h3>
                     ¡Eso es todo, diviértanse!
                 </h3>
             </div>
