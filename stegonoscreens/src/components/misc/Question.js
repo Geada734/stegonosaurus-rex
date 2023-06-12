@@ -85,9 +85,9 @@ function Question(props){
         </ButtonGroup>;
     };
 
-    return <div>
+    return <div className={classes.question}>
             <h3>{props.question}</h3>
-            <div className={classes.answer + ' col-11'}>
+            <div className={classes.answer}>
                 {parse(props.answer)}
             </div>
             <div>

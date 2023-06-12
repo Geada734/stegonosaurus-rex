@@ -1,12 +1,50 @@
-[{
-    "id": 1,
-    "en": {
-        "question": "why dis",
-        "answer": "<span>cus</span>"
+[
+    {
+        "id": 1,
+        "en": {
+            "question": "What is steganography?",
+            "answer": "<span>Steganography is the practice of hiding information in media files in a way that is not apparent to the casual observer. Usually this information can only be retrieved programatically as opposed to with simple natural observation.</span>"
+        },
+        "es": {
+            "question": "¿Qué es la esteganografía?",
+            "answer": "<span>La esteganografía es la práctica de esconder información en archivos multimedia de forma que no sea aparentemente para cualquier observador casual. Usualmente, esta información solo puede ser recuperada de forma programática, y no por medio de observación natural.</span>"
+        },
+        "rating": 0
     },
-    "es": {
-        "question": "porke ezto",
-        "answer": "<span>porke zi</span>"
+    {
+        "id": 2,
+        "en": {
+            "question": "Are there any practical uses for steganography?",
+            "answer": "<span>Of course! I'm sure you can come up with some on your own, but here's a list anyway:</span><ul><li>The science behind steganography is also used for watermarking images and videos.</li><li>Steganography can be used to embed data related to the image in the image itself.</li><li>Secret communication with unassuming pictures sure sounds fun, doesn't it?</li><li>It can also be used for a lot of bad stuff I'm definitely not listing.</i></ul><span>In any case, stegonosaurus and Stegonosaurus-Rex were conceived as a fun-oriented project, but I'd be more than happy to hear that this project has been useful for anyone.</span>"
+        },
+        "es": {
+            "question": "¿Hay algún uso práctico para la esteganografía?",
+            "answer": "<span>¡Por supuesto! Estoy seguro de que se les ocurren algunos usos a ustedes, pero aquí hay una lista de todas formas:</span><ul><li>La ciencia detrás de la esteganografía puede ser usada para agregar marcas de agua a imágenes y videos.</li><li>La esteganografía puede embedir información de una imagen dentro de la imagen misma.</li><li>La comunicación secreta utilizando imágenes inocuas suena divertida, ¿no es así?</li><li>También puede usarse para un montón de cosas malas que definitivamente no voy a listar.</i></ul><span>En cualquier caso, tanto stegonosaurus como Stegonosaurus-Rex fueron concebidos como un proyecto orientado a la diversión, pero me alegraría escuchar que este proyectito le fue útil a alguien.</span>"
+        },
+        "rating": 0
     },
-    "rating": 0
-}]
+    {
+        "id": 3,
+        "en": {
+            "question": "How do you use this app?",
+            "answer": "<span>There are comprehensive instructions on how to use the different functionalities Stegonosaurus-Rex has to offer.</span>"
+        },
+        "es": {
+            "question": "¿Cómo se usa la aplicación?",
+            "answer": "<span>La página \"Acerca De\" tiene instrucciones detalladas sobre cómo usar las diferentes funcionalidades que Stegonosaurus-Rex ofrece</span>"
+        },
+        "rating": 0
+    },
+    {
+        "id": 4,
+        "en": {
+            "question": "Can I use stegonosaurus in my Python project?",
+            "answer": "<span>Of course! Knock yourselves out:</span><ul><li><a href=\"https://pypi.org/project/stegonosaurus/\">PyPI</a></li><li><a href=\"https://github.com/Geada734/stegonosaurus\">Github Repo</a></li></ul>"
+        },
+        "es": {
+            "question": "¿Puedo usar stegonosaurus en mi proyecto de Python?",
+            "answer": "<span>¡Claro! Que se diviertan:</span><ul><li><a href=\"https://pypi.org/project/stegonosaurus/\">PyPI</a></li><li><a href=\"https://github.com/Geada734/stegonosaurus\">Repositorio de Github</a></li></ul>"
+        },
+        "rating": 0
+    }
+]
