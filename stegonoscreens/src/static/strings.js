@@ -8,10 +8,12 @@ const strings = {
             "en": "Welcome to Stegonosaurus-Rex!",
             "es": "¡Bienvenido a Stegonosaurus-Rex!"
         },
+
         "about": {
             "en": "About Stegonosaurus-Rex",
             "es": "Acerca De Stegonosaurus-Rex"
         },
+
         "faqs": {
             "en": "Frequently Asked Questions",
             "es": "Preguntas Frecuentes"
@@ -27,6 +29,7 @@ const strings = {
             "path": "/",
             "key": "home" 
         },
+
         {
             "name": {
                 "en": "About",
@@ -35,6 +38,7 @@ const strings = {
             "path": "/about",
             "key": "about" 
         },
+
         {
             "name": {
                 "en": "FAQs",
@@ -44,59 +48,6 @@ const strings = {
             "key": "faq" 
         }
     ],
-
-    "about": {
-        "text":{
-            "en": <div>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipiscing 
-                    elit mi mus, torquent sagittis condimentum in sociosqu 
-                    id luctus. Nam pellentesque mi vehicula id magna vulputate nisl 
-                    tempus ad, dui nisi molestie parturient tortor turpis vel blandit, 
-                    inceptos natoque interdum at congue nibh rhoncus litora. 
-                    Elementum maecenas rhoncus id nunc curae molestie gravida, 
-                    sagittis eu ridiculus congue dis hac, posuere aliquet leo nisl 
-                    himenaeos dui.
-                </p> 
-                <p>
-                    Convallis condimentum eu tincidunt 
-                    penatibus mollis, litora est pellentesque scelerisque, 
-                    vestibulum ridiculus lectus non. Erat aenean ornare eu accumsan 
-                    montes ridiculus dapibus sapien euismod, vitae laoreet litora netus 
-                    torquent parturient magnis. Cubilia eleifend nunc sagittis 
-                    dapibus ullamcorper ultrices quis, augue aptent torquent lacinia 
-                    commodo sed sollicitudin hendrerit, et nostra sodales condimentum 
-                    curabitur dictum. Bibendum mi sagittis accumsan himenaeos quisque 
-                    curabitur, nec in porttitor ligula nostra dapibus, maecenas quis 
-                    at tempor congue.
-                </p>
-            </div>,
-            "es": <div>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipiscing 
-                    elit mi mus, torquent sagittis condimentum in sociosqu 
-                    id luctus. Nam pellentesque mi vehicula id magna vulputate nisl 
-                    tempus ad, dui nisi molestie parturient tortor turpis vel blandit, 
-                    inceptos natoque interdum at congue nibh rhoncus litora. 
-                    Elementum maecenas rhoncus id nunc curae molestie gravida, 
-                    sagittis eu ridiculus congue dis hac, posuere aliquet leo nisl 
-                    himenaeos dui.
-                </p> 
-                <p>
-                    Convallis condimentum eu tincidunt 
-                    penatibus mollis, litora est pellentesque scelerisque, 
-                    vestibulum ridiculus lectus non. Erat aenean ornare eu accumsan 
-                    montes ridiculus dapibus sapien euismod, vitae laoreet litora netus 
-                    torquent parturient magnis. Cubilia eleifend nunc sagittis 
-                    dapibus ullamcorper ultrices quis, augue aptent torquent lacinia 
-                    commodo sed sollicitudin hendrerit, et nostra sodales condimentum 
-                    curabitur dictum. Bibendum mi sagittis accumsan himenaeos quisque 
-                    curabitur, nec in porttitor ligula nostra dapibus, maecenas quis 
-                    at tempor congue.
-                </p>
-            </div>
-        }
-    },
 
     "useful": {
         "unrated": {
@@ -137,8 +88,8 @@ const strings = {
             "en": <section>
                     <h2>1.- Upload the image with the coded message:</h2>
                     <p>
-                        Choose the all-black image with the coded message in red letters. 
-                        This image must not be taller, or wider (or both) than the image you want to hide your 
+                        Choose the all-black image with the coded message in bright letters. 
+                        This image must not be taller, or wider than the image you want to hide your 
                         message.
                     </p>
                     <h2>2.- Upload the image you want to hide your message in:</h2>
@@ -148,9 +99,9 @@ const strings = {
                     </p>
                 </section>,
             "es": <section>
-                <h2>1.- Sube la imagen que contiene el mensaje oculto:</h2>
+                <h2>1.- Sube la imagen con tu mensaje oculto:</h2>
                 <p>
-                    Escoge la imagen en negro con el mensaje escrito en letras rojas,
+                    Escoge la imagen en negro con el mensaje escrito en letras claras,
                     esta imagen no debe de ser más alta o ancha que la imagen en la que
                     quieres esconder el mensaje.
                 </p>
@@ -161,6 +112,7 @@ const strings = {
                 </p>
             </section>
         },
+
         "warning": {
             "important": {
                 "en": "IMPORTANT",
@@ -183,6 +135,7 @@ const strings = {
             "es": "La página que buscas no existe en la aplicación."
         }
     },
+
     "modeToggler": {
         "modes": {
             "encode": {
@@ -194,10 +147,12 @@ const strings = {
                 "es": "Decodificar"
             }
         },
+
         "decodingModeLabel": {
             "en": "Decoding Mode",
             "es": "Modo de Decodificación"
         },
+
         "decodingModes": {
             "t": {
                 "en": "Transparent",
@@ -208,18 +163,22 @@ const strings = {
                 "es": "En Negro"
             }
         },
+
         "messageImageMessage": {
             "en": "Upload the image that has your coded message:",
-            "es": "Sube la imagen que trae tu mensaje codificado:"
+            "es": "Sube la imagen con tu mensaje codificado:"
         },
+
         "toCodeImageMessage": {
             "en": "Upload image to be encoded:",
             "es": "Sube la imagen a codificar:" 
         },
+
         "toDecodeImageMessage": {
             "en": "Upload the image you wish to decode:",
             "es": "Sube la imagen a decodificar:"
         },
+
         "buttonMessage": {
             "encode": {
                 "en": "Encode",
@@ -230,10 +189,12 @@ const strings = {
                 "es": "Decodificar"
             }
         },
+
         "componentLoadingError": {
             "en": "Error loading component",
             "es": "Error cargando componente"
         },
+
         "invalidCaptchaMessage": {
             "en": "Invalid Captcha",
             "es": "Captcha Inválido"
@@ -245,10 +206,12 @@ const strings = {
             "en": "Loading...",
             "es": "Cargando..."
         },
+
         "processingImages": {
             "en": "Processing images...",
             "es": "Procesando imágenes..."
         },
+
         "loadingFAQs": {
             "en": "Loading FAQs...",
             "es": "Cargando preguntas frecuentes..."
@@ -260,6 +223,7 @@ const strings = {
             "en": "Results",
             "es": "Resultados"
         },
+
         "download": {
             "en": "Your download will start automatically, otherwise, feel free to " +
                 "download the displayed image.",

@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import classes from './style/Navigation.module.css';
-import logo from '../static/stegologo.svg';
+import logo from '../static/images/stegologo.svg';
 
 import AppContext from '../store/app-context';
 
