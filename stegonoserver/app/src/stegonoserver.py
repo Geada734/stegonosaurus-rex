@@ -21,6 +21,7 @@ api = Api(app)
 
 
 with open("config/config.json", "r") as configFile:
+    # Get the Mongo connection from configs.
     config = json.load(configFile)
     configFile.close()
 
@@ -94,6 +95,7 @@ class DecodeAPI(Resource):
         response = Response(mimetype="application/json")
 
         if captcha_value:
+            # The call comes from the browser if it has a captcha_value in the body.
             if not sec.validate_captcha(captcha_value):
                 response.status_code = 500
                 response.data = json.dumps({
@@ -119,6 +121,7 @@ class EncodeAPI(Resource):
         response = Response(mimetype="application/json")
 
         if captcha_value:
+            # The call comes from the browser if it has a captcha_value in the body.
             if not sec.validate_captcha(captcha_value):
                 response.status_code = 500
                 response.data = json.dumps({
@@ -152,6 +155,7 @@ class FAQsAPI(Resource):
         q_id = int(request.form.get("id"))
         vote = int(request.form.get("vote"))
 
+        # Modifies the "rating" values for a given qustion.
         faqs_db.update_one({"id": q_id}, {"$inc": {"rating": vote}})
 
         response = Response(mimetype="application/json")

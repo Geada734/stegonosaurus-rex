@@ -5,7 +5,7 @@ from flask import Response
 
 
 def handle_exception(err: Exception, code_name: str, message: str) -> Response:
-    """Handles exceptions and returns error messages, and logs for debugging."""
+    """Handles exceptions and returns error responses, and messages for debugging."""
     response = Response(mimetype="application/json")
     response.data = json.dumps({
         "error_codename": code_name,
