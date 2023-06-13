@@ -1,3 +1,4 @@
+"""Custom Decorators"""
 import json
 
 from functools import wraps
@@ -5,9 +6,11 @@ from flask import request, Response
 
 from . import security_utils as sec
 
-def jwt_secured(fn):
-    @wraps(fn)
-    def wrapper(*args, **kwargs):
+
+def jwt_secured(func: callable) -> None:
+    """Wrapper for JWT validation."""
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> callable:
         err_response = Response(mimetype="application/json")
         err_response.status_code = 401
         err_response.data = json.dumps({"error_codename": "invalidToken",
@@ -26,6 +29,6 @@ def jwt_secured(fn):
         else:
             return err_response
 
-        return fn(*args, **kwargs)
+        return func(*args, **kwargs)
 
     return wrapper

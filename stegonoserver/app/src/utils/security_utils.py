@@ -1,15 +1,20 @@
-import jwt
+"""Security Utils"""
 import json
 import time
+
+import jwt
 import requests as req
 
-with open("config/config.json") as configFile:
+
+with open("config/config.json", "r") as configFile:
     config = json.load(configFile)
     configFile.close()
 
 secret_key = config["jwtSecret"]
 
-def encode_token():
+
+def encode_token() -> str:
+    """Encodes a new token."""
     timestamp = int(round(time.time() * 1000))
 
     token_components = {"timestamp": timestamp}
@@ -17,16 +22,21 @@ def encode_token():
 
     return token
 
-def validate_captcha(captcha_value):    
-    catpcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config["captchaSecret"] + "&response=" + captcha_value
-    captcha_response = req.post(catpcha_url).json()
+
+def validate_captcha(captcha_value: str) -> bool:
+    """Validates captcha in an incomming request."""    
+    catpcha_url = ("https://www.google.com/recaptcha/api/siteverify?secret="
+                    + config["captchaSecret"] + "&response=" + captcha_value)
+    captcha_response = req.post(catpcha_url, timeout=20).json()
 
     if captcha_response["success"]:
         return True
 
     return False
 
-def validate_jwt(token):
+
+def validate_jwt(token: str) -> bool:
+    """Validates JWTs"""
     try:
         decoded_token = jwt.decode(token, secret_key, algorithms=['HS256'])
 
@@ -40,6 +50,6 @@ def validate_jwt(token):
             return False
 
     except jwt.exceptions.DecodeError:
-            return False
+        return False
 
     return True
