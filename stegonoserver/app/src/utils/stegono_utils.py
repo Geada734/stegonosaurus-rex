@@ -1,10 +1,15 @@
-import base64
+"""Wrapper functions for stegonosaurus' functions."""
 import json
+import base64
 from io import BytesIO
+
 from PIL import Image
+from flask import Response
 from stegonosaurus import stegofunctions as sf
 
-def decode(file, filename, mode, response):
+
+def decode(file: Image, filename: str, mode: str, response: Response) -> Response:
+    """Decode wrapper function, returns a response with the result."""    
     img = Image.open(file)
     img = sf.decode(img, mode)
 
@@ -22,7 +27,9 @@ def decode(file, filename, mode, response):
 
     return response
 
-def encode(coded_file, img_file, filename, response):
+
+def encode(coded_file: Image, img_file: str, filename: str, response: Response) -> Response:
+    """Encode wrapper function, returns a response with the result."""    
     coded = Image.open(coded_file)
     img = Image.open(img_file)
     img = sf.encode(coded, img)

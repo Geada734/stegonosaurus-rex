@@ -1,8 +1,11 @@
+"""Error handlers for error responses and debugging."""
 import json
-from stegonosaurus import stegoexceptions as se
+
 from flask import Response
 
-def handle_exception(e, code_name, message):
+
+def handle_exception(err: Exception, code_name: str, message: str) -> Response:
+    """Handles exceptions and returns error responses, and messages for debugging."""
     response = Response(mimetype="application/json")
     response.data = json.dumps({
         "error_codename": code_name,
@@ -10,8 +13,8 @@ def handle_exception(e, code_name, message):
     })
 
     print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(e))
-    print(e)
+    print(type(err))
+    print(err)
     print("xxxxxxxxxxxxxxxxxxxxxxxxx")
 
     response.status_code = 500
