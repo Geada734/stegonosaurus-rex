@@ -1,6 +1,8 @@
 import json
+
 from functools import wraps
 from flask import request, Response
+
 from . import security_utils as sec
 
 def jwt_secured(fn):

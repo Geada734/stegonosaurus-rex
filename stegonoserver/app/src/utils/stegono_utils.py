@@ -1,6 +1,7 @@
-import base64
 import json
+import base64
 from io import BytesIO
+
 from PIL import Image
 from stegonosaurus import stegofunctions as sf
 

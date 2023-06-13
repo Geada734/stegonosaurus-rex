@@ -1,5 +1,5 @@
 import json
-from stegonosaurus import stegoexceptions as se
+
 from flask import Response
 
 def handle_exception(e, code_name, message):
