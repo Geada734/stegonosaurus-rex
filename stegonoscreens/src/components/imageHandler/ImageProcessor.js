@@ -163,6 +163,7 @@ function ImageProcessor() {
           <Row>
             <Col>
               <ImageUpload
+                id="coded-upload"
                 imageHandler={codedMessageImageHandler}
                 message={
                   strings.imageProcessor.messageImageMessage[appCtx.language]
@@ -171,6 +172,7 @@ function ImageProcessor() {
             </Col>
             <Col>
               <ImageUpload
+                id="message-upload"
                 imageHandler={messageImageHandler}
                 message={
                   strings.imageProcessor.toCodeImageMessage[appCtx.language]
@@ -194,49 +196,46 @@ function ImageProcessor() {
       );
     } else if (tabValue === "decode") {
       return (
-        <div>
-          <Container>
-            <Row>
-              <Col>
-                <p>
-                  {strings.imageProcessor.decodingModeLabel[appCtx.language]}
-                </p>
-                <ButtonGroup>
-                  <Button
-                    variant="outline-dark"
-                    active={decodeMode === "t"}
-                    onClick={(e) => decodeModeHandler(e, "t")}
-                  >
-                    {strings.imageProcessor.decodingModes.t[appCtx.language]}
-                  </Button>
-                  <Button
-                    variant="outline-dark"
-                    active={decodeMode === "b"}
-                    onClick={(e) => decodeModeHandler(e, "b")}
-                  >
-                    {strings.imageProcessor.decodingModes.b[appCtx.language]}
-                  </Button>
-                </ButtonGroup>
-                <ImageUpload
-                  imageHandler={imageToDecodeHandler}
-                  message={
-                    strings.imageProcessor.toDecodeImageMessage[appCtx.language]
-                  }
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Button
-                variant="outline-dark"
-                onClick={(e) => submitHandler(e, "decode")}
-                disabled={imageToDecode ? false : true}
-                className={classes.executeButton}
-              >
-                {strings.imageProcessor.buttonMessage.decode[appCtx.language]}
-              </Button>
-            </Row>
-          </Container>
-        </div>
+        <Container>
+          <Row>
+            <Col>
+              <p>{strings.imageProcessor.decodingModeLabel[appCtx.language]}</p>
+              <ButtonGroup>
+                <Button
+                  variant="outline-dark"
+                  active={decodeMode === "t"}
+                  onClick={(e) => decodeModeHandler(e, "t")}
+                >
+                  {strings.imageProcessor.decodingModes.t[appCtx.language]}
+                </Button>
+                <Button
+                  variant="outline-dark"
+                  active={decodeMode === "b"}
+                  onClick={(e) => decodeModeHandler(e, "b")}
+                >
+                  {strings.imageProcessor.decodingModes.b[appCtx.language]}
+                </Button>
+              </ButtonGroup>
+              <ImageUpload
+                id="decode-upload"
+                imageHandler={imageToDecodeHandler}
+                message={
+                  strings.imageProcessor.toDecodeImageMessage[appCtx.language]
+                }
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Button
+              variant="outline-dark"
+              onClick={(e) => submitHandler(e, "decode")}
+              disabled={imageToDecode ? false : true}
+              className={classes.executeButton}
+            >
+              {strings.imageProcessor.buttonMessage.decode[appCtx.language]}
+            </Button>
+          </Row>
+        </Container>
       );
     }
 

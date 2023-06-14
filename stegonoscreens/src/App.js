@@ -49,16 +49,16 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
-        <LoadingModal />
-        <ErrorModal />
-        <ResultModal />
+        <LoadingModal id="loading-modal" />
+        <ErrorModal id="error-modal" />
+        <ResultModal id="result-modal" />
       </main>
     );
   } else {
     return (
       <main>
-        <LoadingModal />
-        <ErrorModal />
+        <LoadingModal id="loading-modal" />
+        <ErrorModal id="error-modal" />
       </main>
     );
   }

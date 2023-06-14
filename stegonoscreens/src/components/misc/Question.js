@@ -74,14 +74,14 @@ function Question(props) {
       <ButtonGroup>
         <Button
           variant="outline-success"
-          onClick={(e) => rate(e, props.id, 1)}
+          onClick={(e) => rate(e, props.qId, 1)}
           active={userRating === 1 ? true : false}
         >
           <HandThumbsUp />
         </Button>
         <Button
           variant="outline-danger"
-          onClick={(e) => rate(e, props.id, -1)}
+          onClick={(e) => rate(e, props.qId, -1)}
           active={userRating === -1 ? true : false}
         >
           <HandThumbsDown />

@@ -37,6 +37,7 @@ function FAQPage() {
         {faqs.map((q) => (
           <Question
             question={q[appCtx.language].question}
+            qId={q.id}
             id={q.id}
             key={q.id}
             rating={q.rating}
