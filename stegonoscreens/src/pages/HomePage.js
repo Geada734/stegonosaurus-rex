@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import classes from "./style/HomePage.module.css";
 
-import ModeToggler from "../components/imageHandler/ModeToggler";
+import ImageProcessor from "../components/imageHandler/ImageProcessor.js";
 
 import AppContext from "../store/app-context";
 
@@ -21,7 +21,7 @@ function HomePage() {
         </h4>
         <p>{strings.homePage.warning.warningText[appCtx.language]}</p>
       </div>
-      <ModeToggler></ModeToggler>
+      <ImageProcessor />
     </section>
   );
 }

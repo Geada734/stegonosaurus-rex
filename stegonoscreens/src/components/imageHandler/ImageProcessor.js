@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ReCAPTCHA from "react-google-recaptcha";
 
-import classes from "./style/ModeToggler.module.css";
+import classes from "./style/ImageProcessor.module.css";
 
 import ImageUpload from "./ImageUpload";
 import AppContext from "../../store/app-context";
@@ -19,7 +19,7 @@ import strings from "../../static/strings.js";
 import * as errorHandlers from "../../utils/errorHandlers";
 import * as api from "../../apis/stegonoApi";
 
-function ModeToggler() {
+function ImageProcessor() {
   const appCtx = useContext(AppContext);
 
   const captchaRef = useRef(null);
@@ -165,7 +165,7 @@ function ModeToggler() {
               <ImageUpload
                 imageHandler={codedMessageImageHandler}
                 message={
-                  strings.modeToggler.messageImageMessage[appCtx.language]
+                  strings.imageProcessor.messageImageMessage[appCtx.language]
                 }
               />
             </Col>
@@ -173,7 +173,7 @@ function ModeToggler() {
               <ImageUpload
                 imageHandler={messageImageHandler}
                 message={
-                  strings.modeToggler.toCodeImageMessage[appCtx.language]
+                  strings.imageProcessor.toCodeImageMessage[appCtx.language]
                 }
               />
             </Col>
@@ -186,7 +186,7 @@ function ModeToggler() {
                 disabled={!codedMessageImage || !messageImage}
                 className={classes.executeButton}
               >
-                {strings.modeToggler.buttonMessage.encode[appCtx.language]}
+                {strings.imageProcessor.buttonMessage.encode[appCtx.language]}
               </Button>
             </Col>
           </Row>
@@ -198,27 +198,29 @@ function ModeToggler() {
           <Container>
             <Row>
               <Col>
-                <p>{strings.modeToggler.decodingModeLabel[appCtx.language]}</p>
+                <p>
+                  {strings.imageProcessor.decodingModeLabel[appCtx.language]}
+                </p>
                 <ButtonGroup>
                   <Button
                     variant="outline-dark"
                     active={decodeMode === "t"}
                     onClick={(e) => decodeModeHandler(e, "t")}
                   >
-                    {strings.modeToggler.decodingModes.t[appCtx.language]}
+                    {strings.imageProcessor.decodingModes.t[appCtx.language]}
                   </Button>
                   <Button
                     variant="outline-dark"
                     active={decodeMode === "b"}
                     onClick={(e) => decodeModeHandler(e, "b")}
                   >
-                    {strings.modeToggler.decodingModes.b[appCtx.language]}
+                    {strings.imageProcessor.decodingModes.b[appCtx.language]}
                   </Button>
                 </ButtonGroup>
                 <ImageUpload
                   imageHandler={imageToDecodeHandler}
                   message={
-                    strings.modeToggler.toDecodeImageMessage[appCtx.language]
+                    strings.imageProcessor.toDecodeImageMessage[appCtx.language]
                   }
                 />
               </Col>
@@ -230,7 +232,7 @@ function ModeToggler() {
                 disabled={imageToDecode ? false : true}
                 className={classes.executeButton}
               >
-                {strings.modeToggler.buttonMessage.decode[appCtx.language]}
+                {strings.imageProcessor.buttonMessage.decode[appCtx.language]}
               </Button>
             </Row>
           </Container>
@@ -239,7 +241,7 @@ function ModeToggler() {
     }
 
     return (
-      <div>{strings.modeToggler.componentLoadingError[appCtx.language]}</div>
+      <div>{strings.imageProcessor.componentLoadingError[appCtx.language]}</div>
     );
   }
 
@@ -248,19 +250,19 @@ function ModeToggler() {
       <Nav variant="tabs" defaultActiveKey={tabValue} onSelect={modeHandler}>
         <Nav.Item>
           <Nav.Link eventKey="encode">
-            {strings.modeToggler.modes.encode[appCtx.language]}
+            {strings.imageProcessor.modes.encode[appCtx.language]}
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="decode">
-            {strings.modeToggler.modes.decode[appCtx.language]}
+            {strings.imageProcessor.modes.decode[appCtx.language]}
           </Nav.Link>
         </Nav.Item>
       </Nav>
       {renderComponent()}
       <div className={classes.captchaContainer}>
         <span hidden={!invalidCaptcha} className={classes.invalidCaptchaText}>
-          {strings.modeToggler.invalidCaptchaMessage[appCtx.language]}
+          {strings.imageProcessor.invalidCaptchaMessage[appCtx.language]}
         </span>
         <ReCAPTCHA
           sitekey={config.siteKey}
@@ -272,4 +274,4 @@ function ModeToggler() {
   );
 }
 
-export default ModeToggler;
+export default ImageProcessor;

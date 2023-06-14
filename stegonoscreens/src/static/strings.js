@@ -146,7 +146,7 @@ const strings = {
     },
   },
 
-  modeToggler: {
+  imageProcessor: {
     modes: {
       encode: {
         en: "Encode",

@@ -11,7 +11,9 @@ const errors = {
     es: {
       summary: "La imagen es demasiado grande",
       message:
-        "Por favor, sube archivos menores " + config.imageSizeDisplay + ".",
+        "Por favor, sube archivos más pequeños de " +
+        config.imageSizeDisplay +
+        ".",
     },
   },
   wrongFormat: {
