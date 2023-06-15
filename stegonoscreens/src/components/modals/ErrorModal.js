@@ -22,7 +22,7 @@ function ErrorModal() {
         backdrop="static"
       >
         <Modal.Header
-          closeButton={appCtx.error.code !== "ERR06" ? true : false}
+          closeButton={appCtx.error.code !== "ERR05" ? true : false}
         >
           <Modal.Title>{appCtx.error.code}</Modal.Title>
         </Modal.Header>

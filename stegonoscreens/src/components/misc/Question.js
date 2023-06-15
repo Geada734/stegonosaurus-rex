@@ -16,35 +16,13 @@ import * as api from "../../apis/faqsApi";
 import AppContext from "../../store/app-context";
 
 import strings from "../../static/strings.js";
+import * as faqsForms from "../../utils/faqsForms";
 
 function Question(props) {
   const appCtx = useContext(AppContext);
 
   const [userRating, setUserRating] = useState(0);
   const [loading, setLoading] = useState(false);
-
-  function createVoteForm(id, value, rating) {
-    let vote = 0;
-
-    if (value !== rating) {
-      if (rating === 0) {
-        vote = value;
-      } else {
-        vote = value * 2;
-      }
-      setUserRating(value);
-    } else {
-      setUserRating(0);
-      vote = value * -1;
-    }
-
-    const formData = new FormData();
-
-    formData.append("id", id);
-    formData.append("vote", vote);
-
-    return formData;
-  }
 
   function handleResponse() {
     setLoading(false);
@@ -60,7 +38,12 @@ function Question(props) {
     e.preventDefault();
     setLoading(true);
 
-    let formData = createVoteForm(id, value, userRating);
+    let formData = faqsForms.createVoteForm(
+      id,
+      value,
+      userRating,
+      setUserRating
+    );
 
     api.rateQuestion(handleResponse, handleError, appCtx.token, formData);
   }

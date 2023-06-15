@@ -18,6 +18,7 @@ import AppContext from "../../store/app-context";
 import strings from "../../static/strings.js";
 import * as errorHandlers from "../../utils/errorHandlers";
 import * as api from "../../apis/stegonoApi";
+import * as stegonoForms from "../../utils/stegonoForms";
 
 function ImageProcessor() {
   const appCtx = useContext(AppContext);
@@ -32,28 +33,6 @@ function ImageProcessor() {
   const [codedMessageImage, setCodedMessageImage] = useState(null);
   const [messageImage, setMessageImage] = useState(null);
   const [imageToDecode, setImageToDecode] = useState(null);
-
-  function createEncodingForm(captcha, coded, message, filename) {
-    const formData = new FormData();
-
-    formData.append("captchaValue", captcha);
-    formData.append("coded", coded);
-    formData.append("img", message);
-    formData.append("filename", filename);
-
-    return formData;
-  }
-
-  function createDecodingForm(captcha, image, filename, mode) {
-    const formData = new FormData();
-
-    formData.append("captchaValue", captcha);
-    formData.append("img", image);
-    formData.append("filename", filename);
-    formData.append("mode", mode);
-
-    return formData;
-  }
 
   function handleResponse(response) {
     const res = "data:image/png;base64, " + response.data.result;
@@ -93,7 +72,7 @@ function ImageProcessor() {
       appCtx.popLoading(strings.loadingModal.processingImages[appCtx.language]);
 
       if (endpoint === "encode") {
-        const encodeForm = createEncodingForm(
+        const encodeForm = stegonoForms.createEncodingForm(
           captchaValue,
           codedMessageImage,
           messageImage,
@@ -107,7 +86,7 @@ function ImageProcessor() {
           encodeForm
         );
       } else if (endpoint === "decode") {
-        const decodeForm = createDecodingForm(
+        const decodeForm = stegonoForms.createDecodingForm(
           captchaValue,
           imageToDecode,
           imageToDecode.name,

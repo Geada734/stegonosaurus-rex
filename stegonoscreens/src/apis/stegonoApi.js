@@ -1,6 +1,8 @@
+// REST calls for the Stegonoserver API.
 import axios from "axios";
 import config from "../configs/config.json";
 
+// This endpoint encodes images.
 export function encode(
   handleResponse,
   handleResults,
@@ -8,8 +10,15 @@ export function encode(
   token,
   formData
 ) {
+  /*
+   * handleResponse: callback which handles a successful response.
+   * handleResults: callback that handles a resulting image.
+   * handlError: callback which handles REST errors.
+   * token: session token.
+   * formData: images and pertinent data for stegonosaurus.
+   */
   axios
-    .post(config.server + "/encode", formData, {
+    .post(config.stegonoServer + "/encode", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + token,
@@ -26,6 +35,7 @@ export function encode(
     });
 }
 
+// This endpoint decodes images.
 export function decode(
   handleResponse,
   handleResults,
@@ -33,8 +43,15 @@ export function decode(
   token,
   formData
 ) {
+  /*
+   * handleResponse: callback which handles a successful response.
+   * handleResults: callback that handles a resulting image.
+   * handlError: callback which handles REST errors.
+   * token: session token.
+   * formData: images and pertinent data for stegonosaurus.
+   */
   axios
-    .post(config.server + "/decode", formData, {
+    .post(config.stegonoServer + "/decode", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + token,
