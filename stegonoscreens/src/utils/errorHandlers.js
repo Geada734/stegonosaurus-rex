@@ -5,6 +5,7 @@ export function handleRestError(e, errorHandler) {
 
   if (e.response.status === 500 || e.response.status === 401) {
     errorKey = e.response.data.error_codename;
+    if (e.response.status === 401) localStorage.removeItem("stegoToken");
   } else {
     errorKey = "unknown";
   }

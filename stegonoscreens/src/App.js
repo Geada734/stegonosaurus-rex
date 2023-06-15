@@ -22,13 +22,22 @@ function App() {
 
   useEffect(() => {
     appCtx.popLoading(strings.loadingModal.loadingApp[appCtx.language]);
-    api.getToken(handleToken, handleError);
+    let localToken = localStorage.getItem("stegoToken");
+
+    if (localToken) {
+      appCtx.setToken(localToken);
+      appCtx.popLoading("");
+      setReady(true);
+    } else api.getToken(handleToken, handleError);
+
     const lang = localStorage.getItem("stegoLang");
+
     if (lang) appCtx.changeLanguage(lang);
   }, []);
 
   function handleToken(token) {
     appCtx.setToken(token);
+    localStorage.setItem("stegoToken", token);
     setReady(true);
     appCtx.popLoading("");
   }
