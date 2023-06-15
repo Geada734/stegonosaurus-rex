@@ -174,12 +174,12 @@ const strings = {
       },
     },
 
-    messageImageMessage: {
+    codedImageMessage: {
       en: "Upload the image that has your coded message:",
       es: "Sube la imagen con tu mensaje codificado:",
     },
 
-    toCodeImageMessage: {
+    templateImageMessage: {
       en: "Upload image to be encoded:",
       es: "Sube la imagen a codificar:",
     },

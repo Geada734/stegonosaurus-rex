@@ -31,7 +31,7 @@ function ImageProcessor() {
   const [decodeMode, setDecodeMode] = useState("t");
 
   const [codedMessageImage, setCodedMessageImage] = useState(null);
-  const [messageImage, setMessageImage] = useState(null);
+  const [templateImage, setTemplateImage] = useState(null);
   const [imageToDecode, setImageToDecode] = useState(null);
 
   function handleResponse(response) {
@@ -75,8 +75,8 @@ function ImageProcessor() {
         const encodeForm = stegonoForms.createEncodingForm(
           captchaValue,
           codedMessageImage,
-          messageImage,
-          messageImage.name
+          templateImage,
+          templateImage.name
         );
         api.encode(
           handleResponse,
@@ -107,7 +107,7 @@ function ImageProcessor() {
 
   function modeHandler(mode) {
     setCodedMessageImage(null);
-    setMessageImage(null);
+    setTemplateImage(null);
     setImageToDecode(null);
     setDecodeMode("t");
 
@@ -127,8 +127,8 @@ function ImageProcessor() {
     setCodedMessageImage(file);
   }
 
-  function messageImageHandler(file) {
-    setMessageImage(file);
+  function templateImageHandler(file) {
+    setTemplateImage(file);
   }
 
   function onCaptchaChanged(value) {
@@ -145,16 +145,16 @@ function ImageProcessor() {
                 id="coded-upload"
                 imageHandler={codedMessageImageHandler}
                 message={
-                  strings.imageProcessor.messageImageMessage[appCtx.language]
+                  strings.imageProcessor.codedImageMessage[appCtx.language]
                 }
               />
             </Col>
             <Col>
               <ImageUpload
                 id="message-upload"
-                imageHandler={messageImageHandler}
+                imageHandler={templateImageHandler}
                 message={
-                  strings.imageProcessor.toCodeImageMessage[appCtx.language]
+                  strings.imageProcessor.templateImageMessage[appCtx.language]
                 }
               />
             </Col>
@@ -164,7 +164,7 @@ function ImageProcessor() {
               <Button
                 variant="outline-dark"
                 onClick={(e) => submitHandler(e, "encode")}
-                disabled={!codedMessageImage || !messageImage}
+                disabled={!codedMessageImage || !templateImage}
                 className={classes.executeButton}
               >
                 {strings.imageProcessor.buttonMessage.encode[appCtx.language]}
