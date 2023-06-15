@@ -33,57 +33,6 @@ function ImageProcessor() {
   const [messageImage, setMessageImage] = useState(null);
   const [imageToDecode, setImageToDecode] = useState(null);
 
-  function modeHandler(mode) {
-    setCodedMessageImage(null);
-    setMessageImage(null);
-    setImageToDecode(null);
-    setDecodeMode("t");
-
-    setTabValue(mode);
-  }
-
-  function submitHandler(e, endpoint) {
-    e.preventDefault();
-    const captchaValue = captchaRef.current.getValue();
-
-    if (captchaValue) {
-      captchaRef.current.reset();
-      appCtx.popLoading(strings.loadingModal.processingImages[appCtx.language]);
-
-      if (endpoint === "encode") {
-        const encodeForm = createEncodingForm(
-          captchaValue,
-          codedMessageImage,
-          messageImage,
-          messageImage.name
-        );
-        api.encode(
-          handleResponse,
-          handleResults,
-          handleError,
-          appCtx.token,
-          encodeForm
-        );
-      } else if (endpoint === "decode") {
-        const decodeForm = createDecodingForm(
-          captchaValue,
-          imageToDecode,
-          imageToDecode.name,
-          decodeMode
-        );
-        api.decode(
-          handleResponse,
-          handleResults,
-          handleError,
-          appCtx.token,
-          decodeForm
-        );
-      }
-    } else {
-      setInvalidCaptcha(true);
-    }
-  }
-
   function createEncodingForm(captcha, coded, message, filename) {
     const formData = new FormData();
 
@@ -133,6 +82,57 @@ function ImageProcessor() {
   function handleError(e) {
     appCtx.popLoading("");
     errorHandlers.handleRestError(e, appCtx.raiseError);
+  }
+
+  function submitHandler(e, endpoint) {
+    e.preventDefault();
+    const captchaValue = captchaRef.current.getValue();
+
+    if (captchaValue) {
+      captchaRef.current.reset();
+      appCtx.popLoading(strings.loadingModal.processingImages[appCtx.language]);
+
+      if (endpoint === "encode") {
+        const encodeForm = createEncodingForm(
+          captchaValue,
+          codedMessageImage,
+          messageImage,
+          messageImage.name
+        );
+        api.encode(
+          handleResponse,
+          handleResults,
+          handleError,
+          appCtx.token,
+          encodeForm
+        );
+      } else if (endpoint === "decode") {
+        const decodeForm = createDecodingForm(
+          captchaValue,
+          imageToDecode,
+          imageToDecode.name,
+          decodeMode
+        );
+        api.decode(
+          handleResponse,
+          handleResults,
+          handleError,
+          appCtx.token,
+          decodeForm
+        );
+      }
+    } else {
+      setInvalidCaptcha(true);
+    }
+  }
+
+  function modeHandler(mode) {
+    setCodedMessageImage(null);
+    setMessageImage(null);
+    setImageToDecode(null);
+    setDecodeMode("t");
+
+    setTabValue(mode);
   }
 
   function decodeModeHandler(e, dMode) {

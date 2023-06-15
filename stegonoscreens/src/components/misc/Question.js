@@ -23,25 +23,6 @@ function Question(props) {
   const [userRating, setUserRating] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  function rate(e, id, value) {
-    e.preventDefault();
-    setLoading(true);
-
-    let formData = createVoteForm(id, value, userRating);
-
-    api.rateQuestion(handleResponse, handleError, appCtx.token, formData);
-  }
-
-  function handleResponse() {
-    setLoading(false);
-  }
-
-  function handleError(e) {
-    errorHandlers.handleRestError(e, appCtx.raiseError);
-    setLoading(false);
-    setUserRating(0);
-  }
-
   function createVoteForm(id, value, rating) {
     let vote = 0;
 
@@ -63,6 +44,25 @@ function Question(props) {
     formData.append("vote", vote);
 
     return formData;
+  }
+
+  function handleResponse() {
+    setLoading(false);
+  }
+
+  function handleError(e) {
+    errorHandlers.handleRestError(e, appCtx.raiseError);
+    setLoading(false);
+    setUserRating(0);
+  }
+
+  function rate(e, id, value) {
+    e.preventDefault();
+    setLoading(true);
+
+    let formData = createVoteForm(id, value, userRating);
+
+    api.rateQuestion(handleResponse, handleError, appCtx.token, formData);
   }
 
   function renderButtonGroup() {

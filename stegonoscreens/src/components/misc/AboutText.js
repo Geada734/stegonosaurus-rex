@@ -38,7 +38,7 @@ function AboutText(props) {
           <img
             className={classes.normalSizeImg}
             src={images.coded}
-            alt="back image"
+            alt="black"
           />
         </div>
         <p>
@@ -183,7 +183,7 @@ function AboutText(props) {
           <img
             className={classes.normalSizeImg}
             src={images.coded}
-            alt="imagen negra"
+            alt="foto negra"
           />
         </div>
         <p>
