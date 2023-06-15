@@ -3,7 +3,7 @@ import config from "../configs/config.json";
 
 export function getFaqs(handleResponse, handleError, token) {
   axios
-    .get(config.flaskServer + "/faqs", {
+    .get(config.server + "/faqs", {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -18,7 +18,7 @@ export function getFaqs(handleResponse, handleError, token) {
 
 export function rateQuestion(handleResponse, handleError, token, formData) {
   axios
-    .put(config.flaskServer + "/faqs", formData, {
+    .put(config.server + "/faqs", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + token,

@@ -9,7 +9,7 @@ export function encode(
   formData
 ) {
   axios
-    .post(config.flaskServer + "/encode", formData, {
+    .post(config.server + "/encode", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + token,
@@ -34,7 +34,7 @@ export function decode(
   formData
 ) {
   axios
-    .post(config.flaskServer + "/decode", formData, {
+    .post(config.server + "/decode", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + token,

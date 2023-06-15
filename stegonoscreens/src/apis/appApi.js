@@ -3,7 +3,7 @@ import config from "../configs/config.json";
 
 export function getToken(handleToken, handleError) {
   axios
-    .get(config.flaskServer + "/token")
+    .get(config.server + "/token")
     .then((response) => {
       handleToken(response.data.token);
     })
