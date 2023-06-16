@@ -1,13 +1,15 @@
 // Component for image uploads.
 import { useState, useContext } from "react";
-import classes from "./style/ImageUpload.module.css";
+
+import AppContext from "../../store/app-context.js";
 
 import Form from "react-bootstrap/Form";
 
-import AppContext from "../../store/app-context.js";
 import config from "../../configs/config.json";
 import errors from "../../static/errors.js";
 import upload from "../../static/icons/upload.svg";
+
+import classes from "./style/ImageUpload.module.css";
 
 function ImageUpload(props) {
   // Images should be smaller than 2 MB or whatever is specified in configs.

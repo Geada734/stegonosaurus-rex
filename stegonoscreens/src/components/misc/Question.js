@@ -1,6 +1,8 @@
 // Question component for the FAQs page.
 import { useState, useContext } from "react";
 
+import AppContext from "../../store/app-context";
+
 import parse from "html-react-parser";
 
 import Button from "react-bootstrap/esm/Button";
@@ -9,15 +11,13 @@ import Spinner from "react-bootstrap/Spinner";
 import { HandThumbsUp } from "react-bootstrap-icons";
 import { HandThumbsDown } from "react-bootstrap-icons";
 
-import classes from "./style/Question.module.css";
-
+import * as faqsForms from "../../utils/faqsForms";
 import * as errorHandlers from "../../utils/errorHandlers";
 import * as api from "../../apis/faqsApi";
 
-import AppContext from "../../store/app-context";
-
 import strings from "../../static/strings.js";
-import * as faqsForms from "../../utils/faqsForms";
+
+import classes from "./style/Question.module.css";
 
 function Question(props) {
   const appCtx = useContext(AppContext);

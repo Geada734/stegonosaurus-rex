@@ -1,5 +1,6 @@
 // REST calls for the FAQs page.
 import axios from "axios";
+
 import config from "../configs/config.json";
 
 // This endpoint gets the list of FAQs from the backend.

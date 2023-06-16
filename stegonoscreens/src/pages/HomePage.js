@@ -24,7 +24,7 @@ function HomePage() {
         </h4>
         <p>{strings.homePage.warning.warningText[appCtx.language]}</p>
       </div>
-      <ImageProcessor id="image-processor"/>
+      <ImageProcessor id="image-processor" />
     </section>
   );
 }

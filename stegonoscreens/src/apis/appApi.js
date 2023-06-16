@@ -1,5 +1,6 @@
 // REST calls for the whole app.
 import axios from "axios";
+
 import config from "../configs/config.json";
 
 // This endpoint gets a session token from the server.

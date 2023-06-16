@@ -1,8 +1,8 @@
 // The main component in the app, ladies and gentlemen,
 // the ImageProcessor.
-import config from "../../configs/config.json";
-
 import { useState, useContext, useRef } from "react";
+
+import AppContext from "../../store/app-context";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -12,15 +12,16 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ReCAPTCHA from "react-google-recaptcha";
 
-import classes from "./style/ImageProcessor.module.css";
-
 import ImageUpload from "./ImageUpload";
-import AppContext from "../../store/app-context";
 
-import strings from "../../static/strings.js";
 import * as errorHandlers from "../../utils/errorHandlers";
 import * as api from "../../apis/stegonoApi";
 import * as stegonoForms from "../../utils/stegonoForms";
+
+import config from "../../configs/config.json";
+import strings from "../../static/strings.js";
+
+import classes from "./style/ImageProcessor.module.css";
 
 function ImageProcessor() {
   const appCtx = useContext(AppContext);

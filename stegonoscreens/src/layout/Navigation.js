@@ -1,14 +1,15 @@
 import { useContext } from "react";
 
+import AppContext from "../store/app-context";
+
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-import classes from "./style/Navigation.module.css";
 import logo from "../static/images/stegologo.svg";
 
-import AppContext from "../store/app-context";
+import classes from "./style/Navigation.module.css";
 
 // Navbar component.
 import strings from "../static/strings";
