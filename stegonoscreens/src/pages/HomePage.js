@@ -1,13 +1,13 @@
 // Component for the Home Page.
 import { useContext } from "react";
 
-import classes from "./style/HomePage.module.css";
+import AppContext from "../store/app-context";
 
 import ImageProcessor from "../components/imageHandler/ImageProcessor.js";
 
-import AppContext from "../store/app-context";
-
 import strings from "../static/strings";
+
+import classes from "./style/HomePage.module.css";
 
 function HomePage() {
   const appCtx = useContext(AppContext);

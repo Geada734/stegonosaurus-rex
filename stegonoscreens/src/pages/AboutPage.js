@@ -1,8 +1,11 @@
 // Component for the About page.
 import { useContext } from "react";
+
 import AppContext from "../store/app-context";
-import strings from "../static/strings";
+
 import AboutText from "../components/misc/AboutText";
+
+import strings from "../static/strings";
 
 function AboutPage() {
   const appCtx = useContext(AppContext);

@@ -1,15 +1,16 @@
 // Component for the FAQs page.
 import { useState, useContext, useEffect } from "react";
 
-import classes from "./style/FAQPage.module.css";
-
 import AppContext from "../store/app-context";
 
-import Question from "../components/misc/Question";
 import * as errorHandlers from "../utils/errorHandlers";
 import * as api from "../apis/faqsApi";
 
+import Question from "../components/misc/Question";
+
 import strings from "../static/strings.js";
+
+import classes from "./style/FAQPage.module.css";
 
 function FAQPage() {
   const appCtx = useContext(AppContext);

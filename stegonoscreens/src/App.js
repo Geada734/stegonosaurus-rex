@@ -1,6 +1,9 @@
-import { Route, Routes } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import classes from "./App.css";
+import { Route, Routes } from "react-router-dom";
+
+import AppContext from "./store/app-context";
+
+import * as api from "./apis/appApi.js";
 
 import Layout from "./layout/Layout";
 import HomePage from "./pages/HomePage";
@@ -11,10 +14,10 @@ import ErrorModal from "./components/modals/ErrorModal";
 import LoadingModal from "./components/modals/LoadingModal";
 import ResultModal from "./components/modals/ResultModal";
 
-import AppContext from "./store/app-context";
-import * as api from "./apis/appApi.js";
 import errors from "./static/errors";
 import strings from "./static/strings.js";
+
+import classes from "./App.css";
 
 function App() {
   const appCtx = useContext(AppContext);
