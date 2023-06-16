@@ -1,3 +1,4 @@
+// Question component for the FAQs page.
 import { useState, useContext } from "react";
 
 import parse from "html-react-parser";
@@ -24,20 +25,27 @@ function Question(props) {
   const [userRating, setUserRating] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  // Handles the response of rating a FAQ.
   function handleResponse() {
     setLoading(false);
   }
 
+  // Handles REST error on rating a FAQ.
   function handleError(e) {
+    /*
+     * e: REST error.
+     */
     errorHandlers.handleRestError(e, appCtx.raiseError);
     setLoading(false);
     setUserRating(0);
   }
 
-  function rate(e, id, value) {
-    e.preventDefault();
+  // Changes a rating of a question on the DB.
+  function rate(event, id, value) {
+    event.preventDefault();
     setLoading(true);
 
+    // API Form
     let formData = faqsForms.createVoteForm(
       id,
       value,
@@ -45,10 +53,14 @@ function Question(props) {
       setUserRating
     );
 
+    // API call.
     api.rateQuestion(handleResponse, handleError, appCtx.token, formData);
   }
 
+  // Render the rating buttons.
   function renderButtonGroup() {
+    // If the user triggered an API call, display a spinning wheel until
+    // a valid response comes from the call.
     if (loading) {
       return <Spinner animation="border" role="status"></Spinner>;
     }
@@ -73,6 +85,8 @@ function Question(props) {
     );
   }
 
+  // A question consists of a question (yeah, sounds weird), an answer in HTML format,
+  // and a button group (or loading wheel) for rating.
   return (
     <div className={classes.question}>
       <h3>{props.question}</h3>
