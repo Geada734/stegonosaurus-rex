@@ -1,3 +1,4 @@
+// Modal that displays a resulting image from the server.
 import { useContext } from "react";
 
 import Modal from "react-bootstrap/Modal";
@@ -12,9 +13,11 @@ function ResultModal() {
   const appCtx = useContext(AppContext);
 
   function handleClose() {
+    // Close button behavior.
     appCtx.popResult("");
   }
 
+  // The modal only displays the resulting image.
   return (
     <Modal
       size="md"

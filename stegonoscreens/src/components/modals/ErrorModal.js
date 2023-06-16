@@ -1,3 +1,4 @@
+// Modal that displays an error.
 import { useContext } from "react";
 
 import Modal from "react-bootstrap/Modal";
@@ -10,10 +11,13 @@ function ErrorModal() {
   const appCtx = useContext(AppContext);
 
   function closeHandler() {
+    // Close button behavior.
     appCtx.raiseError(null);
   }
 
   if (appCtx.error) {
+    // Modal contains the error's info, if it's a forbidden error
+    // the close button is not present so the user can't access the app.
     return (
       <Modal
         size="md"

@@ -1,3 +1,4 @@
+// Modal that lets the user know the app is loading.
 import { useContext } from "react";
 
 import Spinner from "react-bootstrap/Spinner";
@@ -10,6 +11,8 @@ import classes from "./style/LoadingModal.module.css";
 function LoadingModal() {
   const appCtx = useContext(AppContext);
 
+  // The loading modal only displays a spinning wheel, and
+  // header with text.
   return (
     <Modal show={appCtx.showLoading} size="sm">
       <Modal.Header>

@@ -10,16 +10,20 @@ import logo from "../static/images/stegologo.svg";
 
 import AppContext from "../store/app-context";
 
+// Navbar component.
 import strings from "../static/strings";
 
 function Navigation() {
   const appCtx = useContext(AppContext);
 
+  // Changes the language in the app context when changed in the dropdown.
   function languageHandler(lang) {
     appCtx.changeLanguage(lang);
     localStorage.setItem("stegoLang", lang);
   }
 
+  // The navbar contains a list for all pages in the app, and a dropdown to choose
+  // the language, the app's glorious name, and the app logo.
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
