@@ -1,16 +1,20 @@
-import { useContext } from 'react';
+// Component for an nonexistent route.
+import { useContext } from "react";
 
-import AppContext from '../store/app-context';
+import AppContext from "../store/app-context";
 
-import strings from '../static/strings.js';
+import strings from "../static/strings.js";
 
 function NotFoundPage() {
-    const appCtx = useContext(AppContext);
+  const appCtx = useContext(AppContext);
 
-    return <section>
-        <h1>{strings.notFoundPage.header[appCtx.language]}</h1>
-        <span>{strings.notFoundPage.summary[appCtx.language]}</span>
+  // This page only contains a text saying that the page is not found in the app.
+  return (
+    <section>
+      <h1>{strings.notFoundPage.header[appCtx.language]}</h1>
+      <span>{strings.notFoundPage.summary[appCtx.language]}</span>
     </section>
-};
+  );
+}
 
 export default NotFoundPage;

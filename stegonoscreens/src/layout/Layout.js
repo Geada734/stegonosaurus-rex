@@ -1,12 +1,16 @@
-import classes from './style/Layout.module.css';
+// Container for the application's pages.
+import Navigation from "./Navigation";
 
-import Navigation from './Navigation';
+import classes from "./style/Layout.module.css";
 
-function Layout(props){
-    return <section>
-            <Navigation />
-            <main className={classes.appContent}>{props.children}</main>
-        </section>
-};
+function Layout(props) {
+  // Contains a nave bar at the top.
+  return (
+    <section>
+      <Navigation />
+      <main className={classes.appContent}>{props.children}</main>
+    </section>
+  );
+}
 
 export default Layout;
