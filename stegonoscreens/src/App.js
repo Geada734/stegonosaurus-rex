@@ -45,7 +45,9 @@ function App() {
 
   // Handles the token comming from the server.
   function handleToken(token) {
-    // token: session token.
+    /*
+     * token: session token.
+     */
     appCtx.setToken(token);
     localStorage.setItem("stegoToken", token);
 
@@ -55,7 +57,9 @@ function App() {
 
   // Handles REST errors.
   function handleError(e) {
-    // e: error.
+    /*
+     * e: error.
+     */
     appCtx.popLoading("");
     appCtx.raiseError(errors["serverDown"]);
   }

@@ -3,8 +3,10 @@ import errors from "../static/errors.js";
 
 // Handler that gets error info from the errors file.
 export function handleRestError(e, errorHandler) {
-  // e: error
-  // errorHandler: callback to handle the error.
+  /*
+   * e: error
+   * errorHandler: callback to handle the error.
+   */
   let errorKey;
 
   // If the error is one handled by the Stegonoserver, get the error key.

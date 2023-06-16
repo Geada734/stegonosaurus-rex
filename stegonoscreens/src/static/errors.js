@@ -1,3 +1,4 @@
+// Index for all the possible handled errors.
 import config from "../configs/config.json";
 
 const errors = {

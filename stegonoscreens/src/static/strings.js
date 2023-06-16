@@ -1,3 +1,4 @@
+// Index for all the text in the app.
 import en from "./flags/en.png";
 import es from "./flags/es.png";
 import config from "../configs/config.json";

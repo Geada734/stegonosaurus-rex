@@ -1,3 +1,4 @@
+// Component for the FAQs page.
 import { useState, useContext, useEffect } from "react";
 
 import classes from "./style/FAQPage.module.css";
@@ -16,16 +17,25 @@ function FAQPage() {
   const [faqs, setFaqs] = useState([]);
 
   useEffect(() => {
+    // Get FAQs from the server.
     appCtx.popLoading(strings.loadingModal.loadingFAQs[appCtx.language]);
     api.getFaqs(handleFaqs, handleError, appCtx.token);
   }, []);
 
+  // Handles the response for the initial REST call.
   function handleFaqs(response) {
+    /*
+     * response: REST response.
+     */
     setFaqs(response.data.faqs);
     appCtx.popLoading("");
   }
 
+  // Handles any errors in the REST call.
   function handleError(e) {
+    /*
+     * e: error response.
+     */
     errorHandlers.handleRestError(e, appCtx.raiseError);
     appCtx.popLoading("");
   }

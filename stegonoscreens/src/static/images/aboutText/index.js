@@ -1,3 +1,4 @@
+// Image index to import images into the About text.
 import lenteja from "./lenteja.png";
 import coded from "./coded.png";
 import transparent from "./transparent.png";

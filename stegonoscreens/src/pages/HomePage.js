@@ -1,3 +1,4 @@
+// Component for the Home Page.
 import { useContext } from "react";
 
 import classes from "./style/HomePage.module.css";
@@ -11,6 +12,8 @@ import strings from "../static/strings";
 function HomePage() {
   const appCtx = useContext(AppContext);
 
+  // The page contains only the ImageProcessor component preceded
+  // by some instructive text.
   return (
     <section>
       <div className={classes.instructions}>

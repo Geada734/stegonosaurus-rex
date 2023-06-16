@@ -2,7 +2,8 @@
 
 // Creates form for encoding functionality.
 export function createEncodingForm(captcha, coded, template, filename) {
-  /* captcha: captcha value.
+  /*
+   * captcha: captcha value.
    * coded: image with the message.
    * template: image where the message is to be hidden.
    * filename: filename of the image where the message is to be hidden.
@@ -18,7 +19,8 @@ export function createEncodingForm(captcha, coded, template, filename) {
 }
 
 export function createDecodingForm(captcha, image, filename, mode) {
-  /* captcha: captcha value.
+  /*
+   * captcha: captcha value.
    * image: image to decode.
    * filename: filename of the image where the message is to be hidden.
    */

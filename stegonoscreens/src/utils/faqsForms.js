@@ -2,7 +2,8 @@
 
 // Creates form for the voting action on a FAQ.
 export function createVoteForm(id, value, rating, setUserRating) {
-  /* id: FAQ id.
+  /*
+   * id: FAQ id.
    * value: vote value.
    * rating: current rating.
    * setUserRating: callback to set the rating on the frontEnd.
