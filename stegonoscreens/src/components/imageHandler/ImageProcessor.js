@@ -1,3 +1,5 @@
+// The main component in the app, ladies and gentlemen,
+// the ImageProcessor.
 import config from "../../configs/config.json";
 
 import { useState, useContext, useRef } from "react";
@@ -23,6 +25,7 @@ import * as stegonoForms from "../../utils/stegonoForms";
 function ImageProcessor() {
   const appCtx = useContext(AppContext);
 
+  // Captcha usage still requires useRef.
   const captchaRef = useRef(null);
 
   const [invalidCaptcha, setInvalidCaptcha] = useState(false);
@@ -34,7 +37,11 @@ function ImageProcessor() {
   const [templateImage, setTemplateImage] = useState(null);
   const [imageToDecode, setImageToDecode] = useState(null);
 
+  // Handle the response from the API calls to the Stegonoserver.
   function handleResponse(response) {
+    /*
+     * response: REST response.
+     */
     const res = "data:image/png;base64, " + response.data.result;
     const resName = response.data.filename;
 
@@ -47,7 +54,11 @@ function ImageProcessor() {
     };
   }
 
+  // Handles the response after the image has been retrieved.
   function handleResults(results) {
+    /*
+     * results: image in the response.
+     */
     const link = document.createElement("a");
     link.href = results.fileData;
 
@@ -58,16 +69,27 @@ function ImageProcessor() {
     link.parentNode.removeChild(link);
   }
 
+  // Handles REST errors.
   function handleError(e) {
+    /*
+     * e: REST error.
+     */
     appCtx.popLoading("");
     errorHandlers.handleRestError(e, appCtx.raiseError);
   }
 
-  function submitHandler(e, endpoint) {
-    e.preventDefault();
+  // Handles the images and submits them to the server.
+  function submitHandler(event, endpoint) {
+    /*
+     * event: click event.
+     * endpoint: endpoint to be called.
+     */
+    event.preventDefault();
     const captchaValue = captchaRef.current.getValue();
 
+    // Checks that there's a valid captcha value.
     if (captchaValue) {
+      // Resets the value for this code.
       captchaRef.current.reset();
       appCtx.popLoading(strings.loadingModal.processingImages[appCtx.language]);
 
@@ -78,6 +100,7 @@ function ImageProcessor() {
           templateImage,
           templateImage.name
         );
+        // Calls the encode endpoint.
         api.encode(
           handleResponse,
           handleResults,
@@ -92,6 +115,7 @@ function ImageProcessor() {
           imageToDecode.name,
           decodeMode
         );
+        // Calls the decode endpoint.
         api.decode(
           handleResponse,
           handleResults,
@@ -101,11 +125,18 @@ function ImageProcessor() {
         );
       }
     } else {
+      // Tells the user the captcha is not correct.
       setInvalidCaptcha(true);
     }
   }
 
+  // Handles operational mode changes.
   function modeHandler(mode) {
+    /*
+     * mode: operational mode.
+     */
+
+    // Resets images in the mode that is not selected.
     setCodedMessageImage(null);
     setTemplateImage(null);
     setImageToDecode(null);
@@ -114,27 +145,49 @@ function ImageProcessor() {
     setTabValue(mode);
   }
 
-  function decodeModeHandler(e, dMode) {
-    e.preventDefault();
+  // Handles changes in the decode mode.
+  function decodeModeHandler(event, dMode) {
+    /*
+     * event: switch event.
+     * dMode: selected decode mode.
+     */
+    event.preventDefault();
     setDecodeMode(dMode);
   }
 
+  // Sets the image to decode from the image upload.
   function imageToDecodeHandler(file) {
+    /*
+     * file: uploaded file.
+     */
     setImageToDecode(file);
   }
 
+  // Sets the image with the coded message from the image upload.
   function codedMessageImageHandler(file) {
+    /*
+     * file: uploaded file.
+     */
     setCodedMessageImage(file);
   }
 
+  // Sets the template image from the image upload.
   function templateImageHandler(file) {
+    /*
+     * file: uploaded file.
+     */
     setTemplateImage(file);
   }
 
+  // Handles captcha value changes.
   function onCaptchaChanged(value) {
+    /*
+     * value: captcha value.
+     */
     value ? setInvalidCaptcha(false) : setInvalidCaptcha(true);
   }
 
+  // Renders a different component depending on the selected operational mode.
   function renderComponent() {
     if (tabValue === "encode") {
       return (
@@ -224,6 +277,8 @@ function ImageProcessor() {
   }
 
   return (
+    // The component contains the image uploads for each mode, a button to upload,
+    // and the captcha component.
     <div>
       <Nav variant="tabs" defaultActiveKey={tabValue} onSelect={modeHandler}>
         <Nav.Item>
