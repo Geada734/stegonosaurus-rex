@@ -1,5 +1,6 @@
 """Server app file."""
 import json
+import time
 
 from bson import json_util
 from flask_cors import CORS
@@ -71,7 +72,9 @@ class Token(Resource):
     """API for JWT generation"""
     def get(self) -> Response:
         """Endpoint to get token"""
-        token = sec.encode_token(config)
+        # Gets current time to encode into JWT as a timestamp.
+        timestamp = int(round(time.time() * 1000))
+        token = sec.encode_token(config, timestamp)
         response = Response(mimetype="application/json")
         response.status_code = 200
         response.data = json.dumps({

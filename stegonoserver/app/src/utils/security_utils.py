@@ -1,16 +1,12 @@
 """Security Utils"""
-import json
 import time
 
 import jwt
 import requests as req
 
 
-def encode_token(config: dict) -> str:
+def encode_token(config: dict, timestamp: int) -> str:
     """Encodes a new token."""
-    # Gets current time to encode into JWT as a timestamp.
-    timestamp = int(round(time.time() * 1000))
-
     token_components = {"timestamp": timestamp}
     token = jwt.encode(token_components, config["jwtSecret"], algorithm="HS256")
 
