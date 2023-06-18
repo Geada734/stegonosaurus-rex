@@ -7,6 +7,12 @@ from flask import request, Response
 from . import security_utils as sec
 
 
+with open("config/config.json", "r") as configFile:
+    # Get the Mongo connection from configs.
+    config = json.load(configFile)
+    configFile.close()
+
+
 def jwt_secured(func: callable) -> None:
     """Wrapper for JWT validation."""
     @wraps(func)
@@ -25,7 +31,7 @@ def jwt_secured(func: callable) -> None:
             token = auth.split(" ")
 
             if len(token) == 2:
-                if not sec.validate_jwt(token[1]):
+                if not sec.validate_jwt(token[1], config):
                     # Invalid signature.
                     return err_response
             else:

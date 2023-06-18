@@ -19,12 +19,10 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
-
 with open("config/config.json", "r") as configFile:
     # Get the Mongo connection from configs.
     config = json.load(configFile)
     configFile.close()
-
 
 db_client = MongoClient(config["mongoServer"])
 db = db_client.stegonodb
@@ -73,7 +71,7 @@ class Token(Resource):
     """API for JWT generation"""
     def get(self) -> Response:
         """Endpoint to get token"""
-        token = sec.encode_token()
+        token = sec.encode_token(config)
         response = Response(mimetype="application/json")
         response.status_code = 200
         response.data = json.dumps({
@@ -96,7 +94,7 @@ class DecodeAPI(Resource):
 
         if captcha_value:
             # The call comes from the browser if it has a captcha_value in the body.
-            if not sec.validate_captcha(captcha_value):
+            if not sec.validate_captcha(captcha_value, config):
                 response.status_code = 500
                 response.data = json.dumps({
                     "error_codename": "unknown",
@@ -122,7 +120,7 @@ class EncodeAPI(Resource):
 
         if captcha_value:
             # The call comes from the browser if it has a captcha_value in the body.
-            if not sec.validate_captcha(captcha_value):
+            if not sec.validate_captcha(captcha_value, config):
                 response.status_code = 500
                 response.data = json.dumps({
                     "error_codename": "unknown",
