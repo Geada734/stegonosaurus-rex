@@ -8,9 +8,8 @@ from flask import Response
 from stegonosaurus import stegofunctions as sf
 
 
-def decode(file: Image, filename: str, mode: str, response: Response) -> Response:
+def decode(img: Image, filename: str, mode: str, response: Response) -> Response:
     """Decode wrapper function, returns a response with the result."""    
-    img = Image.open(file)
     img = sf.decode(img, mode)
 
     buffered = BytesIO()

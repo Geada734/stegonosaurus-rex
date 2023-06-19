@@ -4,10 +4,10 @@ import time
 
 from bson import json_util
 from flask_cors import CORS
-from PIL import UnidentifiedImageError
 from flask_restful import Api, Resource
 from flask import Flask, request, Response
 from pymongo import MongoClient, errors as me
+from PIL import Image, UnidentifiedImageError
 from stegonosaurus import stegoexceptions as se
 
 import utils.decorators as dec
@@ -89,7 +89,7 @@ class DecodeAPI(Resource):
     @dec.jwt_secured
     def post(self) -> Response:
         """Decode endpoint"""
-        file = request.files["img"]
+        file = Image.open(request.files["img"])
         filename = request.form.get("filename")
         mode = request.form.get("mode")
         captcha_value = request.form.get("captchaValue")
