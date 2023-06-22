@@ -1,12 +1,4 @@
 """Tests Security Utils."""
-import os
-import sys
-
-import jwt
-
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
-
 from src.utils import security_utils as su
 
 
@@ -17,6 +9,18 @@ def test_encode_token(config, timestamp_fixed):
 
     assert token == ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE2ODc0NjQ5MjI1NjB9"
     + ".vBASjOlvYgy3XBbMy35SZmcc2Chd5cBKpVsY0PjrYh8")
+
+
+# Captcha Validation tests.
+def test_valid_captcha_response(config_for_captcha, mocker):
+    """Tests a successful captcha validation."""
+    mock_response = mocker.Mock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {"success": True}
+    mocker.patch("src.utils.security_utils.call_captcha_url",
+                 return_value=mock_response.json())
+
+    assert su.validate_captcha(config_for_captcha, "noValue")
 
 
 # JWT Validation tests.

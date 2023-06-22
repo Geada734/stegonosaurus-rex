@@ -1,12 +1,7 @@
 """Tests stegonosaurus' functions."""
-import os
-import sys
 import json
 
 from stegonosaurus import stegofunctions as sf, stegoexceptions as se
-
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
 
 from src.utils import error_handlers as err_handlers
 

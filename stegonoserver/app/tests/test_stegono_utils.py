@@ -1,13 +1,8 @@
 """Tests stegonosaurus' functions."""
-import os
-import sys
 import json
 
 from flask import Response
 from stegonosaurus import stegofunctions as sf
-
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
 
 from src.utils import stegono_utils as su
 

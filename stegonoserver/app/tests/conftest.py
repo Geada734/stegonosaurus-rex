@@ -1,8 +1,13 @@
 """Fixtures for unit tests."""
+import os
+import sys
 import time
 
 import pytest
 from PIL import Image
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(parent_dir)
 
 
 # Sample abstract images used for testing:
@@ -189,3 +194,9 @@ def config():
 def other_config():
     """Simulates a different set of configs."""
     return {"jwtSecret": "trySecret", "jwtLifeMinutes": 5}
+
+
+@pytest.fixture
+def config_for_captcha():
+    """Dummy values for captcha validation."""
+    return {"captchaSecret": "noSecret"}
