@@ -1,3 +1,4 @@
+"""Tests stegonosaurus' functions."""
 import os
 import sys
 import json
@@ -46,6 +47,7 @@ def test_decode_valid_rgba_png_t(raw_coded_rgb_bright_red_png, raw_image_rgba_pn
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4nAXBgQEAAATAoPj/"
             + "ZlMiXTsdeEzOBvunXYHjAAAAAElFTkSuQmCC"
         }
+
 
 def test_decode_valid_rgb_png_ut(raw_coded_rgb_bright_red_png, raw_image_rgb_png):
     """Tests decoding on a valid RGB .png image, with upper case
@@ -212,3 +214,153 @@ def test_decode_valid_rgb_png_invalid_nonstring_mode(raw_coded_rgb_bright_red_pn
             "error_codename": "wrongDecodeMode",
             "error_message": "The provided decode mode is invalid."
         }
+
+
+# Image encoding unit tests:
+def test_encode_rgb_png(raw_coded_rgb_bright_red_png, raw_image_rgb_png):
+    """Tests encoding both valid RGB .png images, with a valid 
+    message.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_coded_rgb_bright_red_png, raw_image_rgb_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert data == {
+            "filename": "encoded_file.png", 
+            "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNk+P+fgeE"
+            + "/EwPDfwYGBgAjBwQAw0d3/gAAAABJRU5ErkJggg=="
+        }
+
+
+def test_encode_rgba_png(raw_coded_rgba_bright_red_png, raw_image_rgba_png):
+    """Tests encoding both valid RGBA.png images, with a valid 
+    message.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_coded_rgba_bright_red_png, raw_image_rgba_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert data == {
+            "filename": "encoded_file.png", 
+            "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4nAXBAQEAAAjDIG7/"
+            + "zhOmIkfgAT34BP9m/Y84AAAAAElFTkSuQmCC"
+        }
+
+
+def test_encode_valid_rgb_smaller_png(raw_coded_smaller_rgb_png,
+                                      raw_image_rgb_png):
+    """Tests encoding a smaller RGB .png into a RGB .png image."""
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_coded_smaller_rgb_png, raw_image_rgb_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert data == {
+            "filename": "encoded_file.png", 
+            "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNk+P+fgeE/" 
+            + "EwPDfwYGBgAjBwQAw0d3/gAAAABJRU5ErkJggg=="
+        }
+
+
+def test_encode_invalid_rgb_coded_jpeg(raw_image_rgb_jpeg, raw_image_rgb_png):
+    """Tests encoding of an invalid RGB .jpeg image into a valid RGB
+    .png image.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_image_rgb_jpeg, raw_image_rgb_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert result.status_code == 500 and data == {
+            "error_codename": "wrongFormat",
+            "error_message": "Both files must be multi-band .png images."
+        }
+
+
+def test_encode_invalid_rgb_image_jpeg(raw_coded_rgb_bright_red_png, raw_image_rgb_jpeg):
+    """Tests encoding of a valid RGB .png image into an invalid RGB
+    .jpeg image.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_coded_rgb_bright_red_png, raw_image_rgb_jpeg, "file.png", response)
+    data = json.loads(result.data)
+
+    assert result.status_code == 500 and data == {
+            "error_codename": "wrongFormat",
+            "error_message": "Both files must be multi-band .png images."
+        }
+
+
+def test_encode_invalid_l_coded_png(raw_image_l_png, raw_image_rgb_png):
+    """Tests encoding an invalid single band .png image into an valid RGB .png
+    image.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_image_l_png, raw_image_rgb_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert result.status_code == 500 and data == {
+            "error_codename": "wrongFormat",
+            "error_message": "Both files must be multi-band .png images."
+        }
+
+
+def test_encode_invalid_l_image_png(raw_coded_rgb_bright_red_png, raw_image_l_png):
+    """Tests encoding an invalid single band .png image into an valid RGB .png
+    image.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_coded_rgb_bright_red_png, raw_image_l_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert result.status_code == 500 and data == {
+            "error_codename": "wrongFormat",
+            "error_message": "Both files must be multi-band .png images."
+        }
+
+
+def test_encode_invalid_rgb_larger_png(raw_coded_larger_rgb_png,
+                                       raw_image_rgb_png):
+    """Tests encoding an invalid larger RGB .png image into a valid RGB
+    .png image.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_coded_larger_rgb_png, raw_image_rgb_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert result.status_code == 500 and data == {
+            "error_codename": "wrongSize",
+            "error_message": "The image with the coded message should be smaller than the image " 
+            + "where the message will be hidden."
+        }
+
+
+def test_encode_invalid_rgb_larger_x_png(raw_coded_larger_x_rgb_png,
+                                         raw_image_rgb_png):
+    """Tests encoding an invalid horizontally larger RGB .png image
+    into a valid RGB .png image.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_coded_larger_x_rgb_png, raw_image_rgb_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert result.status_code == 500 and data == {
+            "error_codename": "wrongSize",
+            "error_message": "The image with the coded message should be smaller than the image " 
+            + "where the message will be hidden."
+        }
+
+
+def test_encode_invalid_rgb_larger_y_png(raw_coded_larger_y_rgb_png,
+                                         raw_image_rgb_png):
+    """Tests encoding an invalid vertically larger RGB .png image into
+    a valid RGB .png image.
+    """
+    response = Response(mimetype="application/json")
+    result = su.encode(raw_coded_larger_y_rgb_png, raw_image_rgb_png, "file.png", response)
+    data = json.loads(result.data)
+
+    assert result.status_code == 500 and data == {
+            "error_codename": "wrongSize",
+            "error_message": "The image with the coded message should be smaller than the image " 
+            + "where the message will be hidden."
+        }
+    
