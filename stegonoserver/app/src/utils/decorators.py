@@ -5,10 +5,11 @@ from functools import wraps
 from flask import request, Response
 
 from . import security_utils as sec
+from . import error_handlers as err_handlers
 
 
 with open("config/config.json", "r") as configFile:
-    # Get the Mongo connection from configs.
+    # Get configs for secrets.
     config = json.load(configFile)
     configFile.close()
 
@@ -17,12 +18,6 @@ def jwt_secured(func: callable) -> None:
     """Wrapper for JWT validation."""
     @wraps(func)
     def wrapper(*args, **kwargs) -> callable:
-        # Form 401 response in case the validation fails.
-        err_response = Response(mimetype="application/json")
-        err_response.status_code = 401
-        err_response.data = json.dumps({"error_codename": "invalidToken",
-                        "error_message": "Invalid JWT token"})
-
         # Gets JWT from the Authorization header.
         auth = request.headers.get("Authorization")
 
@@ -33,13 +28,16 @@ def jwt_secured(func: callable) -> None:
             if len(token) == 2:
                 if not sec.validate_jwt(token[1], config):
                     # Invalid signature.
-                    return err_response
+                    return err_handlers.handle_internal_error("invalidToken", "Invalid JWT token",
+                                                              401, "Invalid JWT token.")
             else:
                 # No token in Authorization header.
-                return err_response
+                return err_handlers.handle_internal_error("invalidToken", "Invalid JWT token", 401,
+                                                          "Invalid JWT token.")
         else:
             # No Authorization header.
-            return err_response
+            return err_handlers.handle_internal_error("invalidToken", "Invalid JWT token", 401,
+                                                      "Invalid JWT token.")
 
         return func(*args, **kwargs)
 
