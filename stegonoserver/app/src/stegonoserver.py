@@ -6,6 +6,7 @@ from bson import json_util
 from flask_cors import CORS
 from flask_restful import Api, Resource
 from flask import Flask, request, Response
+from werkzeug.exceptions import BadRequest
 from pymongo import MongoClient, errors as me
 from PIL import Image, UnidentifiedImageError
 
@@ -73,10 +74,12 @@ class DecodeAPI(Resource):
 
             return stegono.decode(file, filename, mode, response)
 
-        # If the file provided is not an image.
-        except UnidentifiedImageError as err:
-            return err_handlers.handle_exception(err, "wrongFormat",
-                                                "The file provided is not a valid image.")
+        # If either file is not an image, or the request is malformed.
+        except (UnidentifiedImageError, BadRequest) as err:
+            if isinstance(err, UnidentifiedImageError):
+                return err_handlers.handle_exception(err, "wrongFormat",
+                                                    "The file provided is not a valid image.")
+            return err_handlers.handle_exception(err, "malformedRequest", "Malformed request.")
 
 
 # Service connections.
@@ -93,19 +96,22 @@ class EncodeAPI(Resource):
             response = Response(mimetype="application/json")
 
             if captcha_value:
-                coded_file.close()
-                img_file.close()
                 # The call comes from the browser if it has a captcha_value in the body.
                 if not sec.validate_captcha(captcha_value, config):
+                    coded_file.close()
+                    img_file.close()
+
                     return err_handlers.handle_internal_error("unknown", "Unknown internal error",
                                                             500, "Failed captcha validation")
 
             return stegono.encode(coded_file, img_file, filename, response)
 
-        # If either file is not an image.
-        except UnidentifiedImageError as err:
-            return err_handlers.handle_exception(err, "wrongFormat",
-                                                "The file provided is not a valid image.")
+        # If either file is not an image, or the request is malformed.
+        except (UnidentifiedImageError, BadRequest) as err:
+            if isinstance(err, UnidentifiedImageError):
+                return err_handlers.handle_exception(err, "wrongFormat",
+                                                    "The file provided is not a valid image.")
+            return err_handlers.handle_exception(err, "malformedRequest", "Malformed request.")
 
 
 class FAQsAPI(Resource):

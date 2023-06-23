@@ -24,7 +24,7 @@ def validate_captcha(captcha_value: str, config: dict) -> bool:
     """Validates captcha in an incomming request."""    
     captcha_response = call_captcha_url(captcha_value, config)
 
-    if captcha_response["success"]:
+    if "success" in captcha_response and captcha_response["success"]:
         return True
 
     # If the captcha response is not a success.
