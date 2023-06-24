@@ -1,0 +1,80 @@
+"""Controller for the stegonosaurus functions."""
+import json
+
+from flask_restful import Resource
+from flask import request, Response
+from werkzeug.exceptions import BadRequest
+from PIL import Image, UnidentifiedImageError
+
+from utils import decorators as dec
+from utils import security_utils as sec
+from utils import stegono_utils as stegono
+from utils import error_handlers as err_handlers
+
+
+with open("config/config.json", "r") as configFile:
+    # Set the configs for the app.
+    config = json.load(configFile)
+    configFile.close()
+
+
+class DecodeAPI(Resource):
+    """Decode API"""
+    @dec.jwt_secured
+    def post(self) -> Response:
+        """Decode endpoint"""
+        try:
+            file = Image.open(request.files["img"])
+            filename = request.form.get("filename")
+            mode = request.form.get("mode")
+            captcha_value = request.form.get("captchaValue")
+            response = Response(mimetype="application/json")
+
+            if captcha_value:
+                # The call comes from the browser if it has a captcha_value in the body.
+                if not sec.validate_captcha(captcha_value, config):
+                    file.close()
+
+                    return err_handlers.handle_internal_error("unknown", "Unknown internal error",
+                                                            500, "Failed captcha validation")
+
+            return stegono.decode(file, filename, mode, response)
+
+        # If either file is not an image, or the request is malformed.
+        except (UnidentifiedImageError, BadRequest) as err:
+            if isinstance(err, UnidentifiedImageError):
+                return err_handlers.handle_exception(err, "wrongFormat",
+                                                    "The file provided is not a valid image.")
+            return err_handlers.handle_exception(err, "malformedRequest", "Malformed request.")
+
+
+# Service connections.
+class EncodeAPI(Resource):
+    """Encode API"""
+    @dec.jwt_secured
+    def post(self) -> Response:
+        """Encode endpoint"""
+        try:
+            coded_file = Image.open(request.files["coded"])
+            img_file = Image.open(request.files["img"])
+            filename = request.form.get("filename")
+            captcha_value = request.form.get("captchaValue")
+            response = Response(mimetype="application/json")
+
+            if captcha_value:
+                # The call comes from the browser if it has a captcha_value in the body.
+                if not sec.validate_captcha(captcha_value, config):
+                    coded_file.close()
+                    img_file.close()
+
+                    return err_handlers.handle_internal_error("unknown", "Unknown internal error",
+                                                            500, "Failed captcha validation")
+
+            return stegono.encode(coded_file, img_file, filename, response)
+
+        # If either file is not an image, or the request is malformed.
+        except (UnidentifiedImageError, BadRequest) as err:
+            if isinstance(err, UnidentifiedImageError):
+                return err_handlers.handle_exception(err, "wrongFormat",
+                                                    "The file provided is not a valid image.")
+            return err_handlers.handle_exception(err, "malformedRequest", "Malformed request.")
