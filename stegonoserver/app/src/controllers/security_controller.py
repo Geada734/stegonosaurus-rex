@@ -8,10 +8,8 @@ from flask_restful import Resource
 import utils.security_utils as sec
 
 
-with open("config/config.json", "r") as configFile:
-    # Set the configs for the app.
-    config = json.load(configFile)
-    configFile.close()
+# Set the configs for the app.
+config = sec.load_config()
 
 
 class Token(Resource):

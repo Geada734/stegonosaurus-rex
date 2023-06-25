@@ -8,17 +8,17 @@ from flask import request, Response
 from pymongo import MongoClient, errors as me
 
 from utils import decorators as dec
+from utils import security_utils as sec
 from utils import error_handlers as err_handlers
 
 
-with open("config/config.json", "r") as configFile:
-    # Get the Mongo connection from configs.
-    config = json.load(configFile)
-    configFile.close()
+# Get the Mongo connection from configs.
+config = sec.load_config()
 
 db_client = MongoClient(config["mongoServer"])
 db = db_client.stegonodb
 faqs_db = db.faqs
+
 
 class FAQsAPI(Resource):
     """FAQs API"""

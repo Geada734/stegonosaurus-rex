@@ -1,6 +1,4 @@
 """Controller for the stegonosaurus functions."""
-import json
-
 from flask_restful import Resource
 from flask import request, Response
 from werkzeug.exceptions import BadRequest
@@ -12,10 +10,8 @@ from utils import stegono_utils as stegono
 from utils import error_handlers as err_handlers
 
 
-with open("config/config.json", "r") as configFile:
-    # Set the configs for the app.
-    config = json.load(configFile)
-    configFile.close()
+# Set the configs for the app.
+config = sec.load_config()
 
 
 class DecodeAPI(Resource):

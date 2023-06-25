@@ -1,8 +1,18 @@
 """Security Utils"""
+import json
 import time
 
 import jwt
 import requests as req
+
+
+def load_config():
+    """Loads the necessary configs for the app."""
+    with open("config/config.json", "r") as config_file:
+        config = json.load(config_file)
+        config_file.close()
+
+    return config
 
 
 def encode_token(config: dict, timestamp: int) -> str:

@@ -1,17 +1,14 @@
 """Custom Decorators"""
-import json
-
 from functools import wraps
-from flask import request, Response
+
+from flask import request
 
 from . import security_utils as sec
 from . import error_handlers as err_handlers
 
 
-with open("config/config.json", "r") as configFile:
-    # Get configs for secrets.
-    config = json.load(configFile)
-    configFile.close()
+# Get configs for secrets.
+config = sec.load_config()
 
 
 def jwt_secured(func: callable) -> None:

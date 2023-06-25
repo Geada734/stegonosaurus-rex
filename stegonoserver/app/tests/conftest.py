@@ -5,6 +5,7 @@ import time
 
 import pytest
 from PIL import Image
+from flask import Flask
 
 
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -202,3 +203,12 @@ def other_config():
 def config_for_captcha():
     """Dummy values for captcha validation."""
     return {"captchaSecret": "noSecret"}
+
+
+# Test servers:
+@pytest.fixture
+def testegonoserver():
+    """Test server for tests."""  
+    app = Flask(__name__)
+
+    return app
