@@ -61,7 +61,14 @@ def test_invalid_signature_decode(config, other_config, timestamp_now):
 
 
 def test_expired_decode(config, timestamp_fixed):
-    """Test the validation of am expired JWT."""
+    """Test the validation of an expired JWT."""
     token = sec.encode_token(config, timestamp_fixed)
+
+    assert not sec.validate_jwt(token, config)
+
+
+def test_future_decode(config, timestamp_future):
+    """Test the validation of a future JWT."""
+    token = sec.encode_token(config, timestamp_future)
 
     assert not sec.validate_jwt(token, config)

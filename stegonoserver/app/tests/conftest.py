@@ -188,6 +188,13 @@ def timestamp_fixed():
 
 
 @pytest.fixture
+def timestamp_future():
+    """Return a future timestamp."""
+    return int(round(time.time() * 1000)) + 10000
+
+
+# Configs fixtures
+@pytest.fixture
 def config():
     """Simulates necessary configs for jwt utils with a 5 minute JWT life."""
     return {"jwtSecret": "testSecret", "jwtLifeMinutes": 5}
