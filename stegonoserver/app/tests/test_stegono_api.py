@@ -263,3 +263,66 @@ def test_no_auth_header_decode(testegonoserver):
 
     assert (response.status_code == 401 and data == {"error_codename": "invalidToken",
                                                      "error_message": ("Invalid JWT")})
+
+
+def test_valid_captcha_decode(testegonoserver, timestamp_now, mocker):
+    """Test valid decoding."""
+    mocker.patch("src.controllers.stegono_controller.sec.validate_captcha", return_value = True)
+    token = sec.encode_token(config, timestamp_now)
+
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(stegono_con.DecodeAPI, "/decode")
+
+    # Setting request body.
+    img = open("app/tests/static/encoded_black-kitten.png", "rb")
+
+    headers = {"Authorization": "Bearer " + token}
+    body_data = {
+            "filename": "file.png",
+            "mode": "t",
+            "img": (img, "file.png"),
+            "captchaValue": "valid"
+        }
+
+    client = app.test_client()
+    response = client.post("/decode", data=body_data, headers=headers,
+                           content_type="multipart/form-data")
+    img.close()
+    data = json.loads(response.data)
+
+    assert (response.status_code == 200
+            and data["filename"] == "decoded_file.png"
+            and "result" in data)
+
+
+def test_invalid_captcha_decode(testegonoserver, timestamp_now, mocker):
+    """Test valid decoding."""
+    mocker.patch("src.controllers.stegono_controller.sec.validate_captcha", return_value = False)
+    token = sec.encode_token(config, timestamp_now)
+
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(stegono_con.DecodeAPI, "/decode")
+
+    # Setting request body.
+    img = open("app/tests/static/encoded_black-kitten.png", "rb")
+
+    headers = {"Authorization": "Bearer " + token}
+    body_data = {
+            "filename": "file.png",
+            "mode": "t",
+            "img": (img, "file.png"),
+            "captchaValue": "valid"
+        }
+
+    client = app.test_client()
+    response = client.post("/decode", data=body_data, headers=headers,
+                           content_type="multipart/form-data")
+    img.close()
+    data = json.loads(response.data)
+
+    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
+                                                   'error_message': 'Unknown internal error'})
