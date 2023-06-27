@@ -3,9 +3,9 @@ from src.utils import security_utils as sec
 
 
 # JWT Encoding test.
-def test_encode_token(config, timestamp_fixed):
+def test_encode_token(test_config, timestamp_fixed):
     """Test the provided values for data encoding work fine."""
-    token = sec.encode_token(config, timestamp_fixed)
+    token = sec.encode_token(test_config, timestamp_fixed)
 
     assert token == ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE2ODc0NjQ5MjI1NjB9"
     + ".vBASjOlvYgy3XBbMy35SZmcc2Chd5cBKpVsY0PjrYh8")
@@ -46,29 +46,29 @@ def test_broken_captcha_response(config_for_captcha, mocker):
 
 
 # JWT Validation tests.
-def test_valid_decode(config, timestamp_now):
+def test_valid_decode(test_config, timestamp_now):
     """Test the validation of a valid and current JWT."""
-    token = sec.encode_token(config, timestamp_now)
+    token = sec.encode_token(test_config, timestamp_now)
 
-    assert sec.validate_jwt(token, config)
+    assert sec.validate_jwt(token, test_config)
 
 
-def test_invalid_signature_decode(config, other_config, timestamp_now):
+def test_invalid_signature_decode(test_config, other_config, timestamp_now):
     """Test the validation of a JWT with the wrong signature."""
     token = sec.encode_token(other_config, timestamp_now)
 
-    assert not sec.validate_jwt(token, config)
+    assert not sec.validate_jwt(token, test_config)
 
 
-def test_expired_decode(config, timestamp_fixed):
+def test_expired_decode(test_config, timestamp_fixed):
     """Test the validation of an expired JWT."""
-    token = sec.encode_token(config, timestamp_fixed)
+    token = sec.encode_token(test_config, timestamp_fixed)
 
-    assert not sec.validate_jwt(token, config)
+    assert not sec.validate_jwt(token, test_config)
 
 
-def test_future_decode(config, timestamp_future):
+def test_future_decode(test_config, timestamp_future):
     """Test the validation of a future JWT."""
-    token = sec.encode_token(config, timestamp_future)
+    token = sec.encode_token(test_config, timestamp_future)
 
-    assert not sec.validate_jwt(token, config)
+    assert not sec.validate_jwt(token, test_config)

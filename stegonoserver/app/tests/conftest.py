@@ -195,7 +195,7 @@ def timestamp_future():
 
 # Configs fixtures
 @pytest.fixture
-def config():
+def test_config():
     """Simulates necessary configs for jwt utils with a 5 minute JWT life."""
     return {"jwtSecret": "testSecret", "jwtLifeMinutes": 5}
 

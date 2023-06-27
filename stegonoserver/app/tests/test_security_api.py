@@ -8,9 +8,9 @@ from src.controllers import security_controller as sec_con
 
 
 # Token generation tests:
-def test_token(mocker, config, testegonoserver):
+def test_token(mocker, test_config, testegonoserver):
     """Tests the API endpoint used to get a JWT for calling the other APIs."""
-    mocker.patch.object(sec_con, "config", new=config)
+    mocker.patch.object(sec_con, "config", new=test_config)
 
     #Setting endpoint for testing.
     app = testegonoserver
@@ -21,4 +21,4 @@ def test_token(mocker, config, testegonoserver):
     response = client.get("/token")
     data = json.loads(response.data)
 
-    assert response.status_code == 200 and sec.validate_jwt(data["token"], config)
+    assert response.status_code == 200 and sec.validate_jwt(data["token"], test_config)

@@ -25,16 +25,16 @@ def jwt_secured(func: callable) -> None:
             if len(token) == 2:
                 if not sec.validate_jwt(token[1], config):
                     # Invalid signature.
-                    return err_handlers.handle_internal_error("invalidToken", "Invalid JWT token",
-                                                              401, "Invalid JWT token.")
+                    return err_handlers.handle_internal_error("invalidToken", "Invalid JWT",
+                                                              401, "Invalid JWT.")
             else:
                 # No token in Authorization header.
-                return err_handlers.handle_internal_error("invalidToken", "Invalid JWT token", 401,
-                                                          "Invalid JWT token.")
+                return err_handlers.handle_internal_error("invalidToken", "Invalid JWT", 401,
+                                                          "Invalid JWT.")
         else:
             # No Authorization header.
-            return err_handlers.handle_internal_error("invalidToken", "Invalid JWT token", 401,
-                                                      "Invalid JWT token.")
+            return err_handlers.handle_internal_error("invalidToken", "Invalid JWT", 401,
+                                                      "Invalid JWT.")
 
         return func(*args, **kwargs)
 

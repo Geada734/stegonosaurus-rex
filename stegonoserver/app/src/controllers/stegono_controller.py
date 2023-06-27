@@ -28,7 +28,8 @@ class DecodeAPI(Resource):
 
             if captcha_value:
                 # The call comes from the browser if it has a captcha_value in the body.
-                if not sec.validate_captcha(captcha_value, config):
+                valid_captcha = sec.validate_captcha(captcha_value, config)
+                if not valid_captcha:
                     file.close()
 
                     return err_handlers.handle_internal_error("unknown", "Unknown internal error",
@@ -59,7 +60,8 @@ class EncodeAPI(Resource):
 
             if captcha_value:
                 # The call comes from the browser if it has a captcha_value in the body.
-                if not sec.validate_captcha(captcha_value, config):
+                valid_captcha = sec.validate_captcha(captcha_value, config)
+                if not valid_captcha:
                     coded_file.close()
                     img_file.close()
 
