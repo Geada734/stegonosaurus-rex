@@ -54,6 +54,32 @@ def test_get_faqs(testegonoserver, timestamp_now, mocker, mockgo_db):
                     }]})
 
 
+def test_no_db_get_faqs(testegonoserver, timestamp_now, mocker, mockgo_db):
+    """Test FAQs retrieval with no db connection."""
+    def mock_find(*args):
+        """Mocks find function to always return a timeout error."""
+        raise me.ServerSelectionTimeoutError
+
+    token = sec.encode_token(config, timestamp_now)
+    mockgo_db.stegonodb.faqs.find = mock_find
+    mocker.patch.object(faqs_con, "faqs_db", new=mockgo_db.stegonodb.faqs)
+
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(faqs_con.FAQsAPI, "/faqs")
+
+    headers = {"Authorization": "Bearer " + token}
+
+    client = app.test_client()
+
+    response = client.get("/faqs", headers=headers)
+    data = json.loads(response.data)
+
+    assert (response.status_code == 500 and
+            data == {"error_codename": "noMongoDB", "error_message": "No Mongo DB available."})
+
+
 def test_bad_jwt_get_faqs(testegonoserver, timestamp_now, test_config):
     """Test calling get FAQs endpoint with a bad JWT."""
     token = sec.encode_token(test_config, timestamp_now)
@@ -215,6 +241,36 @@ def test_rate_faq(testegonoserver, timestamp_now, mocker, mockgo_db):
                 "message": "Vote submitted succesfully."
             } and
             faq["rating"] == 1)
+
+
+def test_no_db_rate_faq(testegonoserver, timestamp_now, mocker, mockgo_db):
+    """Test FAQs rating with no db."""
+    def mock_update_one(*args):
+        """Mocks update_one function to always return a timeout error."""
+        raise me.ServerSelectionTimeoutError
+
+    token = sec.encode_token(config, timestamp_now)
+    mockgo_db.stegonodb.faqs.update_one = mock_update_one
+    mocker.patch.object(faqs_con, "faqs_db", new=mockgo_db.stegonodb.faqs)
+
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(faqs_con.FAQsAPI, "/faqs")
+
+    headers = {"Authorization": "Bearer " + token}
+    body_data = {
+                    "id": 2, 
+                    "vote": 1
+                }
+
+    client = app.test_client()
+
+    response = client.put("/faqs", headers=headers, data=body_data)
+    data = json.loads(response.data)
+
+    assert (response.status_code == 500 and
+            data == {"error_codename": "noMongoDB", "error_message": "No Mongo DB available."})
 
 
 def test_bad_jwt_rate_faq(testegonoserver, test_config, timestamp_now):
