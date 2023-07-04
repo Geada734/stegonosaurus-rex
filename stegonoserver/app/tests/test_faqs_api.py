@@ -29,4 +29,25 @@ def test_decode(testegonoserver, timestamp_now, mocker, mockgo_db):
     response = client.get("/faqs", headers=headers)
     data = json.loads(response.data)
 
-    assert data == {} and response.status_code == 200
+    assert (response.status_code == 200 and
+            data == {"faqs": [{
+                        "id": 1,
+                        "en": {
+                            "question": "Test Question 1",
+                            "answer": "Test Answer 1" 
+                        },
+                        "es": {
+                            "question": "Test Pregunta 1",
+                            "answer": "Test Respuesta 1" 
+                        }
+                    }, {
+                        "id": 2,
+                        "en": {
+                            "question": "Test Question 2",
+                            "answer": "Test Answer 2" 
+                        },
+                        "es": {
+                            "question": "Test Pregunta 2",
+                            "answer": "Test Respuesta 2" 
+                        }
+                    }]})
