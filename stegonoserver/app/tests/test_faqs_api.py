@@ -75,3 +75,35 @@ def test_wrapper_on_faqs_endpoint(testegonoserver, timestamp_now, test_config):
                 "error_codename": "invalidToken",
                 "error_message": "Invalid JWT"
             })
+
+
+# FAQs rating tests:
+def test_rate_faq(testegonoserver, timestamp_now, mocker, mockgo_db):
+    """Test valid FAQs rating."""
+    token = sec.encode_token(config, timestamp_now)
+
+    mocker.patch.object(faqs_con, "faqs_db", new=mockgo_db.stegonodb.faqs)
+
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(faqs_con.FAQsAPI, "/faqs")
+
+    headers = {"Authorization": "Bearer " + token}
+    body_data = {
+                    "id": 2, 
+                    "vote": 1
+                }
+
+    client = app.test_client()
+
+    response = client.put("/faqs", headers=headers, data=body_data)
+    data = json.loads(response.data)
+    faq = mockgo_db.stegonodb.faqs.find_one({"id": 2}, {"_id": 0})
+    print(faq)
+
+    assert (response.status_code == 200 and
+            data == {
+                "message": "Vote submitted succesfully."
+            } and
+            faq["rating"] == 1)

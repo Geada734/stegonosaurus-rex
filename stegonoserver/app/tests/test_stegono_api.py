@@ -478,6 +478,150 @@ def test_bad_jwt_encode(testegonoserver, timestamp_now, test_config):
                                                      "error_message": "Invalid JWT"})
 
 
+def test_expired_jwt_encode(testegonoserver, timestamp_fixed):
+    """Test expired JWT."""
+    token = sec.encode_token(config, timestamp_fixed)
+
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(stegono_con.EncodeAPI, "/encode")
+
+    # Setting request body.
+    img = open("app/tests/static/file.png", "rb")
+    coded = open("app/tests/static/coded.png", "rb")
+
+    headers = {"Authorization": "Bearer " + token}
+    body_data = {
+            "filename": "file.png",
+            "img": (img, "file.png"),
+            "coded": (coded, "coded.png")
+        }
+
+    client = app.test_client()
+    response = client.post("/encode", data=body_data, headers=headers,
+                           content_type="multipart/form-data")
+    img.close()
+    data = json.loads(response.data)
+
+    assert (response.status_code == 401 and data == {"error_codename": "invalidToken",
+                                                     "error_message": "Invalid JWT"})
+
+
+def test_future_jwt_encode(testegonoserver, timestamp_future):
+    """Test future JWT."""
+    token = sec.encode_token(config, timestamp_future)
+
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(stegono_con.EncodeAPI, "/encode")
+
+    # Setting request body.
+    img = open("app/tests/static/file.png", "rb")
+    coded = open("app/tests/static/coded.png", "rb")
+
+    headers = {"Authorization": "Bearer " + token}
+    body_data = {
+            "filename": "file.png",
+            "img": (img, "file.png"),
+            "coded": (coded, "coded.png")
+        }
+
+    client = app.test_client()
+    response = client.post("/encode", data=body_data, headers=headers,
+                        content_type="multipart/form-data")
+    img.close()
+    data = json.loads(response.data)
+
+    assert (response.status_code == 401 and data == {"error_codename": "invalidToken",
+                                                        "error_message": "Invalid JWT"})
+
+
+def test_not_a_jwt_encode(testegonoserver):
+    """Test something that isn't JWT."""
+    token = "Obviously invalid token."
+
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(stegono_con.EncodeAPI, "/encode")
+
+    # Setting request body.
+    img = open("app/tests/static/file.png", "rb")
+    coded = open("app/tests/static/coded.png", "rb")
+
+    headers = {"Authorization": "Bearer " + token}
+    body_data = {
+            "filename": "file.png",
+            "img": (img, "file.png"),
+            "coded": (coded, "coded.png")
+        }
+
+    client = app.test_client()
+    response = client.post("/encode", data=body_data, headers=headers,
+                        content_type="multipart/form-data")
+    img.close()
+    data = json.loads(response.data)
+
+    assert (response.status_code == 401 and data == {"error_codename": "invalidToken",
+                                                        "error_message": "Invalid JWT"})
+
+
+def test_emmpty_auth_header_jwt_encode(testegonoserver):
+    """Test when the auth header does not contain a JWT."""
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(stegono_con.EncodeAPI, "/encode")
+
+    # Setting request body.
+    img = open("app/tests/static/file.png", "rb")
+    coded = open("app/tests/static/coded.png", "rb")
+
+    headers = {"Authorization": "Bearer "}
+    body_data = {
+            "filename": "file.png",
+            "img": (img, "file.png"),
+            "coded": (coded, "coded.png")
+        }
+
+    client = app.test_client()
+    response = client.post("/encode", data=body_data, headers=headers,
+                        content_type="multipart/form-data")
+    img.close()
+    data = json.loads(response.data)
+
+    assert (response.status_code == 401 and data == {"error_codename": "invalidToken",
+                                                        "error_message": "Invalid JWT"})
+
+
+def test_no_auth_header_jwt_encode(testegonoserver):
+    """Test when there's no auth header."""
+    # Setting endpoint for testing.
+    app = testegonoserver
+    api = Api(app)
+    api.add_resource(stegono_con.EncodeAPI, "/encode")
+
+    # Setting request body.
+    img = open("app/tests/static/file.png", "rb")
+    coded = open("app/tests/static/coded.png", "rb")
+
+    body_data = {
+            "filename": "file.png",
+            "img": (img, "file.png"),
+            "coded": (coded, "coded.png")
+        }
+
+    client = app.test_client()
+    response = client.post("/encode", data=body_data, content_type="multipart/form-data")
+    img.close()
+    data = json.loads(response.data)
+
+    assert (response.status_code == 401 and data == {"error_codename": "invalidToken",
+                                                        "error_message": "Invalid JWT"})
+
+
 def test_valid_captcha_encode(testegonoserver, timestamp_now, mocker):
     """Test valid captcha."""
     mocker.patch("src.controllers.stegono_controller.sec.validate_captcha", return_value = True)
