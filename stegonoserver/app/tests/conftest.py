@@ -4,10 +4,14 @@ import sys
 import time
 
 import pytest
+import mongomock
 from PIL import Image
+from flask import Flask
+
 
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(parent_dir)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 
 # Sample abstract images used for testing:
@@ -185,7 +189,14 @@ def timestamp_fixed():
 
 
 @pytest.fixture
-def config():
+def timestamp_future():
+    """Return a future timestamp."""
+    return int(round(time.time() * 1000)) + 10000
+
+
+# Configs fixtures
+@pytest.fixture
+def test_config():
     """Simulates necessary configs for jwt utils with a 5 minute JWT life."""
     return {"jwtSecret": "testSecret", "jwtLifeMinutes": 5}
 
@@ -200,3 +211,49 @@ def other_config():
 def config_for_captcha():
     """Dummy values for captcha validation."""
     return {"captchaSecret": "noSecret"}
+
+
+# Test Servers
+@pytest.fixture
+def testegonoserver():
+    """Test server for tests."""  
+    app = Flask(__name__)
+
+    return app
+
+
+# Test DB
+@pytest.fixture
+def mockgo_db(request):
+    """Test Mongo DB connection."""
+    client = mongomock.MongoClient()
+    db = client["stegonodb"]
+    faqs = db["faqs"]
+
+    faqs.insert_many([{
+        "id": 1,
+        "en": {
+            "question": "Test Question 1",
+            "answer": "Test Answer 1" 
+        },
+        "es": {
+            "question": "Test Pregunta 1",
+            "answer": "Test Respuesta 1" 
+        },
+        "rating": 0
+    }, {
+        "id": 2,
+        "en": {
+            "question": "Test Question 2",
+            "answer": "Test Answer 2" 
+        },
+        "es": {
+            "question": "Test Pregunta 2",
+            "answer": "Test Respuesta 2" 
+        },
+        "rating": 0
+    }])
+
+    request.addfinalizer(client.close)
+
+    return client
