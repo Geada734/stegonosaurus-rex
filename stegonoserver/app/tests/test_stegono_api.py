@@ -6,6 +6,7 @@ from flask_restful import Api
 from src.utils import security_utils as sec
 from src.controllers import stegono_controller as stegono_con
 
+
 config = sec.load_config()
 
 
