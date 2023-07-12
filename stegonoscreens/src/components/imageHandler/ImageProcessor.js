@@ -19,7 +19,7 @@ import * as api from "../../apis/stegonoApi";
 import * as stegonoForms from "../../utils/stegonoForms";
 
 import config from "../../configs/config.json";
-import strings from "../../static/strings.js";
+import strings from "../../static/strings";
 
 import classes from "./style/ImageProcessor.module.css";
 

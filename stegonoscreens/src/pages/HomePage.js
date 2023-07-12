@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 import AppContext from "../store/app-context";
 
-import ImageProcessor from "../components/imageHandler/ImageProcessor.js";
+import ImageProcessor from "../components/imageHandler/ImageProcessor";
 
 import strings from "../static/strings";
 

@@ -1,12 +1,12 @@
 // Component for image uploads.
 import { useState, useContext } from "react";
 
-import AppContext from "../../store/app-context.js";
+import AppContext from "../../store/app-context";
 
 import Form from "react-bootstrap/Form";
 
 import config from "../../configs/config.json";
-import errors from "../../static/errors.js";
+import errors from "../../static/errors";
 import upload from "../../static/icons/upload.svg";
 
 import classes from "./style/ImageUpload.module.css";

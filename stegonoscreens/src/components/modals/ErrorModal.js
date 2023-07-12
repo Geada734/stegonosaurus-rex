@@ -1,7 +1,7 @@
 // Modal that displays an error.
 import { useContext } from "react";
 
-import AppContext from "../../store/app-context.js";
+import AppContext from "../../store/app-context";
 
 import Modal from "react-bootstrap/Modal";
 

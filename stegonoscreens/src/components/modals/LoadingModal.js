@@ -1,7 +1,7 @@
 // Modal that lets the user know the app is loading.
 import { useContext } from "react";
 
-import AppContext from "../../store/app-context.js";
+import AppContext from "../../store/app-context";
 
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
