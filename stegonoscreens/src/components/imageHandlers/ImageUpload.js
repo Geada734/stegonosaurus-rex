@@ -35,6 +35,7 @@ function ImageUpload(props) {
           setDisplayedImage(fileForDisplay);
         }
         else {
+          // If the chosen file isn't a .png multi-band image, display an error.
           appCtx.raiseError(errors.wrongFormat);
         };
       } else {
