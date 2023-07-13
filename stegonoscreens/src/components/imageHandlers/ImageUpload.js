@@ -27,7 +27,7 @@ function ImageUpload(props) {
     const file = event.target.files[0];
     if (file) {
       if (file.size && file.size <= sizeLimit) {
-        if(file.type && file.type=="image/png"){
+        if(file.type && file.type === "image/png"){
           // If there's an uploaded image, display it.
           const fileForDisplay = URL.createObjectURL(file);
 
