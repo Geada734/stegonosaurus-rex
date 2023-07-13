@@ -69,9 +69,7 @@ const malformedResponseNoCodename = {
 };
 
 // Mock function to pass as a callback in the handleRestError function.
-const mockErrorHandler = {
- handleError: jest.fn(),
-};
+const mockHandleError = jest.fn();
 
 module.exports = {
  wrongFormatErrorObject: wrongFormatErrorObject,
@@ -80,9 +78,9 @@ module.exports = {
  known500Error: known500Error,
  known401Error: known401Error,
  unknown500Error: unknown500Error,
- mockErrorHandler: mockErrorHandler,
  unknownStatusCodeError: unknownStatusCodeError,
  unknownErrorCodeName: unknownErrorCodeName,
  malformedResponse: malformedResponse,
  malformedResponseNoCodename: malformedResponseNoCodename,
+ mockHandleError: mockHandleError,
 };
