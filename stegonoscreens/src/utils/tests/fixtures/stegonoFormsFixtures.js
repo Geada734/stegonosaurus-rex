@@ -1,4 +1,4 @@
-//Fixtures used in the stegonoForms unit tests.
+// Fixtures used in the stegonoForms unit tests.
 
 // Sample output of the createEncodingForm function.
 const encodeFormResult = {
