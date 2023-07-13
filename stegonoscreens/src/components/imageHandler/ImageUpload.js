@@ -26,12 +26,17 @@ function ImageUpload(props) {
      */
     const file = event.target.files[0];
     if (file) {
-      if (file.size <= sizeLimit) {
-        // If there's an uploaded image, display it.
-        const fileForDisplay = URL.createObjectURL(file);
+      if (file.size && file.size <= sizeLimit) {
+        if(file.type && file.type=="image/png"){
+          // If there's an uploaded image, display it.
+          const fileForDisplay = URL.createObjectURL(file);
 
-        imageHandler(file);
-        setDisplayedImage(fileForDisplay);
+          imageHandler(file);
+          setDisplayedImage(fileForDisplay);
+        }
+        else {
+          appCtx.raiseError(errors.wrongFormat);
+        };
       } else {
         // If the image is larger than permitted, display an error.
         appCtx.raiseError(errors.imgTooLarge);
