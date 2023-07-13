@@ -1,11 +1,11 @@
 // Modal that displays a resulting image from the server.
 import { useContext } from "react";
 
-import AppContext from "../../store/app-context.js";
+import AppContext from "../../store/app-context";
 
 import Modal from "react-bootstrap/Modal";
 
-import strings from "../../static/strings.js";
+import strings from "../../static/strings";
 
 import classes from "./style/ResultModal.module.css";
 

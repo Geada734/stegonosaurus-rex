@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 import AppContext from "../../store/app-context";
 
-import images from "../../static/images/aboutText/index.js";
+import images from "../../static/images/aboutText/index";
 
 import classes from "./style/AboutText.module.css";
 

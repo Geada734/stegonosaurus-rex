@@ -1,12 +1,12 @@
 // Component for image uploads.
 import { useState, useContext } from "react";
 
-import AppContext from "../../store/app-context.js";
+import AppContext from "../../store/app-context";
 
 import Form from "react-bootstrap/Form";
 
 import config from "../../configs/config.json";
-import errors from "../../static/errors.js";
+import errors from "../../static/errors";
 import upload from "../../static/icons/upload.svg";
 
 import classes from "./style/ImageUpload.module.css";
@@ -26,12 +26,18 @@ function ImageUpload(props) {
      */
     const file = event.target.files[0];
     if (file) {
-      if (file.size <= sizeLimit) {
-        // If there's an uploaded image, display it.
-        const fileForDisplay = URL.createObjectURL(file);
+      if (file.size && file.size <= sizeLimit) {
+        if(file.type && file.type === "image/png"){
+          // If there's an uploaded image, display it.
+          const fileForDisplay = URL.createObjectURL(file);
 
-        imageHandler(file);
-        setDisplayedImage(fileForDisplay);
+          imageHandler(file);
+          setDisplayedImage(fileForDisplay);
+        }
+        else {
+          // If the chosen file isn't a .png multi-band image, display an error.
+          appCtx.raiseError(errors.wrongFormat);
+        };
       } else {
         // If the image is larger than permitted, display an error.
         appCtx.raiseError(errors.imgTooLarge);

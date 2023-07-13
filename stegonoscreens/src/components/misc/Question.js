@@ -15,7 +15,7 @@ import * as faqsForms from "../../utils/faqsForms";
 import * as errorHandlers from "../../utils/errorHandlers";
 import * as api from "../../apis/faqsApi";
 
-import strings from "../../static/strings.js";
+import strings from "../../static/strings";
 
 import classes from "./style/Question.module.css";
 

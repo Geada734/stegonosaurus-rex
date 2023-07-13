@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 import AppContext from "../store/app-context";
 
-import strings from "../static/strings.js";
+import strings from "../static/strings";
 
 function NotFoundPage() {
   const appCtx = useContext(AppContext);
