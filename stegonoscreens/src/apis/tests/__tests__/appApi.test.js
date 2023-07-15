@@ -8,12 +8,12 @@ jest.mock("axios");
 
 describe("token API test", () => {
     test("successfull call to appwide API", () => {
-        axios.get.mockResolvedValue(fixtures.successfulResponse);
+        axios.get.mockResolvedValue(fixtures.successfullResponse);
 
         appApi.getToken(fixtures.mockHandleToken, fixtures.mockHandleError);
 
         new Promise(resolve => setTimeout(resolve)).then(() => {
-            expect(mockHandleToken).toHaveBeenCalledWith("testToken");
+            expect(mockHandleToken).toHaveBeenCalledWith(fixtures.successfullResponse);
         });
     });
     test("errored call to appwide API", () => {
