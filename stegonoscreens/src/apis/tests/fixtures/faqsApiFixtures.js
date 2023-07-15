@@ -1,7 +1,7 @@
 // Fixtures used in the faqsApi unit tests.
 const faqsForms = require("../../../utils/faqsForms");
 
-// Test token to be added to the call's header.∫
+// Test token to be added to the call's header.
 const mockToken = "testToken";
 
 // Successful response for the getFaqs endpoint.

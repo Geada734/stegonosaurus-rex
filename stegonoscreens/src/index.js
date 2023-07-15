@@ -4,8 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.css";
 
-import reportWebVitals from "./reportWebVitals";
-
 import "./index.css";
 
 import { AppContextProvider } from "./store/app-context";
@@ -19,6 +17,3 @@ root.render(
     </BrowserRouter>
   </AppContextProvider>
 );
-
-// Might use later.
-reportWebVitals();
