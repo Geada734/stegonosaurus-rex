@@ -14,9 +14,9 @@ function LoadingModal() {
   // The loading modal only displays a spinning wheel, and
   // header with text.
   return (
-    <Modal show={appCtx.showLoading} size="sm">
+    <Modal show={appCtx.showLoading} className={classes.loadingModal} size="sm">
       <Modal.Header>
-        <Modal.Title>{appCtx.loadingText}</Modal.Title>
+        <Modal.Title className={classes.loadingHeader}>{appCtx.loadingText}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className={classes.spinnerContainer}>
