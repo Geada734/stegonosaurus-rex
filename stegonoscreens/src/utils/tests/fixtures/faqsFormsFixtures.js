@@ -11,14 +11,12 @@ const thumbsUpDownratedForm = { id: "1", vote: "2" };
 const thumbsDownUpratedForm = { id: "1", vote: "-2" };
 
 // Mock function to pass as a callback to the form creation function.
-const mockUserRatingSetter = {
- setUserRating: jest.fn(),
-};
+const mockSetUserRating = jest.fn()
 
 module.exports = {
  thumbsUpUnratedForm: thumbsUpUnratedForm,
  thumbsDownUnratedForm: thumbsDownUnratedForm,
  thumbsUpDownratedForm: thumbsUpDownratedForm,
  thumbsDownUpratedForm: thumbsDownUpratedForm,
- mockUserRatingSetter: mockUserRatingSetter,
+ mockSetUserRating: mockSetUserRating,
 };
