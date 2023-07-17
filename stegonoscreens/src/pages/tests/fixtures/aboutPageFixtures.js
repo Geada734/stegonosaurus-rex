@@ -1,4 +1,4 @@
-// Fixturest to be used in the unit tests for the AboutPage.
+// Fixtures to be used in the unit tests for the AboutPage.
 const mockContext = {
  language: "en",
 };

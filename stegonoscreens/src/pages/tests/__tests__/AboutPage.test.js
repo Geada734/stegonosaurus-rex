@@ -1,4 +1,4 @@
-// Unit tests for "About" page.
+// Unit tests for the "About" page.
 import React from "react";
 import { render, screen } from "@testing-library/react";
 
