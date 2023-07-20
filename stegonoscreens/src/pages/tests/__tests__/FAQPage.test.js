@@ -1,77 +1,137 @@
+// Unit tests for the "FAQs" page.
 import React from "react";
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 
 import axios from "axios";
 
+import * as fixtures from "../fixtures/faqsPageFixtures";
 import FAQPage from "../../FAQPage";
 
-jest.useFakeTimers();
-
-jest.mock("axios");
-
-const mockContext = {
- token: "testToken",
- language: "en",
- popLoading: jest.fn(),
- raiseError: jest.fn(),
-};
-
-const mockResponse = {
- status: 200,
- data: {
-  faqs: [
-   {
-    id: 1,
-    en: {
-     question: "Question 1",
-     answer: "Answer 1",
-    },
-    es: {
-     question: "Pregunta 1",
-     answer: "Respuesta 1",
-    },
-   },
-   {
-    id: 2,
-    en: {
-     question: "Question 2",
-     answer: "Answer 2",
-    },
-    es: {
-     question: "Pregunta 2",
-     answer: "Respuesta 2",
-    },
-   },
-  ],
- },
-};
-
-function mockQuestion(props){
+// Mocking a component that uses react-bootstrap component because Jest is incompatible with that.
+function mockQuestion(props) {
  return (
   <div>
    <span>{props.question}</span>
    <span>{props.answer}</span>
   </div>
  );
-};
+}
 
+jest.useFakeTimers();
+
+jest.mock("axios");
 jest.mock("../../../components/misc/Question", () => mockQuestion);
 
-describe("test page render", () => {
+describe("FAQPage title rendering", () => {
  beforeEach(() => {
-  jest.spyOn(React, "useContext").mockImplementation(() => mockContext);
+  jest
+   .spyOn(React, "useContext")
+   .mockImplementation(() => fixtures.mockContext);
  });
- test("test page render", async () => {
-  axios.get.mockResolvedValue(mockResponse);
+
+ test("test title rendering in english", async () => {
+  axios.get.mockResolvedValue(fixtures.mockResponse);
+
+  await act(async () => {
+   render(<FAQPage />);
+  });
+
+  expect(screen.getByText(fixtures.mockTitleEn)).toBeInTheDocument;
+ });
+
+ test("test title rendering in spanish", async () => {
+  axios.get.mockResolvedValue(fixtures.mockResponse);
+
+  fixtures.mockContext.language = "es";
+
+  await act(async () => {
+   render(<FAQPage />);
+  });
+
+  expect(screen.getByText(fixtures.mockTitleEs)).toBeInTheDocument;
+ });
+
+ afterAll(() => {
+  fixtures.mockContext.language = "en";
+ });
+});
+
+describe("Question component rendering tests", () => {
+ beforeEach(() => {
+  jest
+   .spyOn(React, "useContext")
+   .mockImplementation(() => fixtures.mockContext);
+ });
+
+ test("test question rendering in english", async () => {
+  axios.get.mockResolvedValue(fixtures.mockResponse);
 
   await act(async () => {
    render(<FAQPage />);
   });
 
   jest.advanceTimersByTime(1000);
-  expect(screen.getByText(/Question 1/)).toBeInTheDocument();
-  expect(screen.getByText(/Answer 1/)).toBeInTheDocument();
-  expect(screen.getByText(/Question 2/)).toBeInTheDocument();
-  expect(screen.getByText(/Answer 2/)).toBeInTheDocument();
+  fixtures.questionPairsEn.forEach((str) => {
+   expect(screen.getByText(str)).toBeInTheDocument();
+  });
+ });
+
+ test("test question rendering in spanish", async () => {
+  axios.get.mockResolvedValue(fixtures.mockResponse);
+
+  fixtures.mockContext.language = "es";
+
+  await act(async () => {
+   render(<FAQPage />);
+  });
+
+  jest.advanceTimersByTime(1000);
+  fixtures.questionPairsEs.forEach((str) => {
+   expect(screen.getByText(str)).toBeInTheDocument();
+  });
+ });
+
+ afterAll(() => {
+  fixtures.mockContext.language = "en";
+ });
+});
+
+describe("Handlers test", () => {
+ beforeEach(() => {
+  jest
+   .spyOn(React, "useContext")
+   .mockImplementation(() => fixtures.mockContext);
+ });
+
+ test("test handling of a succcessful response", async () => {
+  axios.get.mockResolvedValue(fixtures.mockResponse);
+
+  await act(async () => {
+   render(<FAQPage />);
+  });
+
+  expect(fixtures.mockContext.popLoading).toHaveBeenCalledWith(
+   "Loading FAQs..."
+  );
+  jest.advanceTimersByTime(1000);
+  expect(fixtures.mockContext.popLoading).toHaveBeenCalledWith("");
+  fixtures.questionPairsEn.forEach((str) => {
+   expect(screen.getByText(str)).toBeInTheDocument();
+  });
+ });
+
+ test("test handling of an errored response", async () => {
+  axios.get.mockRejectedValue(new Error("unknown"));
+
+  await act(async () => {
+   render(<FAQPage />);
+  });
+
+  expect(fixtures.mockContext.popLoading).toHaveBeenCalledWith(
+   "Loading FAQs..."
+  );
+  jest.advanceTimersByTime(1000);
+  expect(fixtures.mockContext.raiseError).toHaveBeenCalledTimes(1);
+  expect(fixtures.mockContext.popLoading).toHaveBeenCalledWith("");
  });
 });

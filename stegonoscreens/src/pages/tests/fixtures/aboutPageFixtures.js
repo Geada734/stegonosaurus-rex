@@ -1,4 +1,6 @@
 // Fixtures to be used in the unit tests for the AboutPage.
+
+// Mock application context.
 const mockContext = {
  language: "en",
 };
