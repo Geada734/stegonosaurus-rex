@@ -4,7 +4,7 @@ import Navigation from "./Navigation";
 import classes from "./style/Layout.module.css";
 
 function Layout(props) {
-  // Contains a nave bar at the top.
+  // Contains a nav bar at the top.
   return (
     <section>
       <Navigation />

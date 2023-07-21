@@ -1,4 +1,5 @@
 // Fixtures to be used in the unit tests for the AboutPage.
+import strings from "../../../static/strings";
 
 // Mock application context.
 const mockContext = {
@@ -6,8 +7,8 @@ const mockContext = {
 };
 
 // Page title in different languages.
-const mockTitleEn = /About Stegonosaurus-Rex/;
-const mockTitleEs = /Acerca De Stegonosaurus-Rex/;
+const mockTitleEn = strings.pageTitles.about["en"];
+const mockTitleEs = strings.pageTitles.about["es"];
 // Used to search for the AboutText component.
 const aboutTextSnippet = /Stegonosaurus-Rex is a fullstack web application/;
 

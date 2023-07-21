@@ -1,4 +1,5 @@
 // Fixtures to be used in the unit tests for the AboutPage.
+import strings from "../../../static/strings";
 
 // Mock application context.
 const mockContext = {
@@ -40,16 +41,21 @@ const mockResponse = {
 };
 
 // Page title in different languages.
-const mockTitleEn = /Frequently Asked Questions/;
-const mockTitleEs = /Preguntas Frecuentes/;
+const mockTitleEn = strings.pageTitles.faqs["en"];
+const mockTitleEs = strings.pageTitles.faqs["es"];
 
 // Strings to search the questions in the page for.
-const questionPairsEn = [/Question 1/, /Answer 1/, /Question 2/, /Answer 2/];
+const questionPairsEn = [
+ mockResponse.data.faqs[0].en.question,
+ mockResponse.data.faqs[0].en.answer,
+ mockResponse.data.faqs[1].en.question,
+ mockResponse.data.faqs[1].en.answer,
+];
 const questionPairsEs = [
- /Pregunta 1/,
- /Respuesta 1/,
- /Pregunta 2/,
- /Respuesta 2/,
+ mockResponse.data.faqs[0].es.question,
+ mockResponse.data.faqs[0].es.answer,
+ mockResponse.data.faqs[1].es.question,
+ mockResponse.data.faqs[1].es.answer,
 ];
 
 module.exports = {
