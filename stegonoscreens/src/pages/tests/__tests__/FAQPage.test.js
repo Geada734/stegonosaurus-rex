@@ -7,20 +7,9 @@ import axios from "axios";
 import * as fixtures from "../fixtures/faqsPageFixtures";
 import FAQPage from "../../FAQPage";
 
-// Mocking a component that uses react-bootstrap component because Jest is incompatible with that.
-function mockQuestion(props) {
- return (
-  <div>
-   <span>{props.question}</span>
-   <span>{props.answer}</span>
-  </div>
- );
-}
-
 jest.useFakeTimers();
 
 jest.mock("axios");
-jest.mock("../../../components/misc/Question", () => mockQuestion);
 
 describe("FAQPage title rendering", () => {
  beforeEach(() => {

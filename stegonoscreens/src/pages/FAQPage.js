@@ -51,7 +51,6 @@ function FAQPage() {
             qId={q.id}
             id={q.id}
             key={q.id}
-            rating={q.rating}
             answer={q[appCtx.language].answer}
           />
         ))}
