@@ -1,4 +1,4 @@
-// Fixtures to be used in the unit tests for the LoadingModel component.
+// Fixtures to be used in the unit tests for the LoadingModal component.
 
 // Mock application context.
 const mockContext = {
