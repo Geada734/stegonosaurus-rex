@@ -2,7 +2,7 @@
 import React from "react";
 import { render, screen, act, fireEvent } from "@testing-library/react";
 
-import fixtures from "../fixtures/errorModalFixtures";
+import * as fixtures from "../fixtures/errorModalFixtures";
 import ErrorModal from "../../ErrorModal";
 
 describe("Render tests for the ErrorModal component.", () => {
@@ -33,7 +33,7 @@ describe("Render tests for the ErrorModal component.", () => {
    fireEvent.click(closeButton);
   });
 
-  expect(fixtures.mockContext.raiseError).toBeCalledTimes(1);
+  expect(fixtures.mockContext.raiseError).toHaveBeenCalledWith(null);
  });
 
  test("test the close button is not shown when the error is a 401.", () => {

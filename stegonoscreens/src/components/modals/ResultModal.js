@@ -12,7 +12,7 @@ import classes from "./style/ResultModal.module.css";
 function ResultModal() {
  const appCtx = useContext(AppContext);
 
- function handleClose() {
+ function closeHandler() {
   // Close button behavior.
   appCtx.popResult("");
  }
@@ -23,7 +23,7 @@ function ResultModal() {
    className={classes.resultsModal}
    size="md"
    show={appCtx.showResult}
-   onHide={handleClose}
+   onHide={closeHandler}
   >
    <Modal.Header closeButton>
     <Modal.Title>{strings.resultsModal.header[appCtx.language]}</Modal.Title>

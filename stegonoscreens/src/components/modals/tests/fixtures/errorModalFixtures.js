@@ -13,9 +13,8 @@ const mockContext = {
  raiseError: jest.fn(),
 };
 
-
 module.exports = {
-    regularError: regularError,
-    forbiddenError: forbiddenError,
-    mockContext: mockContext
+ regularError: regularError,
+ forbiddenError: forbiddenError,
+ mockContext: mockContext,
 };
