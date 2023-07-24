@@ -7,13 +7,17 @@ import ResultModal from "../../ResultModal";
 
 describe("Render test for the ResultModal component.", () => {
  beforeEach(() => {
-  jest.spyOn(React, "useContext").mockImplementation(() => fixtures.mockContext);
+  jest
+   .spyOn(React, "useContext")
+   .mockImplementation(() => fixtures.mockContext);
  });
 
  test("test show flag as false", () => {
   render(<ResultModal />);
 
   expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  expect(screen.queryByText(fixtures.header)).not.toBeInTheDocument();
+  expect(screen.queryByText(fixtures.downloadText)).not.toBeInTheDocument();
   expect(screen.queryByAltText("result")).not.toBeInTheDocument();
  });
 
@@ -23,6 +27,8 @@ describe("Render test for the ResultModal component.", () => {
 
   render(<ResultModal />);
   expect(screen.getByRole("button")).toBeInTheDocument();
+  expect(screen.getByText(fixtures.header)).toBeInTheDocument();
+  expect(screen.getByText(fixtures.downloadText)).toBeInTheDocument();
   expect(screen.getByAltText("result")).toBeInTheDocument();
  });
 
@@ -39,7 +45,7 @@ describe("Render test for the ResultModal component.", () => {
  });
 
  afterAll(() => {
-    fixtures.mockContext.result = "";
-    fixtures.mockContext.showResult = false;
- })
+  fixtures.mockContext.result = "";
+  fixtures.mockContext.showResult = false;
+ });
 });
