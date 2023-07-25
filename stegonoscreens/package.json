@@ -21,8 +21,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
-    "test-coverage": "react-scripts test --coverage --watchAll",
+    "test": "react-scripts test --watchAll=false --silent",
+    "test-coverage": "react-scripts test --coverage --watchAll --silent",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -48,7 +48,8 @@
       "src/**/*.{js,jsx}",
       "!src/index.js",
       "!src/static/**",
-      "!src/layout/Layout.js"
+      "!src/layout/Layout.js",
+      "!src/**/fixtures/**"
     ]
   }
 }
