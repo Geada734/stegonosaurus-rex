@@ -48,6 +48,7 @@
       "src/**/*.{js,jsx}",
       "!src/index.js",
       "!src/static/**",
+      "!src/store/**",
       "!src/layout/Layout.js",
       "!src/**/fixtures/**"
     ]
