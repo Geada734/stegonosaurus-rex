@@ -1,4 +1,4 @@
-// Unit tests for the ImageUpload components.
+// Unit tests for the ImageUpload component.
 import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

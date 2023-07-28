@@ -8,7 +8,7 @@ const mockContext = {
 
 // Mocks for the text before the image handler component.
 const title = strings.pageTitles.home.en;
-const buttonText = "Encode Images";
+const buttonText = strings.imageProcessor.buttonMessage.encode.en;
 const importantText = strings.homePage.warning.important.en;
 const warningText = strings.homePage.warning.warningText.en;
 const codedUploadMessage = strings.imageProcessor.codedImageMessage.en;
