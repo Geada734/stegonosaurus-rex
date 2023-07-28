@@ -8,7 +8,7 @@ const mockContext = {
 
 // Mocks for the text before the image handler component.
 const title = strings.pageTitles.home.en;
-const instructionsSnippet = /Upload the image with the coded message:/;
+const buttonText = "Encode Images";
 const importantText = strings.homePage.warning.important.en;
 const warningText = strings.homePage.warning.warningText.en;
 const codedUploadMessage = strings.imageProcessor.codedImageMessage.en;
@@ -16,7 +16,7 @@ const codedUploadMessage = strings.imageProcessor.codedImageMessage.en;
 module.exports = {
     mockContext: mockContext,
     title: title,
-    instructionsSnippet: instructionsSnippet,
+    buttonText: buttonText,
     importantText: importantText,
     warningText: warningText,
     codedUploadMessage: codedUploadMessage

@@ -16,7 +16,7 @@ describe("Page rendering tests.", () => {
   render(<HomePage />);
 
   expect(screen.getByText(fixtures.title)).toBeInTheDocument();
-  expect(screen.getByText(fixtures.instructionsSnippet)).toBeInTheDocument();
+  expect(screen.getByText(fixtures.buttonText)).toBeInTheDocument();
   expect(screen.getByText(fixtures.importantText)).toBeInTheDocument();
   expect(screen.getByText(fixtures.warningText)).toBeInTheDocument();
   expect(screen.getByText(fixtures.codedUploadMessage)).toBeInTheDocument();
