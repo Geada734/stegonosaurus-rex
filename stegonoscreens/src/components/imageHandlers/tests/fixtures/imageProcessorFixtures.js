@@ -7,12 +7,12 @@ const mockContext = {
 };
 
 // Buttons that switch between modes.
-const encodeNavButton = strings.imageProcessor.modes.encode.en;
-const decodeNavButton = strings.imageProcessor.modes.decode.en;
+const encodeNavButton = strings.imageProcessor.modes.encode[mockContext.language];
+const decodeNavButton = strings.imageProcessor.modes.decode[mockContext.language];
 
 // Execution buttons.
-const encodeButton = strings.imageProcessor.buttonMessage.encode.en;
-const decodeButton = strings.imageProcessor.buttonMessage.decode.en;
+const encodeButton = strings.imageProcessor.buttonMessage.encode[mockContext.language];
+const decodeButton = strings.imageProcessor.buttonMessage.decode[mockContext.language];
 
 module.exports = {
  mockContext: mockContext,
