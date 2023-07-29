@@ -10,11 +10,15 @@ import DecodeMode from "../../modes/DecodeMode";
 
 const mockPng = new File(["mockPng"], "mockUpload.png", { type: "image/png" });
 
-function mockUpload({ message, imageHandler }) {
+function mockUpload({ message, imageHandler, operation }) {
  return (
   <div>
-   <label htmlFor="mock-upload">{message}</label>
-   <input type="file" id="mock-upload" onChange={(e) => imageHandler(e)} />
+   <label htmlFor={operation + "-mock-upload"}>{message}</label>
+   <input
+    type="file"
+    id={operation + "-mock-upload"}
+    onChange={(e) => imageHandler(e)}
+   />
   </div>
  );
 }
@@ -146,7 +150,7 @@ describe("Functionality tests for the DecodeMode component.", () => {
    .mockImplementation(() => fixtures.mockContext);
  });
 
- test("testing successful call", async () => {
+ test("test a successful call", async () => {
   axios.post.mockResolvedValue(fixtures.mockResponse);
 
   render(
@@ -176,12 +180,12 @@ describe("Functionality tests for the DecodeMode component.", () => {
   );
   expect(fixtures.mockContext.popLoading).toHaveBeenCalledWith("");
   expect(fixtures.mockContext.popResult).toHaveBeenCalledWith(
-   "data:image/png;base64, mockResult"
+   "data:image/png;base64, " + fixtures.mockResponse.data.result
   );
   expect(fixtures.mockResetCaptcha).toHaveBeenCalledTimes(1);
  });
 
- test("testing errored call", async () => {
+ test("test a errored call", async () => {
   axios.post.mockRejectedValueOnce(new Error("unknown"));
 
   render(

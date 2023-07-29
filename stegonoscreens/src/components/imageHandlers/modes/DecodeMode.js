@@ -136,6 +136,7 @@ function DecodeMode(props) {
      <ImageUpload
       id="decode-upload"
       imageHandler={imageToDecodeHandler}
+      operation="decode"
       message={strings.imageProcessor.toDecodeImageMessage[appCtx.language]}
      />
     </Col>

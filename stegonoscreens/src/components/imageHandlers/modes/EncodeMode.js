@@ -117,6 +117,7 @@ function EncodeMode(props) {
      <ImageUpload
       id="coded-upload"
       imageHandler={codedMessageImageHandler}
+      operation="coded"
       message={strings.imageProcessor.codedImageMessage[appCtx.language]}
      />
     </Col>
@@ -124,6 +125,7 @@ function EncodeMode(props) {
      <ImageUpload
       id="message-upload"
       imageHandler={templateImageHandler}
+      operation="template"
       message={strings.imageProcessor.templateImageMessage[appCtx.language]}
      />
     </Col>

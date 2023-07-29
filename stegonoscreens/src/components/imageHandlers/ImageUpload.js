@@ -60,9 +60,9 @@ function ImageUpload(props) {
           alt="to upload"
         ></img>
       </div>
-      <Form.Label htmlFor="submit-input">{props.message}</Form.Label>
+      <Form.Label htmlFor={props.operation + "-submit-input"}>{props.message}</Form.Label>
       <Form.Control
-        id="submit-input"
+        id={props.operation + "-submit-input"}
         type="file"
         accept="image/png"
         size="sm"
