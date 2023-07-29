@@ -4,8 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.css";
 
-import "./index.css";
-
 import { AppContextProvider } from "./store/app-context";
 import App from "./App";
 
