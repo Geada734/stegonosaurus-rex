@@ -14,7 +14,7 @@ function AboutPage() {
   return (
     <section>
       <h1>{strings.pageTitles.about[appCtx.language]}</h1>
-      <AboutText id="about-text" />
+      <AboutText />
     </section>
   );
 }

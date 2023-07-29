@@ -192,18 +192,13 @@ const strings = {
 
     buttonMessage: {
       encode: {
-        en: "Encode",
-        es: "Codificar",
+        en: "Encode Images",
+        es: "Codificar Imágenes",
       },
       decode: {
-        en: "Decode",
-        es: "Decodificar",
+        en: "Decode Image",
+        es: "Decodificar Imágenes",
       },
-    },
-
-    componentLoadingError: {
-      en: "Error loading component",
-      es: "Error cargando componente",
     },
 
     invalidCaptchaMessage: {
