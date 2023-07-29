@@ -38,3 +38,21 @@ def handle_internal_error(code_name: str, message: str, status_code: int,
     response.status_code = status_code
 
     return response
+
+
+def handle_rest_error(err: Exception, code_name: str, message: str, status_code: int) -> Response:
+    """Handles standard REST errored behavior."""
+    response = Response(mimetype="application/json")
+    response.data = json.dumps({
+        "error_codename": code_name,
+        "error_message": message
+    })
+
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+    print(type(err))
+    print(err)
+    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+
+    response.status_code = status_code
+
+    return response
