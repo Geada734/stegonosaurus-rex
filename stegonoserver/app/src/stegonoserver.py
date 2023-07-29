@@ -3,8 +3,9 @@ import os
 import sys
 
 from flask_cors import CORS
-from flask import Flask, Response
 from flask_restful import Api
+from flask import Flask, Response
+from werkzeug.exceptions import NotFound
 
 import utils.error_handlers as err_handlers
 import controllers.security_controller as sec_con
@@ -20,6 +21,12 @@ sys.path.append(parent_dir)
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
+
+
+@app.errorhandler(NotFound)
+def handle_not_found_error(err: NotFound) -> Response:
+    """Handles NotFound errors."""
+    return err_handlers.handle_rest_error(err, "notFound", "The endpoint does not exist.", 404)
 
 
 @app.errorhandler(Exception)
