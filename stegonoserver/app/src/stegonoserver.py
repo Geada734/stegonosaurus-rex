@@ -2,16 +2,20 @@
 import os
 import sys
 
+from waitress import serve
 from flask_cors import CORS
 from flask_restful import Api
 from flask import Flask, Response
 from werkzeug.exceptions import NotFound
 
+from utils import security_utils as sec
 import utils.error_handlers as err_handlers
 import controllers.security_controller as sec_con
 import controllers.stegono_controller as stegono_con
 import controllers.faqs_controller as faqs_con
 
+# Set the configs for the app.
+config = sec.load_config()
 
 # Set directory path to build controllers.
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -40,3 +44,5 @@ api.add_resource(sec_con.Token, "/token")
 api.add_resource(stegono_con.DecodeAPI, "/decode")
 api.add_resource(stegono_con.EncodeAPI, "/encode")
 api.add_resource(faqs_con.FAQsAPI, "/faqs")
+
+serve(app, host=config["host"], port=config["port"], ident="stegonoserver")
