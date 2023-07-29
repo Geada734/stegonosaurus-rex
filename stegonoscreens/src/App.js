@@ -17,8 +17,6 @@ import ResultModal from "./components/modals/ResultModal";
 import errors from "./static/errors";
 import strings from "./static/strings";
 
-import classes from "./App.css";
-
 function App() {
  const appCtx = useContext(AppContext);
  const [ready, setReady] = useState(false);
@@ -70,7 +68,7 @@ function App() {
  if (ready) {
   return (
    <main>
-    <Layout className={classes.app}>
+    <Layout>
      <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />

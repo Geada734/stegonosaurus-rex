@@ -1,13 +1,11 @@
 .appContent {
-    background-color: #FFF;
-    border-radius: 10px;
     max-width: 1150px;
     margin: 10px auto 0;
     padding: 20px;
-};
+}
 
 @media (max-width: 600px) {
     .appContent {
         padding: 10px;
     }
-}
+};
