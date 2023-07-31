@@ -6,7 +6,7 @@ from flask import Response
 from flask_restful import Resource
 
 import utils.security_utils as sec
-
+import utils.logging_utils as logs
 
 # Set the configs for the app.
 config = sec.load_config()
@@ -24,5 +24,7 @@ class Token(Resource):
         response.data = json.dumps({
             "token":  token
         })
+
+        logs.log(response.status_code, "GET /token: Successful call!")
 
         return response

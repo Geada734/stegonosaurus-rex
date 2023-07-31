@@ -7,6 +7,7 @@ from PIL import Image
 from flask import Response
 from stegonosaurus import stegofunctions as sf, stegoexceptions as se
 
+from . import logging_utils as logs
 from . import error_handlers as err_handlers
 
 
@@ -26,6 +27,8 @@ def decode(img: Image, filename: str, mode: str, response: Response) -> Response
         })
 
         img.close()
+
+        logs.log(response.status_code, "POST /decode: Successful call!")
 
     # Handle exceptions from stegonosaurus.
     except (se.StegonosaurusIncorrectFormatError, se.StegonosaurusInvalidDecodeModeError) as err:
@@ -56,6 +59,8 @@ def encode(coded: Image, img: Image, filename: str, response: Response) -> Respo
 
         coded.close()
         img.close()
+
+        logs.log(response.status_code, "POST /encode: Successful call!")
 
     # Handle exceptions from stegonosaurus.
     except(se.StegonosaurusIncorrectFormatError, se.StegonosaurusIncorrectSizeError) as err:
