@@ -1,5 +1,6 @@
 """Controller for the FAQs page API."""
 import json
+import certifi
 
 from bson import json_util
 
@@ -16,7 +17,7 @@ from utils import error_handlers as err_handlers
 # Get the Mongo connection from configs.
 config = sec.load_config()
 
-db_client = MongoClient(config["mongoServer"])
+db_client = MongoClient(config["mongoServer"], tlsCAFile=certifi.where())
 db = db_client.stegonodb
 faqs_db = db.faqs
 
