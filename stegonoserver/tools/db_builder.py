@@ -1,5 +1,7 @@
 """Builds the Mongo DB"""
 import json
+
+import certifi
 from pymongo import MongoClient, errors as me
 
 
@@ -15,22 +17,21 @@ def build_db() -> None:
         faqs = json.load(faqs_file)
         faqs_file.close()
 
-    db_client = MongoClient(config["mongoServer"])
+    db_client = MongoClient(config["mongoServer"], tlsCAFile=certifi.where())
     # Call the stegonodb whithin Mongo.
     dbase = db_client.stegonodb
 
     faqs_db = dbase.faqs
 
     try:
-        # Clean the db to repopulate it.
+    # Clean the db to repopulate it.
         faqs_db.delete_many({})
         faqs_db.insert_many(faqs)
+
+        print("DB built successfully!")
 
     except me.ServerSelectionTimeoutError:
         # Catch error if the Mongo connection is closed.
         print("ERROR: No MongDB connection.")
-
-    print("DB built successfully!")
-
 
 build_db()
