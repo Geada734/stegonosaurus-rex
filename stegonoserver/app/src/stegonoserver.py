@@ -8,7 +8,7 @@ from flask_restful import Api
 from flask import Flask, Response
 from werkzeug.exceptions import NotFound
 
-from utils import security_utils as sec
+import utils.security_utils as sec
 import utils.error_handlers as err_handlers
 import controllers.security_controller as sec_con
 import controllers.stegono_controller as stegono_con
@@ -45,4 +45,7 @@ api.add_resource(stegono_con.DecodeAPI, "/decode")
 api.add_resource(stegono_con.EncodeAPI, "/encode")
 api.add_resource(faqs_con.FAQsAPI, "/faqs")
 
+# Serve the server using Waitress.
+print("Server running...")
+print("xxxxxxxxxxxxxxxxxxxxxxxxx")
 serve(app, host=config["host"], port=config["port"], ident="stegonoserver")

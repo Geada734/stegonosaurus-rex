@@ -3,6 +3,7 @@ import json
 
 from flask import Response
 
+from utils import logging_utils as logs
 
 def handle_exception(err: Exception, code_name: str, message: str) -> Response:
     """Handles exceptions and returns error responses, and messages for debugging."""
@@ -12,12 +13,10 @@ def handle_exception(err: Exception, code_name: str, message: str) -> Response:
         "error_message": message
     })
 
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(err))
-    print(err)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
+    log_message = "ERROR: " + str(type(err)) + "\n" + str(err) + "\n"
     response.status_code = 500
+
+    logs.log(response.status_code, log_message)
 
     return response
 
@@ -31,11 +30,10 @@ def handle_internal_error(code_name: str, message: str, status_code: int,
         "error_message": message
     })
 
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(debug_message)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
+    log_message = "ERROR: " + debug_message
     response.status_code = status_code
+
+    logs.log(status_code, log_message)
 
     return response
 
@@ -48,11 +46,10 @@ def handle_rest_error(err: Exception, code_name: str, message: str, status_code:
         "error_message": message
     })
 
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-    print(type(err))
-    print(err)
-    print("xxxxxxxxxxxxxxxxxxxxxxxxx")
 
+    log_message = "ERROR: " + str(type(err)) + "\n" + str(err) + "\n"
     response.status_code = status_code
+
+    logs.log(status_code, log_message)
 
     return response
