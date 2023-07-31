@@ -8,6 +8,7 @@ from flask import request, Response
 from pymongo import MongoClient, errors as me
 
 from utils import decorators as dec
+from utils import logging_utils as logs
 from utils import security_utils as sec
 from utils import error_handlers as err_handlers
 
@@ -33,6 +34,8 @@ class FAQsAPI(Resource):
             response.status_code = 200
             response.data = json.dumps({"faqs": json.loads(data)})
 
+            logs.log(response.status_code, "GET /faqs: Successful call!")
+
             return response
 
         # If the connection to the Mongo DB is not available.
@@ -56,6 +59,8 @@ class FAQsAPI(Resource):
             response.data = json.dumps({
                 "message": "Vote submitted succesfully."
             })
+
+            logs.log(response.status_code, "PUT /faqs: Successful call!")
 
             return response
 
