@@ -36,7 +36,7 @@ Once the config file has been created, the dependencies need to be installed. Th
 
 `pip install -r requirements.txt`
 
-*Note it is recommended to install the dependencies inside a virtual environment. My personal preference is [venv](https://docs.python.org/3/library/venv.html).*
+*Note: It is recommended to install the dependencies inside a virtual environment. My personal preference is [venv](https://docs.python.org/3/library/venv.html).*
 
 ## Running the Server
 
@@ -69,3 +69,20 @@ Some Windows machines might present an issue when installing the contents of the
 Simply install this dependency separately after the rest has finished installing:
 
 `pip install flask-cors`
+
+## Installing the UI
+
+As with the server, the first step is to create the config files, create a new "configs" (mind the "s") folder in the src directory inside "stegonoscreens", and inside place the config file following this format:
+
+```
+{
+    "stegonoServer": <URL to your server>,
+    "siteKey": <Captcha site key>",
+    "imageSizeLimit": <Largest size the front end inputs can allow>,
+    "imageSizeDisplay": <How to display this size to the users>
+}
+```
+Once the config file has been created, run the following command at the stegonoscreens level to install all the required dependencies:
+
+`yarn install`
+
