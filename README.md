@@ -72,7 +72,7 @@ Simply install this dependency separately after the rest has finished installing
 
 ## Installing the UI
 
-As with the server, the first step is to create the config files, create a new "configs" (mind the "s") folder in the src directory inside "stegonoscreens", and inside place the config file following this format:
+As with the server, the first step is to create the config files. Add a new "configs" (mind the "s") folder in the src directory inside "stegonoscreens", and inside place the config file with this format:
 
 ```
 {
@@ -86,3 +86,26 @@ Once the config file has been created, run the following command at the stegonos
 
 `yarn install`
 
+## Running the UI
+
+To run the development version of the UI, just run the following command at the stegonoscreens level:
+
+`yarn start`
+
+The app should open automatically in your default browser.
+
+## Unit Testing the UI
+
+The UI has a thorough test suite which can be run at stegonoscreens level with the following command:
+
+`yarn test`
+
+If any of the tests fail, repeat the installation steps.
+
+## Building the UI for Production and Serving
+
+To build a webpack bundle just run the following command at stegonoscreens level:
+
+`yarn build`
+
+You can serve the resulting bundle with the server of your choice, my personal preference (and Yarn's suggestion) is [serve](https://yarnpkg.com/package/serve).
