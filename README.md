@@ -20,7 +20,7 @@ While Stegonosaurus-Rex is not currently running on the internet, developers are
 
 ## Installing the Server
 
-Both the "stegonoserver" and "stegonoscreens" require some specific values to be provided in the form of config.json files. For the backend create a "config" folder in the stegonoserver directory at the same level as the "app" folder. Inside the config folder create a new json file called "config". The contents should follow this format:
+Both the "stegonoserver" and "stegonoscreens" require some specific values to be provided in the form of config.json files. For the backend create a "config" folder in the stegonoserver directory at the same level as the "app" folder. Inside the config folder create a new json file called "config.json". The contents should follow this format:
 ```
 {
     "host": <host where the app is going to be deployed, 0.0.0.0 by default>,
@@ -72,7 +72,7 @@ Simply install this dependency separately after the rest has finished installing
 
 ## Installing the UI
 
-As with the server, the first step is to create the config files. Add a new "configs" (mind the "s") folder in the src directory inside "stegonoscreens", and inside place the config file with this format:
+As with the server, the first step is to create the config files. Add a new "configs" (mind the "s") folder in the src directory inside "stegonoscreens", and inside place the "config.json" file with this format:
 
 ```
 {
@@ -114,10 +114,14 @@ You can serve the resulting bundle with the server of your choice, my personal p
 
 Ubuntu machines might experience an error when installing the dependencies and building the app.
 
-These issues can be avoided running the yarn commands as follow:
+These issues can be avoided by running the yarn commands as follows:
 
 `yarn <command> --ignore-engines`
 
 ## Usage
 
 Detailed instructions are included in the "About" page in the UI.
+
+## Use Steganography Responsibly
+
+And enjoy!
