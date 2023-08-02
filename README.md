@@ -109,3 +109,15 @@ To build a webpack bundle just run the following command at stegonoscreens level
 `yarn build`
 
 You can serve the resulting bundle with the server of your choice, my personal preference (and Yarn's suggestion) is [serve](https://yarnpkg.com/package/serve).
+
+## Troubleshooting the UI Instalation
+
+Ubuntu machines might experience an error when installing the dependencies and building the app.
+
+These issues can be avoided running the yarn commands as follow:
+
+`yarn <command> --ignore-engines`
+
+## Usage
+
+Detailed instructions are included in the "About" page in the UI.
