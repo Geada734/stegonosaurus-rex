@@ -12,7 +12,6 @@ import utils.security_utils as sec
 import utils.error_handlers as err_handlers
 import controllers.security_controller as sec_con
 import controllers.stegono_controller as stegono_con
-import controllers.faqs_controller as faqs_con
 
 # Set the configs for the app.
 config = sec.load_config()
@@ -43,7 +42,6 @@ def handle_error(err: Exception) -> Response:
 api.add_resource(sec_con.Token, "/token")
 api.add_resource(stegono_con.DecodeAPI, "/decode")
 api.add_resource(stegono_con.EncodeAPI, "/encode")
-api.add_resource(faqs_con.FAQsAPI, "/faqs")
 
 # Serve the server using Waitress.
 print("Server running...")
