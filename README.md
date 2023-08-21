@@ -1,21 +1,20 @@
 # Stegonosaurus-Rex
 
-*Server Version: 1.2.0*
+*Server Version: 1.3.0*
 
-*UI Version: 1.0.1*
+*UI Version: 1.1.1*
 
 Stegonosaurus-Rex is a fullstack web application created to showcase the functionalities of the [stegonosaurus](https://pypi.org/project/stegonosaurus/) Python library. The app mainly consists of two components:
 
-- A headless Flask server that can be queried from anywhere (provided a valid token is used) to make use of the stegonosaurus functions.
-- A friendly React UI which queries the aforementioned Flask server, so the user doesn't have to use curl commands or Postman.
+- A Flask server that (for now) will only be called by the UI to make use of the stegonosaurus functions.
+- A friendly React UI which calls the aforementioned Flask server.
 
-While Stegonosaurus-Rex is not currently running on the internet, developers are more than welcomed to download and set the application as they please.
+While Stegonosaurus-Rex is not currently running on the internet (WIP), developers are more than welcomed to download and set the application as they please.
 
 ## Requirements
 
 - Python3 (3.7.2 or later)
 - Yarn
-- A Mongo Atlas connection to be used by the server with Pymongo. ([More Info](https://medium.com/analytics-vidhya/connecting-to-mongodb-atlas-with-python-pymongo-5b25dab3ac53))
 - A ReCaptcha Ver. 3 Connection ([More Info](https://developers.google.com/recaptcha/intro))
 
 ## Installing the Server
@@ -25,7 +24,6 @@ Both the "stegonoserver" and "stegonoscreens" require some specific values to be
 {
     "host": <host where the app is going to be deployed, 0.0.0.0 by default>,
     "port": <port of the host where the app is going to be listenning on, 5000 by default>,
-    "mongoServer": <Mongo Atlas URL to the DB>,
     "captchaSecret": <Captcha key to use in validations>,
     "captchaUrl": <Captcha host>,
     "jwtSecret": <Whatever string you want to use to sign the JWT in the requests>,
@@ -45,14 +43,6 @@ If the config file is now in the project, and the dependencies have been install
 `python3 app/src/stegonoserver.py`
 
 The server is now ready to be queried.
-
-## Populating the MongoDB
-
-From the "stegonoserver" folder, run the following command:
-
-`python3 tools/db_builder.py`
-
-*Note: I know it's very unlikely, but make sure there are no dbs called "stegonodb" you don't want to be overwritten in your Mongo Atlas cluster.*
 
 ## Unit Testing the Server
 
