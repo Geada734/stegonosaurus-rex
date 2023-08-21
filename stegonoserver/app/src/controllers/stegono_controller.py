@@ -4,7 +4,6 @@ from flask import request, Response
 from werkzeug.exceptions import BadRequest
 from PIL import Image, UnidentifiedImageError
 
-from utils import decorators as dec
 from utils import security_utils as sec
 from utils import stegono_utils as stegono
 from utils import error_handlers as err_handlers
@@ -16,7 +15,6 @@ config = sec.load_config()
 
 class DecodeAPI(Resource):
     """Decode API"""
-    @dec.jwt_secured
     def post(self) -> Response:
         """Decode endpoint"""
         try:
@@ -26,14 +24,17 @@ class DecodeAPI(Resource):
             captcha_value = request.form.get("captchaValue")
             response = Response(mimetype="application/json")
 
+            # Validate captcha for every call.
             if captcha_value:
-                # The call comes from the browser if it has a captcha_value in the body.
                 valid_captcha = sec.validate_captcha(captcha_value, config)
                 if not valid_captcha:
                     file.close()
 
                     return err_handlers.handle_internal_error("unknown", "Unknown internal error",
                                                             500, "Failed captcha validation")
+            else:
+                return err_handlers.handle_internal_error("unknown", "Unknown internal error",
+                                                        500, "Failed captcha validation")
 
             return stegono.decode(file, filename, mode, response)
 
@@ -48,7 +49,6 @@ class DecodeAPI(Resource):
 # Service connections.
 class EncodeAPI(Resource):
     """Encode API"""
-    @dec.jwt_secured
     def post(self) -> Response:
         """Encode endpoint"""
         try:
@@ -58,8 +58,8 @@ class EncodeAPI(Resource):
             captcha_value = request.form.get("captchaValue")
             response = Response(mimetype="application/json")
 
+            # Validate captcha for every call.
             if captcha_value:
-                # The call comes from the browser if it has a captcha_value in the body.
                 valid_captcha = sec.validate_captcha(captcha_value, config)
                 if not valid_captcha:
                     coded_file.close()
@@ -67,6 +67,9 @@ class EncodeAPI(Resource):
 
                     return err_handlers.handle_internal_error("unknown", "Unknown internal error",
                                                             500, "Failed captcha validation")
+            else:
+                return err_handlers.handle_internal_error("unknown", "Unknown internal error",
+                                                        500, "Failed captcha validation")
 
             return stegono.encode(coded_file, img_file, filename, response)
 

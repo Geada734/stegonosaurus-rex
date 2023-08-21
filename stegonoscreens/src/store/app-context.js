@@ -2,8 +2,6 @@
 import { createContext, useState } from "react";
 
 const AppContext = createContext({
-  token: "",
-  setToken: (token) => token,
   language: "en",
   changeLanguage: (lang) => {},
   error: null,
@@ -18,7 +16,7 @@ const AppContext = createContext({
 });
 
 export function AppContextProvider(props) {
-  const [token, setToken] = useState("");
+  // App language.
   const [userLanguage, setUserLanguage] = useState("en");
   // Error info and trigger for the error modal.
   const [raisedError, setRaisedError] = useState(null);
@@ -29,10 +27,6 @@ export function AppContextProvider(props) {
   // Result and trigger for the result modal.
   const [result, setResult] = useState("");
   const [showedResult, setShowedResult] = useState(false);
-
-  function setTokenHandler(token) {
-    setToken(token);
-  }
 
   function changeLanguageHandler(lang) {
     setUserLanguage(lang);
@@ -69,8 +63,6 @@ export function AppContextProvider(props) {
   }
 
   const context = {
-    token: token,
-    setToken: setTokenHandler,
     language: userLanguage,
     changeLanguage: changeLanguageHandler,
     error: raisedError,

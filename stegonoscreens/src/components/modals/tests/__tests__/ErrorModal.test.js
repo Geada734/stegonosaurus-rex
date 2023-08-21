@@ -36,21 +36,6 @@ describe("Render tests for the ErrorModal component.", () => {
   expect(fixtures.mockContext.raiseError).toHaveBeenCalledWith(null);
  });
 
- test("test the close button is not shown when the error is a 401.", () => {
-  fixtures.mockContext.error = fixtures.forbiddenError;
-
-  render(<ErrorModal />);
-
-  expect(screen.queryByRole("button")).not.toBeInTheDocument();
-  expect(screen.getByText(fixtures.forbiddenError.code)).toBeInTheDocument();
-  expect(
-   screen.getByText(fixtures.forbiddenError.en.summary)
-  ).toBeInTheDocument();
-  expect(
-   screen.getByText(fixtures.forbiddenError.en.message)
-  ).toBeInTheDocument();
- });
-
  test("test nothing is showed when the modal is closed.", () => {
   fixtures.mockContext.error = null;
   fixtures.mockContext.showError = false;
@@ -59,13 +44,13 @@ describe("Render tests for the ErrorModal component.", () => {
 
   expect(screen.queryByRole("button")).not.toBeInTheDocument();
   expect(
-   screen.queryByText(fixtures.forbiddenError.code)
+   screen.queryByText(fixtures.regularError.code)
   ).not.toBeInTheDocument();
   expect(
-   screen.queryByText(fixtures.forbiddenError.en.summary)
+   screen.queryByText(fixtures.regularError.en.summary)
   ).not.toBeInTheDocument();
   expect(
-   screen.queryByText(fixtures.forbiddenError.en.message)
+   screen.queryByText(fixtures.regularError.en.message)
   ).not.toBeInTheDocument();
  });
 

@@ -3,7 +3,6 @@ import errors from "../../../static/errors";
 
 // Errors from the static errors file, used to compare.
 const wrongFormatErrorObject = errors["wrongFormat"];
-const invalidTokenErrorObject = errors["invalidToken"];
 const unknownErrorObject = errors["unknown"];
 
 // 500 error for which the code name is known.
@@ -12,16 +11,6 @@ const known500Error = {
   status: 500,
   data: {
    error_codename: "wrongFormat",
-  },
- },
-};
-
-// Forbidden error.
-const known401Error = {
- response: {
-  status: 401,
-  data: {
-   error_codename: "invalidToken",
   },
  },
 };
@@ -73,10 +62,8 @@ const mockHandleError = jest.fn();
 
 module.exports = {
  wrongFormatErrorObject: wrongFormatErrorObject,
- invalidTokenErrorObject: invalidTokenErrorObject,
  unknownErrorObject: unknownErrorObject,
  known500Error: known500Error,
- known401Error: known401Error,
  unknown500Error: unknown500Error,
  unknownStatusCodeError: unknownStatusCodeError,
  unknownErrorCodeName: unknownErrorCodeName,

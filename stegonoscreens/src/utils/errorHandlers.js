@@ -13,12 +13,9 @@ export function handleRestError(e, errorHandler) {
  if (
   e.response &&
   e.response.status &&
-  (e.response.status === 500 || e.response.status === 401)
+  e.response.status === 500
  ) {
   errorKey = e.response.data && e.response.data.error_codename ? e.response.data.error_codename : "unknown";
-  // For a forbidden error, remove the current session token so a new one can be
-  // requested upon refresh.
-  if (e.response.status === 401) localStorage.removeItem("stegoToken");
  } else {
   // Handle the error as unknown.
   errorKey = "unknown";

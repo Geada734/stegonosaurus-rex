@@ -14,7 +14,6 @@ describe("encode API tests", () => {
    fixtures.mockHandleResponse,
    fixtures.mockHandleResult,
    fixtures.mockHandleError,
-   fixtures.mockToken,
    fixtures.encodeForm
   );
 
@@ -35,7 +34,6 @@ describe("encode API tests", () => {
    fixtures.mockHandleResponse,
    fixtures.mockHandleResult,
    fixtures.mockHandleError,
-   fixtures.mockToken,
    fixtures.encodeForm
   );
 
@@ -53,7 +51,6 @@ describe("decode API tests", () => {
    fixtures.mockHandleResponse,
    fixtures.mockHandleResult,
    fixtures.mockHandleError,
-   fixtures.mockToken,
    fixtures.decodeForm
   );
 
@@ -74,7 +71,6 @@ describe("decode API tests", () => {
    fixtures.mockHandleResponse,
    fixtures.mockHandleResult,
    fixtures.mockHandleError,
-   fixtures.mockToken,
    fixtures.decodeForm
   );
 

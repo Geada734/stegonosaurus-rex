@@ -4,7 +4,6 @@ import strings from "../../../../static/strings";
 // Mock application context.
 const mockContext = {
  language: "en",
- token: "testToken",
  popLoading: jest.fn(),
  popResult: jest.fn(),
  raiseError: jest.fn(),
