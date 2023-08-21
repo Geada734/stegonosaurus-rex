@@ -1,9 +1,6 @@
 // Fixtures used in the stegonoApi unit tests.
 const stegonoForms = require("../../../utils/stegonoForms");
 
-// Test token to be added to the call's header.
-const mockToken = "testToken";
-
 // Successful response for both endpoints in the stegonosaurus API.
 const successfullResponse = {
  status: 200,
@@ -38,7 +35,6 @@ function mockHandleResponse(response) {
 };
 
 module.exports = {
-    mockToken: mockToken,
     successfullResponse: successfullResponse,
     mockHandleResult: mockHandleResult,
     mockHandleError: mockHandleError,

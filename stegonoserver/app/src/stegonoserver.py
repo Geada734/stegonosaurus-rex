@@ -10,7 +10,6 @@ from werkzeug.exceptions import NotFound
 
 import utils.security_utils as sec
 import utils.error_handlers as err_handlers
-import controllers.security_controller as sec_con
 import controllers.stegono_controller as stegono_con
 
 # Set the configs for the app.

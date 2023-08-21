@@ -40,7 +40,6 @@ export function decode(
    * handleResponse: callback which handles a successful response.
    * handleResults: callback that handles a resulting image.
    * handlError: callback which handles REST errors.
-   * token: session token.
    * formData: images and pertinent data for stegonosaurus.
    */
   axios

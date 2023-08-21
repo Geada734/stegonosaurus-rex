@@ -3,7 +3,6 @@ import errors from "../../../../static/errors";
 
 // Errors to showcase different modal functionalities.
 const regularError = errors.wrongFormat;
-const forbiddenError = errors.invalidToken;
 
 // Mock application context.
 const mockContext = {
@@ -15,6 +14,5 @@ const mockContext = {
 
 module.exports = {
  regularError: regularError,
- forbiddenError: forbiddenError,
  mockContext: mockContext,
 };

@@ -16,6 +16,7 @@ const AppContext = createContext({
 });
 
 export function AppContextProvider(props) {
+  // App language.
   const [userLanguage, setUserLanguage] = useState("en");
   // Error info and trigger for the error modal.
   const [raisedError, setRaisedError] = useState(null);

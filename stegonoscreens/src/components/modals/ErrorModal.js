@@ -16,8 +16,7 @@ function ErrorModal() {
  }
 
  if (appCtx.error) {
-  // Modal contains the error's info, if it's a forbidden error
-  // the close button is not present so the user can't access the app.
+  // Modal contains the error's info.
   return (
    <Modal
     className={classes.errorModal}
