@@ -5,6 +5,10 @@ from flask import Response
 from stegonosaurus import stegofunctions as sf
 
 from src.utils import stegono_utils as stegono
+from src.utils import load_helper as load_helper
+
+
+constants = load_helper.load_constants()
 
 
 # Image decoding unit tests:
@@ -20,7 +24,7 @@ def test_decode_valid_rgb_png_t(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     data = json.loads(decoded.data)
 
     assert data == {
-            "filename": "decoded_file.png", 
+            "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4z8DA8P8fI8P/"
             + "fwwMDAAm4gT7wdmvEQAAAABJRU5ErkJggg=="
         }
@@ -38,7 +42,7 @@ def test_decode_valid_rgba_png_t(raw_coded_rgb_bright_red_png, raw_image_rgba_pn
     data = json.loads(decoded.data)
 
     assert data == {
-            "filename": "decoded_file.png", 
+            "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4nAXBgQEAAATAoPj/"
             + "ZlMiXTsdeEzOBvunXYHjAAAAAElFTkSuQmCC"
         }
@@ -56,7 +60,7 @@ def test_decode_valid_rgb_png_ut(raw_coded_rgb_bright_red_png, raw_image_rgb_png
     data = json.loads(decoded.data)
 
     assert data == {
-            "filename": "decoded_file.png", 
+            "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4z8DA8P8fI8P/"
             + "fwwMDAAm4gT7wdmvEQAAAABJRU5ErkJggg=="
         }
@@ -74,7 +78,7 @@ def test_decode_valid_rgba_png_ut(raw_coded_rgb_bright_red_png, raw_image_rgba_p
     data = json.loads(decoded.data)
 
     assert data == {
-            "filename": "decoded_file.png", 
+            "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4nAXBgQEAAATAoPj/"
             + "ZlMiXTsdeEzOBvunXYHjAAAAAElFTkSuQmCC"
         }
@@ -92,7 +96,7 @@ def test_decode_valid_rgb_png_b(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     data = json.loads(decoded.data)
 
     assert data == {
-            "filename": "decoded_file.png", 
+            "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAADElEQVR4nGP4z4AEAA0BAQD2u9K"
             + "zAAAAAElFTkSuQmCC"
         }
@@ -110,7 +114,7 @@ def test_decode_valid_rgba_png_b(raw_coded_rgb_bright_red_png, raw_image_rgba_pn
     data = json.loads(decoded.data)
 
     assert data == {
-            "filename": "decoded_file.png", 
+            "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVR4nGP4z8Dwn4GB4T8TIwME"
             + "AAApAwMBEJFSOQAAAABJRU5ErkJggg=="
         }
@@ -128,7 +132,7 @@ def test_decode_valid_rgb_png_ub(raw_coded_rgb_bright_red_png, raw_image_rgb_png
     data = json.loads(decoded.data)
 
     assert data == {
-            "filename": "decoded_file.png", 
+            "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAADElEQVR4nGP4z4AEAA0BAQD2u9K"
             + "zAAAAAElFTkSuQmCC"
         }
@@ -146,7 +150,7 @@ def test_decode_valid_rgba_png_ub(raw_coded_rgb_bright_red_png, raw_image_rgba_p
     data = json.loads(decoded.data)
 
     assert data == {
-            "filename": "decoded_file.png", 
+            "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVR4nGP4z8Dwn4GB4T8TIwME"
             + "AAApAwMBEJFSOQAAAABJRU5ErkJggg=="
         }
@@ -221,7 +225,7 @@ def test_encode_rgb_png(raw_coded_rgb_bright_red_png, raw_image_rgb_png):
     data = json.loads(result.data)
 
     assert data == {
-            "filename": "encoded_file.png", 
+            "filename": constants["encodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNk+P+fgeE"
             + "/EwPDfwYGBgAjBwQAw0d3/gAAAABJRU5ErkJggg=="
         }
@@ -236,7 +240,7 @@ def test_encode_rgba_png(raw_coded_rgba_bright_red_png, raw_image_rgba_png):
     data = json.loads(result.data)
 
     assert data == {
-            "filename": "encoded_file.png", 
+            "filename": constants["encodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4nAXBAQEAAAjDIG7/"
             + "zhOmIkfgAT34BP9m/Y84AAAAAElFTkSuQmCC"
         }
@@ -250,7 +254,7 @@ def test_encode_valid_rgb_smaller_png(raw_coded_smaller_rgb_png,
     data = json.loads(result.data)
 
     assert data == {
-            "filename": "encoded_file.png", 
+            "filename": constants["encodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNk+P+fgeE/" 
             + "EwPDfwYGBgAjBwQAw0d3/gAAAABJRU5ErkJggg=="
         }
