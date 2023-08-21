@@ -4,7 +4,6 @@ import sys
 import time
 
 import pytest
-import mongomock
 from PIL import Image
 from flask import Flask
 
@@ -220,40 +219,3 @@ def testegonoserver():
     app = Flask(__name__)
 
     return app
-
-
-# Test DB
-@pytest.fixture
-def mockgo_db(request):
-    """Test Mongo DB connection."""
-    client = mongomock.MongoClient()
-    db = client["stegonodb"]
-    faqs = db["faqs"]
-
-    faqs.insert_many([{
-        "id": 1,
-        "en": {
-            "question": "Test Question 1",
-            "answer": "Test Answer 1" 
-        },
-        "es": {
-            "question": "Test Pregunta 1",
-            "answer": "Test Respuesta 1" 
-        },
-        "rating": 0
-    }, {
-        "id": 2,
-        "en": {
-            "question": "Test Question 2",
-            "answer": "Test Answer 2" 
-        },
-        "es": {
-            "question": "Test Pregunta 2",
-            "answer": "Test Respuesta 2" 
-        },
-        "rating": 0
-    }])
-
-    request.addfinalizer(client.close)
-
-    return client
