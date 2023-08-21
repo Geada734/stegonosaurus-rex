@@ -1,8 +1,6 @@
 """Security Utils"""
 import json
-import time
 
-import jwt
 import requests as req
 
 
@@ -13,14 +11,6 @@ def load_config():
         config_file.close()
 
     return config
-
-
-def encode_token(config: dict, timestamp: int) -> str:
-    """Encodes a new token."""
-    token_components = {"timestamp": timestamp}
-    token = jwt.encode(token_components, config["jwtSecret"], algorithm="HS256")
-
-    return token
 
 
 def call_captcha_url(captcha_value, config):
@@ -39,29 +29,3 @@ def validate_captcha(captcha_value: str, config: dict) -> bool:
 
     # If the captcha response is not a success.
     return False
-
-
-def validate_jwt(token: str, config: dict) -> bool:
-    """Validates JWTs"""
-    try:
-        decoded_token = jwt.decode(token, config["jwtSecret"], algorithms=["HS256"])
-
-        if "timestamp" in decoded_token:
-            now = int(round(time.time() * 1000))
-
-            # Checks if the token is still valid using the JWT life from configs, or
-            # that the token isn't from the future.
-            timestamp = decoded_token["timestamp"]
-
-            if now - timestamp > config["jwtLifeMinutes"] * 60000 or now - timestamp < 0:
-
-                return False
-
-        else:
-            return False
-
-    except jwt.exceptions.DecodeError:
-        # In case the JWT is invalid.
-        return False
-
-    return True

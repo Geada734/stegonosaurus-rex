@@ -43,17 +43,6 @@ const errors = {
         "que la imagen que se usará para codificar.",
     },
   },
-  invalidToken: {
-    code: "ERR05",
-    en: {
-      summary: "Invalid Session",
-      message: "The current session is invalid, please refresh the page.",
-    },
-    es: {
-      summary: "Sesión Inválida",
-      message: "La sesión actual es inválida, por favor actualiza la página.",
-    },
-  },
   serverDown: {
     code: "ERR06",
     en: {

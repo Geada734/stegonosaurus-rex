@@ -8,23 +8,16 @@ export function encode(
   handleResponse,
   handleResults,
   handleError,
-  token,
   formData
 ) {
   /*
    * handleResponse: callback which handles a successful response.
    * handleResults: callback that handles a resulting image.
    * handlError: callback which handles REST errors.
-   * token: session token.
    * formData: images and pertinent data for stegonosaurus.
    */
   axios
-    .post(config.stegonoServer + "/encode", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: "Bearer " + token,
-      },
-    })
+    .post(config.stegonoServer + "/encode", formData)
     .then((response) => {
       return handleResponse(response);
     })
@@ -41,7 +34,6 @@ export function decode(
   handleResponse,
   handleResults,
   handleError,
-  token,
   formData
 ) {
   /*
@@ -52,12 +44,7 @@ export function decode(
    * formData: images and pertinent data for stegonosaurus.
    */
   axios
-    .post(config.stegonoServer + "/decode", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: "Bearer " + token,
-      },
-    })
+    .post(config.stegonoServer + "/decode", formData)
     .then((response) => {
       return handleResponse(response);
     })

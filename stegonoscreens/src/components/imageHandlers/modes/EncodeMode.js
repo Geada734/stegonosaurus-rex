@@ -89,7 +89,6 @@ function EncodeMode(props) {
    handleResponse,
    handleResults,
    handleError,
-   appCtx.token,
    encodeForm
   );
  }

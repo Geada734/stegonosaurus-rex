@@ -26,7 +26,7 @@ function ErrorModal() {
     show={appCtx.showError}
     backdrop="static"
    >
-    <Modal.Header closeButton={appCtx.error.code !== "ERR05" ? true : false}>
+    <Modal.Header closeButton={true}>
      <Modal.Title>{appCtx.error.code}</Modal.Title>
     </Modal.Header>
     <Modal.Body>

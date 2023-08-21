@@ -4,7 +4,6 @@ from flask import request, Response
 from werkzeug.exceptions import BadRequest
 from PIL import Image, UnidentifiedImageError
 
-from utils import decorators as dec
 from utils import security_utils as sec
 from utils import stegono_utils as stegono
 from utils import error_handlers as err_handlers
@@ -16,7 +15,6 @@ config = sec.load_config()
 
 class DecodeAPI(Resource):
     """Decode API"""
-    @dec.jwt_secured
     def post(self) -> Response:
         """Decode endpoint"""
         try:
@@ -48,7 +46,6 @@ class DecodeAPI(Resource):
 # Service connections.
 class EncodeAPI(Resource):
     """Encode API"""
-    @dec.jwt_secured
     def post(self) -> Response:
         """Encode endpoint"""
         try:

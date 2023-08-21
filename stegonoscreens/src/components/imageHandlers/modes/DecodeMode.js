@@ -89,7 +89,6 @@ function DecodeMode(props) {
    handleResponse,
    handleResults,
    handleError,
-   appCtx.token,
    decodeForm
   );
  }
