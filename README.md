@@ -1,8 +1,8 @@
 # Stegonosaurus-Rex
 
-*Server Version: 1.3.0*
+*Server Version: 1.3.1*
 
-*UI Version: 1.1.0*
+*UI Version: 1.1.1*
 
 Stegonosaurus-Rex is a fullstack web application created to showcase the functionalities of the [stegonosaurus](https://pypi.org/project/stegonosaurus/) Python library. The app mainly consists of two components:
 
@@ -25,9 +25,7 @@ Both the "stegonoserver" and "stegonoscreens" require some specific values to be
     "host": <host where the app is going to be deployed, 0.0.0.0 by default>,
     "port": <port of the host where the app is going to be listenning on, 5000 by default>,
     "captchaSecret": <Captcha key to use in validations>,
-    "captchaUrl": <Captcha host>,
-    "jwtSecret": <Whatever string you want to use to sign the JWT in the requests>,
-    "jwtLifeMinutes": <How long the JWT is valid in minutes>
+    "captchaUrl": <Captcha host>
 }
 ```
 Once the config file has been created, the dependencies need to be installed. There is a "requirements.txt" file that should be used to install the necessary libraries for the server to work, from the "stegonoserver" folder, run the following command:
