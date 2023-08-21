@@ -1,7 +1,6 @@
 """Fixtures for unit tests."""
 import os
 import sys
-import time
 
 import pytest
 from PIL import Image
@@ -174,38 +173,7 @@ def raw_coded_larger_rgb_png():
     return new_image
 
 
-# Security utils fixtures
-@pytest.fixture
-def timestamp_now():
-    """Return a timestamp of the moment the test is ran."""
-    return int(round(time.time() * 1000))
-
-
-@pytest.fixture
-def timestamp_fixed():
-    """Return a fixed timestamp from the distant past."""
-    return 1687464922560
-
-
-@pytest.fixture
-def timestamp_future():
-    """Return a future timestamp."""
-    return int(round(time.time() * 1000)) + 10000
-
-
 # Configs fixtures
-@pytest.fixture
-def test_config():
-    """Simulates necessary configs for jwt utils with a 5 minute JWT life."""
-    return {"jwtSecret": "testSecret", "jwtLifeMinutes": 5}
-
-
-@pytest.fixture
-def other_config():
-    """Simulates a different set of configs."""
-    return {"jwtSecret": "trySecret", "jwtLifeMinutes": 5}
-
-
 @pytest.fixture
 def config_for_captcha():
     """Dummy values for captcha validation."""

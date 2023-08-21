@@ -18,13 +18,10 @@ function AboutText(props) {
           Stegonosaurus-Rex is a fullstack web application that showcases{" "}
           <a href="https://pypi.org/project/stegonosaurus/">stegonosaurus'</a>
           (Python steganography library) main functionalities, running on a
-          headless Flask server (where the magic happens), a Mongo NoSQL
-          database, and a React.JS UI.
+          Flask server (where the magic happens), and a React.JS UI.
         </p>
         <p>
-          <span className={classes.note}>Note: </span> API calls are secured
-          with JWT validation. If you plan to call the API directly, please
-          contact the server admin to receive a valid usable token.
+          <span className={classes.note}>Note: </span> Headless usage is currently disabled.
         </p>
         <h3>Usage</h3>
         <p>Stegonosaurus-Rex currently provides two usage modes:</p>
@@ -71,29 +68,6 @@ function AboutText(props) {
           </span>
           .
         </p>
-        <span className={classes.note}>Headless Server Usage</span>
-        <p>
-          The <span className={classes.note}>/encode </span>
-          API can be called directly with the following form body:
-        </p>
-        <ul>
-          <li>
-            <span className={classes.note}>coded: </span>
-            The image containing the message.
-          </li>
-          <li>
-            <span className={classes.note}>img: </span>
-            The image where the message is going to be hidden.
-          </li>
-          <li>
-            <span className={classes.note}>filename: </span>
-            Name of the file where the message is going to be hidden.
-          </li>
-        </ul>
-        <p>
-          The resulting image will be encoded to base64 and retrievable via the
-          <span className={classes.note}> result </span>attribute.
-        </p>
         <h6>Decoding</h6>
         <p>
           The user can also decode a message contained within a multi-band .png
@@ -126,30 +100,6 @@ function AboutText(props) {
             alt="black mode"
           />
         </div>
-        <span className={classes.note}>Headless Server Usage</span>
-        <p>
-          The <span className={classes.note}>/decode </span>
-          API can be called directly with the following form body:
-        </p>
-        <ul>
-          <li>
-            <span className={classes.note}>img: </span>
-            The image that contains the hidden message.
-          </li>
-          <li>
-            <span className={classes.note}>img_filename: </span>
-            Filename.
-          </li>
-          <li>
-            <span className={classes.note}>mode: </span>
-            Decode mode, the only acceptable values for this parameter are "t",
-            or "T" for transparent mode, and "b" or "B" for black mode.
-          </li>
-        </ul>
-        <p>
-          The resulting image will be encoded to base64 and retrievable via the
-          <span className={classes.note}> result </span>attribute.
-        </p>
         <div className={classes.thatsIt}>
           <h3>That's it! Have fun!</h3>
         </div>
@@ -161,15 +111,11 @@ function AboutText(props) {
           Stegonosaurus-Rex es una aplicación web fullstack que muestra las
           funcionalidades principales de{" "}
           <a href="https://pypi.org/project/stegonosaurus/">stegonosaurus</a>,
-          la librería de esteganografía de Python, corriendo sobre un servidor
-          headless de Flask (donde ocurre la magia), una base de datos NoSQL de
-          Mongo, y una interfaz gráfica creada en React.JS.
+          la librería de esteganografía de Python, corriendo sobre un servidor 
+          de Flask (donde ocurre la magia), y una interfaz gráfica creada en React.JS.
         </p>
         <p>
-          <span className={classes.note}>Nota: </span> Las llamadas al API del
-          servidor de Flask están aseguradas con la validación de JWT. Si
-          planeas llamar directamente el API, contacta al administrador del
-          servidor para recibir una token válida.
+          <span className={classes.note}>Nota: </span> El uso headless del servidor está deshabilitado por el momento.
         </p>
         <h3>Modos de Uso</h3>
         <p>Stegonosaurus-Rex actualmente cuenta con dos modos de uso:</p>
@@ -214,29 +160,6 @@ function AboutText(props) {
           </span>
           .
         </p>
-        <span className={classes.note}>Uso del Servidor Headless</span>
-        <p>
-          El API <span className={classes.note}>/encode </span> puede ser
-          llamado directamente usando el siguiente cuerpo (form):
-        </p>
-        <ul>
-          <li>
-            <span className={classes.note}>coded: </span>
-            La imagen que contiene el mensaje.
-          </li>
-          <li>
-            <span className={classes.note}>img: </span>
-            La imagen en la cuál será codificado el mensaje.
-          </li>
-          <li>
-            <span className={classes.note}>filename: </span>
-            El nombre de la imagen en la cuál se codificará el mensaje.
-          </li>
-        </ul>
-        <p>
-          La imagen resultante estará codificada en base 64 en el atributo
-          <span className={classes.note}> result</span>.
-        </p>
         <h6>Decodificar</h6>
         <p>
           El usuario también puede decodificar mensajes ocultos en una imagen
@@ -269,30 +192,6 @@ function AboutText(props) {
             alt="black mode"
           />
         </div>
-        <span className={classes.note}>Headless Server Usage</span>
-        <p>
-          El API <span className={classes.note}>/decode </span> puede ser
-          llamado directamente usando el siguiente cuerpo (form):
-        </p>
-        <ul>
-          <li>
-            <span className={classes.note}>img: </span>
-            La imagen que contiene el mensaje oculto.
-          </li>
-          <li>
-            <span className={classes.note}>img_filename: </span>
-            Nombre de archivo.
-          </li>
-          <li>
-            <span className={classes.note}>mode: </span>
-            Modo de decodificación, los únicos parámetros aceptables son "t" o
-            "T" para transparencia, y "b" o "B" para modo negro.
-          </li>
-        </ul>
-        <p>
-          La imagen resultante estará codificada en base 64 en el atributo
-          <span className={classes.note}> result</span>.
-        </p>
         <div className={classes.thatsIt}>
           <h3>¡Eso es todo, diviértanse!</h3>
         </div>
