@@ -8,8 +8,8 @@ from flask_restful import Api
 from flask import Flask, Response
 from werkzeug.exceptions import NotFound
 
+import utils.load_helper as lh
 import utils.security_utils as sec
-import utils.load_helper as load_helper
 import utils.error_handlers as err_handlers
 import controllers.stegono_controller as stegono_con
 
@@ -17,7 +17,10 @@ import controllers.stegono_controller as stegono_con
 config = sec.load_config()
 
 # Set the string constants used in the app.
-constants = load_helper.load_constants()
+constants = lh.load_constants()
+
+# Set the errors that can be thrown at server level.
+errors = lh.load_errors()
 
 # Set directory path to build controllers.
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -32,13 +35,15 @@ api = Api(app)
 @app.errorhandler(NotFound)
 def handle_not_found_error(err: NotFound) -> Response:
     """Handles NotFound errors."""
-    return err_handlers.handle_rest_error(err, "notFound", "The endpoint does not exist.", 404)
+    error = errors["notFound"]
+    return err_handlers.handle_rest_error(err, error["errorKey"], error["message"], 404)
 
 
 @app.errorhandler(Exception)
 def handle_error(err: Exception) -> Response:
-    """Handles any unspecified exception."""
-    return err_handlers.handle_exception(err, "unknown", "Unknown internal error.")
+    """Handles any unspecified exceptions."""
+    error = errors["unknown"]
+    return err_handlers.handle_exception(err, error["errorKey"], error["message"])
 
 
 # Set APIs.

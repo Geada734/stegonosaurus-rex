@@ -4,11 +4,11 @@ import json
 from flask import Response
 from stegonosaurus import stegofunctions as sf
 
+from src.utils import load_helper as lh
 from src.utils import stegono_utils as stegono
-from src.utils import load_helper as load_helper
 
 
-constants = load_helper.load_constants()
+constants = lh.load_constants()
 
 
 # Image decoding unit tests:

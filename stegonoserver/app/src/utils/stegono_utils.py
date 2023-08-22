@@ -7,13 +7,13 @@ from PIL import Image
 from flask import Response
 from stegonosaurus import stegofunctions as sf, stegoexceptions as se
 
+from . import load_helper as lh
 from . import logging_utils as logs
-from . import load_helper as load_helper
 from . import error_handlers as err_handlers
 
 
-# Set the string constants used in the app.
-constants = load_helper.load_constants()
+# Set the string constants used by the utils.
+constants = lh.load_constants()
 
 
 def decode(img: Image, filename: str, mode: str, response: Response) -> Response:

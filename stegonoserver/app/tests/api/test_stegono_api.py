@@ -3,13 +3,14 @@ import json
 
 from flask_restful import Api
 
+from src.utils import load_helper as lh
 from src.utils import security_utils as sec
-from src.utils import load_helper as load_helper
 from src.controllers import stegono_controller as stegono_con
 
 
 config = sec.load_config()
-constants = load_helper.load_constants()
+constants = lh.load_constants()
+errors = lh.load_errors()
 
 
 # Image decoding tests:
@@ -63,8 +64,12 @@ def test_missing_image_decode(testegonoserver, mocker):
 
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "malformedRequest",
-                                                     "error_message": "Malformed request."})
+    error = errors["malformed"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_not_image_decode(testegonoserver, mocker):
@@ -91,10 +96,12 @@ def test_not_image_decode(testegonoserver, mocker):
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "wrongFormat",
-                                                     "error_message": ("The file provided is not " +
-                                                                       "a valid image.")})
+    error = errors["notAnImage"]
 
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 def test_invalid_captcha_decode(testegonoserver, mocker):
     """Test invalid captcha."""
@@ -121,8 +128,12 @@ def test_invalid_captcha_decode(testegonoserver, mocker):
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
-                                                   'error_message': 'Unknown internal error'})
+    error = errors["noCaptcha"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_no_captcha_decode(testegonoserver):
@@ -148,8 +159,12 @@ def test_no_captcha_decode(testegonoserver):
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
-                                                   'error_message': 'Unknown internal error'})
+    error = errors["noCaptcha"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 # Image encoding tests:
@@ -203,8 +218,12 @@ def test_missing_image_encode(testegonoserver, mocker):
 
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "malformedRequest",
-                                                     "error_message": "Malformed request."})
+    error = errors["malformed"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_not_image_file_encode(testegonoserver, mocker):
@@ -232,9 +251,12 @@ def test_not_image_file_encode(testegonoserver, mocker):
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "wrongFormat",
-                                                     "error_message": ("The file provided is not " +
-                                                                       "a valid image.")})
+    error = errors["notAnImage"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_not_image_coded_encode(testegonoserver, mocker):
@@ -262,9 +284,12 @@ def test_not_image_coded_encode(testegonoserver, mocker):
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "wrongFormat",
-                                                     "error_message": ("The file provided is not " +
-                                                                       "a valid image.")})
+    error = errors["notAnImage"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_invalid_captcha_encode(testegonoserver, mocker):
@@ -293,8 +318,12 @@ def test_invalid_captcha_encode(testegonoserver, mocker):
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
-                                                   'error_message': 'Unknown internal error'})
+    error = errors["noCaptcha"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_no_captcha_encode(testegonoserver):
@@ -321,5 +350,9 @@ def test_no_captcha_encode(testegonoserver):
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
-                                                   'error_message': 'Unknown internal error'})
+    error = errors["noCaptcha"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })

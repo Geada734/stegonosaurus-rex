@@ -1,0 +1,28 @@
+{
+    "noCaptcha": {
+        "restCode": 500,
+        "errorKey": "unknown",
+        "message": "Unknown internal error",
+        "debug": "Failed captcha validation"
+    },
+    "malformed": {
+        "restCode": 500,
+        "errorKey": "malformedRequest",
+        "message": "Malformed request."
+    },
+    "notAnImage": {
+        "restCode": 500,
+        "errorKey": "wrongFormat",
+        "message": "The file provided is not a valid image."
+    },
+    "notFound": {
+        "restCode": 404,
+        "errorKey": "notFound",
+        "message": "The endpoint does not exist."
+    },
+    "unknown": {
+        "restCode": 500,
+        "errorKey": "unknown",
+        "message": "The endpoint does not exist."
+    }
+}

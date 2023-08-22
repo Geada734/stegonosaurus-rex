@@ -9,3 +9,12 @@ def load_constants():
         constants_file.close()
 
     return constants
+
+
+def load_errors():
+    """Loads the error values used in the app."""
+    with open("app/src/static/errors.json", "r") as errors_file:
+        errors = json.load(errors_file)
+        errors_file.close()
+
+    return errors
