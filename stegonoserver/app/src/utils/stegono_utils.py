@@ -7,8 +7,13 @@ from PIL import Image
 from flask import Response
 from stegonosaurus import stegofunctions as sf, stegoexceptions as se
 
+from . import load_helper as lh
 from . import logging_utils as logs
 from . import error_handlers as err_handlers
+
+
+# Set the string constants used by the utils.
+constants = lh.load_constants()
 
 
 def decode(img: Image, filename: str, mode: str, response: Response) -> Response:
@@ -23,12 +28,13 @@ def decode(img: Image, filename: str, mode: str, response: Response) -> Response
         response.status_code = 200
         response.data = json.dumps({
                 "result": img_str.decode("utf-8"),
-                "filename": "decoded_" + filename
+                "filename": constants["decodedPrefix"] + filename
         })
 
         img.close()
 
-        logs.log(response.status_code, "POST /decode: Successful call!")
+        logs.log(response.status_code, "POST /" + constants["decodeEndpoint"] + ": "
+                 + constants["successMessage"])
 
     # Handle exceptions from stegonosaurus.
     except (se.StegonosaurusIncorrectFormatError, se.StegonosaurusInvalidDecodeModeError) as err:
@@ -54,13 +60,14 @@ def encode(coded: Image, img: Image, filename: str, response: Response) -> Respo
         response.status_code = 200
         response.data = json.dumps({
                 "result": img_str.decode("utf-8"),
-                "filename": "encoded_" + filename
+                "filename": constants["encodedPrefix"] + filename
         })
 
         coded.close()
         img.close()
 
-        logs.log(response.status_code, "POST /encode: Successful call!")
+        logs.log(response.status_code, "POST /" + constants["encodeEndpoint"] + ": "
+                 + constants["successMessage"])
 
     # Handle exceptions from stegonosaurus.
     except(se.StegonosaurusIncorrectFormatError, se.StegonosaurusIncorrectSizeError) as err:

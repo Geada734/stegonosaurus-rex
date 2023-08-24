@@ -4,6 +4,7 @@ from flask import request, Response
 from werkzeug.exceptions import BadRequest
 from PIL import Image, UnidentifiedImageError
 
+from utils import load_helper as lh
 from utils import security_utils as sec
 from utils import stegono_utils as stegono
 from utils import error_handlers as err_handlers
@@ -11,6 +12,9 @@ from utils import error_handlers as err_handlers
 
 # Set the configs for the app.
 config = sec.load_config()
+
+# Set errors that can be thrown by this controller.
+errors = lh.load_errors()
 
 
 class DecodeAPI(Resource):
@@ -29,21 +33,26 @@ class DecodeAPI(Resource):
                 valid_captcha = sec.validate_captcha(captcha_value, config)
                 if not valid_captcha:
                     file.close()
+                    error = errors["noCaptcha"]
 
-                    return err_handlers.handle_internal_error("unknown", "Unknown internal error",
-                                                            500, "Failed captcha validation")
+                    return err_handlers.handle_internal_error(error["errorKey"], error["message"],
+                                                            error["restCode"], error["debug"])
             else:
-                return err_handlers.handle_internal_error("unknown", "Unknown internal error",
-                                                        500, "Failed captcha validation")
+                error = errors["noCaptcha"]
+
+                return err_handlers.handle_internal_error(error["errorKey"], error["message"],
+                                                        error["restCode"], error["debug"])
 
             return stegono.decode(file, filename, mode, response)
 
         # If either file is not an image, or the request is malformed.
         except (UnidentifiedImageError, BadRequest) as err:
             if isinstance(err, UnidentifiedImageError):
-                return err_handlers.handle_exception(err, "wrongFormat",
-                                                    "The file provided is not a valid image.")
-            return err_handlers.handle_exception(err, "malformedRequest", "Malformed request.")
+                error = errors["notAnImage"]
+                return err_handlers.handle_exception(err, error["errorKey"], error["message"])
+
+            error = errors["malformed"]
+            return err_handlers.handle_exception(err, error["errorKey"], error["message"])
 
 
 # Service connections.
@@ -64,10 +73,13 @@ class EncodeAPI(Resource):
                 if not valid_captcha:
                     coded_file.close()
                     img_file.close()
+                    error = errors["noCaptcha"]
 
-                    return err_handlers.handle_internal_error("unknown", "Unknown internal error",
-                                                            500, "Failed captcha validation")
+                    return err_handlers.handle_internal_error(error["errorKey"], error["message"],
+                                                            error["restCode"], error["debug"])
             else:
+                error = errors["noCaptcha"]
+
                 return err_handlers.handle_internal_error("unknown", "Unknown internal error",
                                                         500, "Failed captcha validation")
 
@@ -76,6 +88,8 @@ class EncodeAPI(Resource):
         # If either file is not an image, or the request is malformed.
         except (UnidentifiedImageError, BadRequest) as err:
             if isinstance(err, UnidentifiedImageError):
-                return err_handlers.handle_exception(err, "wrongFormat",
-                                                    "The file provided is not a valid image.")
-            return err_handlers.handle_exception(err, "malformedRequest", "Malformed request.")
+                error = errors["notAnImage"]
+                return err_handlers.handle_exception(err, error["errorKey"], error["message"])
+
+            error = errors["malformed"]
+            return err_handlers.handle_exception(err, error["errorKey"], error["message"])

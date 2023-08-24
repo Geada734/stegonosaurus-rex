@@ -21,7 +21,14 @@ import classes from "../style/DecodeMode.module.css";
 function DecodeMode(props) {
  const appCtx = useContext(AppContext);
 
- const [decodeMode, setDecodeMode] = useState("t");
+ // Decode modes for the tabs.
+ const transparentModeValue = "t"
+ const blackModeValue = "b"
+
+ // Operation mode for the image upload component.
+ const uploadOperation = "decode"
+
+ const [decodeMode, setDecodeMode] = useState(transparentModeValue);
  const [imageToDecode, setImageToDecode] = useState(null);
 
  // Handle the response from the API calls to the Stegonoserver.
@@ -119,23 +126,23 @@ function DecodeMode(props) {
      <ButtonGroup>
       <Button
        variant="outline-dark"
-       active={decodeMode === "t"}
-       onClick={(e) => decodeModeHandler(e, "t")}
+       active={decodeMode === transparentModeValue}
+       onClick={(e) => decodeModeHandler(e, transparentModeValue)}
       >
        {strings.imageProcessor.decodingModes.t[appCtx.language]}
       </Button>
       <Button
        variant="outline-dark"
-       active={decodeMode === "b"}
-       onClick={(e) => decodeModeHandler(e, "b")}
+       active={decodeMode === blackModeValue}
+       onClick={(e) => decodeModeHandler(e, blackModeValue)}
       >
        {strings.imageProcessor.decodingModes.b[appCtx.language]}
       </Button>
      </ButtonGroup>
      <ImageUpload
-      id="decode-upload"
+      id={uploadOperation + "-upload"}
       imageHandler={imageToDecodeHandler}
-      operation="decode"
+      operation={uploadOperation}
       message={strings.imageProcessor.toDecodeImageMessage[appCtx.language]}
      />
     </Col>

@@ -3,11 +3,14 @@ import json
 
 from flask_restful import Api
 
+from src.utils import load_helper as lh
 from src.utils import security_utils as sec
 from src.controllers import stegono_controller as stegono_con
 
 
 config = sec.load_config()
+constants = lh.load_constants()
+errors = lh.load_errors()
 
 
 # Image decoding tests:
@@ -18,7 +21,7 @@ def test_decode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.DecodeAPI, "/decode")
+    api.add_resource(stegono_con.DecodeAPI, "/" + constants["decodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/file.png", "rb")
@@ -31,12 +34,13 @@ def test_decode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/decode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["decodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
     assert (response.status_code == 200
-            and data["filename"] == "decoded_file.png"
+            and data["filename"] == constants["decodedPrefix"] + "file.png"
             and "result" in data)
 
 
@@ -46,7 +50,7 @@ def test_missing_image_decode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.DecodeAPI, "/decode")
+    api.add_resource(stegono_con.DecodeAPI, "/" + constants["decodeEndpoint"])
 
     body_data = {
             "filename": "file.png",
@@ -55,12 +59,17 @@ def test_missing_image_decode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/decode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["decodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
 
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "malformedRequest",
-                                                     "error_message": "Malformed request."})
+    error = errors["malformed"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_not_image_decode(testegonoserver, mocker):
@@ -69,7 +78,7 @@ def test_not_image_decode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.DecodeAPI, "/decode")
+    api.add_resource(stegono_con.DecodeAPI, "/" + constants["decodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/image.txt", "rb")
@@ -82,14 +91,17 @@ def test_not_image_decode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/decode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["decodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "wrongFormat",
-                                                     "error_message": ("The file provided is not " +
-                                                                       "a valid image.")})
+    error = errors["notAnImage"]
 
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 def test_invalid_captcha_decode(testegonoserver, mocker):
     """Test invalid captcha."""
@@ -98,7 +110,7 @@ def test_invalid_captcha_decode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.DecodeAPI, "/decode")
+    api.add_resource(stegono_con.DecodeAPI, "/" + constants["decodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/file.png", "rb")
@@ -111,12 +123,17 @@ def test_invalid_captcha_decode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/decode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["decodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
-                                                   'error_message': 'Unknown internal error'})
+    error = errors["noCaptcha"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_no_captcha_decode(testegonoserver):
@@ -125,7 +142,7 @@ def test_no_captcha_decode(testegonoserver):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.DecodeAPI, "/decode")
+    api.add_resource(stegono_con.DecodeAPI, "/" + constants["decodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/file.png", "rb")
@@ -137,12 +154,17 @@ def test_no_captcha_decode(testegonoserver):
         }
 
     client = app.test_client()
-    response = client.post("/decode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["decodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
-                                                   'error_message': 'Unknown internal error'})
+    error = errors["noCaptcha"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 # Image encoding tests:
@@ -152,7 +174,7 @@ def test_encode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.EncodeAPI, "/encode")
+    api.add_resource(stegono_con.EncodeAPI, "/" + constants["encodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/file.png", "rb")
@@ -166,12 +188,13 @@ def test_encode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/encode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["encodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
     assert (response.status_code == 200
-            and data["filename"] == "encoded_file.png"
+            and data["filename"] == constants["encodedPrefix"] + "file.png"
             and "result" in data)
 
 
@@ -181,7 +204,7 @@ def test_missing_image_encode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.EncodeAPI, "/encode")
+    api.add_resource(stegono_con.EncodeAPI, "/" + constants["encodeEndpoint"])
 
     # Setting request body.
     body_data = {
@@ -190,12 +213,17 @@ def test_missing_image_encode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/encode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["encodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
 
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "malformedRequest",
-                                                     "error_message": "Malformed request."})
+    error = errors["malformed"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_not_image_file_encode(testegonoserver, mocker):
@@ -204,7 +232,7 @@ def test_not_image_file_encode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.EncodeAPI, "/encode")
+    api.add_resource(stegono_con.EncodeAPI, "/" + constants["encodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/image.txt", "rb")
@@ -218,13 +246,17 @@ def test_not_image_file_encode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/encode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["encodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "wrongFormat",
-                                                     "error_message": ("The file provided is not " +
-                                                                       "a valid image.")})
+    error = errors["notAnImage"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_not_image_coded_encode(testegonoserver, mocker):
@@ -233,7 +265,7 @@ def test_not_image_coded_encode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.EncodeAPI, "/encode")
+    api.add_resource(stegono_con.EncodeAPI, "/" + constants["encodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/file.png", "rb")
@@ -247,13 +279,17 @@ def test_not_image_coded_encode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/encode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["encodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data == {"error_codename": "wrongFormat",
-                                                     "error_message": ("The file provided is not " +
-                                                                       "a valid image.")})
+    error = errors["notAnImage"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_invalid_captcha_encode(testegonoserver, mocker):
@@ -263,7 +299,7 @@ def test_invalid_captcha_encode(testegonoserver, mocker):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.EncodeAPI, "/encode")
+    api.add_resource(stegono_con.EncodeAPI, "/" + constants["encodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/file.png", "rb")
@@ -277,12 +313,17 @@ def test_invalid_captcha_encode(testegonoserver, mocker):
         }
 
     client = app.test_client()
-    response = client.post("/encode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["encodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
-                                                   'error_message': 'Unknown internal error'})
+    error = errors["noCaptcha"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })
 
 
 def test_no_captcha_encode(testegonoserver):
@@ -291,7 +332,7 @@ def test_no_captcha_encode(testegonoserver):
     # Setting endpoint for testing.
     app = testegonoserver
     api = Api(app)
-    api.add_resource(stegono_con.EncodeAPI, "/encode")
+    api.add_resource(stegono_con.EncodeAPI, "/" + constants["encodeEndpoint"])
 
     # Setting request body.
     img = open("app/tests/static/file.png", "rb")
@@ -304,9 +345,14 @@ def test_no_captcha_encode(testegonoserver):
         }
 
     client = app.test_client()
-    response = client.post("/encode", data=body_data, content_type="multipart/form-data")
+    response = client.post("/" + constants["encodeEndpoint"], data=body_data,
+                           content_type="multipart/form-data")
     img.close()
     data = json.loads(response.data)
 
-    assert (response.status_code == 500 and data=={'error_codename': 'unknown',
-                                                   'error_message': 'Unknown internal error'})
+    error = errors["noCaptcha"]
+
+    assert (response.status_code == error["restCode"] and data == {
+        'error_codename': error["errorKey"],
+        'error_message': error["message"]
+    })

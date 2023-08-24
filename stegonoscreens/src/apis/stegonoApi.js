@@ -3,6 +3,9 @@ import axios from "axios";
 
 import config from "../configs/config.json";
 
+const encodeEndpoint = "/encode";
+const decodeEndpoint = "/decode";
+
 // This endpoint encodes images.
 export function encode(
   handleResponse,
@@ -17,7 +20,7 @@ export function encode(
    * formData: images and pertinent data for stegonosaurus.
    */
   axios
-    .post(config.stegonoServer + "/encode", formData)
+    .post(config.stegonoServer + encodeEndpoint, formData)
     .then((response) => {
       return handleResponse(response);
     })
@@ -43,7 +46,7 @@ export function decode(
    * formData: images and pertinent data for stegonosaurus.
    */
   axios
-    .post(config.stegonoServer + "/decode", formData)
+    .post(config.stegonoServer + decodeEndpoint, formData)
     .then((response) => {
       return handleResponse(response);
     })

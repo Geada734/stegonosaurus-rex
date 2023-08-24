@@ -1,6 +1,9 @@
 // Error handlers for the application.
 import errors from "../static/errors";
 
+// Default error key.
+const unknownErrorKey = "unknown";
+
 // Handler that gets error info from the errors file.
 export function handleRestError(e, errorHandler) {
  /*
@@ -15,14 +18,14 @@ export function handleRestError(e, errorHandler) {
   e.response.status &&
   e.response.status === 500
  ) {
-  errorKey = e.response.data && e.response.data.error_codename ? e.response.data.error_codename : "unknown";
+  errorKey = e.response.data && e.response.data.error_codename ? e.response.data.error_codename : unknownErrorKey;
  } else {
   // Handle the error as unknown.
-  errorKey = "unknown";
+  errorKey = unknownErrorKey;
  }
 
  // Get the error to be returned.
- let error = errors[errorKey] ? errors[errorKey] : errors["unknown"];
+ let error = errors[errorKey] ? errors[errorKey] : errors[unknownErrorKey];
 
  errorHandler(error);
 }
