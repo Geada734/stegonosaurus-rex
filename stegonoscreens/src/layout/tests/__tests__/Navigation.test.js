@@ -6,6 +6,8 @@ import userEvent from "@testing-library/user-event";
 import * as fixtures from "../fixtures/navigationFixtures";
 import Navigation from "../../Navigation";
 
+import constants from "../../../static/constants";
+
 function mockDropdown({ onSelect }) {
  return (
   <div>
@@ -31,7 +33,7 @@ describe("Navbar rendering tests.", () => {
  test("test rendering of all components in the nav bar.", () => {
   render(<Navigation />);
 
-  const userLang = localStorage.getItem("stegoLang");
+  const userLang = localStorage.getItem(constants.localValues.language);
 
   expect(userLang).toEqual(null);
   expect(screen.getByAltText(fixtures.logoAltText)).toBeInTheDocument();
@@ -53,13 +55,13 @@ describe("Navbar rendering tests.", () => {
 
   jest.advanceTimersByTime(1000);
 
-  const userLang = localStorage.getItem("stegoLang");
+  const userLang = localStorage.getItem(constants.localValues.language);
 
   expect(fixtures.mockContext.changeLanguage).toHaveBeenCalledWith("es");
   expect(userLang).toEqual("es");
  });
 
  afterAll(() => {
-  localStorage.removeItem("stegoLang");
+  localStorage.removeItem(constants.localValues.language);
  });
 });

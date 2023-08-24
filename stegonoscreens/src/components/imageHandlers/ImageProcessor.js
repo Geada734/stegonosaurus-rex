@@ -22,8 +22,12 @@ function ImageProcessor() {
  const captchaRef = useRef(null);
  const [captchaValue, setCaptchaValue] = useState(null);
 
+ // Possible tab values.
+ const encodeTabValue = "encode";
+ const decodeTabValue = "decode";
+
  // Operational mode.
- const [tabValue, setTabValue] = useState("encode");
+ const [tabValue, setTabValue] = useState(encodeTabValue);
 
  // Handles operational mode changes.
  function modeHandler(mode) {
@@ -50,11 +54,11 @@ function ImageProcessor() {
 
  // Renders a different component depending on the selected operational mode.
  function renderComponent() {
-  if (tabValue === "encode") {
+  if (tabValue === encodeTabValue) {
    return (
     <EncodeMode captchaValue={captchaValue} captchaReset={resetCaptcha} />
    );
-  } else if (tabValue === "decode") {
+  } else if (tabValue === decodeTabValue) {
    return (
     <DecodeMode captchaValue={captchaValue} captchaReset={resetCaptcha} />
    );
@@ -66,12 +70,12 @@ function ImageProcessor() {
   <div>
    <Nav variant="tabs" defaultActiveKey={tabValue} onSelect={modeHandler}>
     <Nav.Item>
-     <Nav.Link eventKey="encode">
+     <Nav.Link eventKey={encodeTabValue}>
       {strings.imageProcessor.modes.encode[appCtx.language]}
      </Nav.Link>
     </Nav.Item>
     <Nav.Item>
-     <Nav.Link eventKey="decode">
+     <Nav.Link eventKey={decodeTabValue}>
       {strings.imageProcessor.modes.decode[appCtx.language]}
      </Nav.Link>
     </Nav.Item>

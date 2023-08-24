@@ -1,3 +1,4 @@
+// Navbar component.
 import { useContext } from "react";
 
 import AppContext from "../store/app-context";
@@ -8,10 +9,10 @@ import Container from "react-bootstrap/Container";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import logo from "../static/images/stegologo.svg";
+import constants from "../static/constants";
 
 import classes from "./style/Navigation.module.css";
 
-// Navbar component.
 import strings from "../static/strings";
 
 function Navigation() {
@@ -20,7 +21,7 @@ function Navigation() {
   // Changes the language in the app context when changed in the dropdown.
   function languageHandler(lang) {
     appCtx.changeLanguage(lang);
-    localStorage.setItem("stegoLang", lang);
+    localStorage.setItem(constants.localValues.language, lang);
   }
 
   // The navbar contains a list for all pages in the app, and a dropdown to choose

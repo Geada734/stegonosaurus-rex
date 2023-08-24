@@ -5,6 +5,8 @@ import { render, screen, act } from "@testing-library/react";
 import * as fixtures from "../fixtures/appFixtures";
 import App from "../../App";
 
+import constants from "../../static/constants";
+
 function mockLayout() {
  return <div>App renders here.</div>;
 }
@@ -29,7 +31,7 @@ describe("App steps rendering tests.", () => {
  });
 
  test("test rendering with language in localStorage", () => {
-  localStorage.setItem("stegoLang", "es");
+  localStorage.setItem(constants.localValues.language, "es");
 
   act(() => {
    render(<App />);
@@ -41,6 +43,6 @@ describe("App steps rendering tests.", () => {
 
  afterAll(() => {
   fixtures.mockContext.language = "en";
-  localStorage.removeItem("stegoLang");
+  localStorage.removeItem(constants.localValues.language);
  });
 });

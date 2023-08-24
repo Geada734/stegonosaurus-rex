@@ -20,6 +20,10 @@ import classes from "../style/EncodeMode.module.css";
 function EncodeMode(props) {
  const appCtx = useContext(AppContext);
 
+ // Operation mode for the image upload components.
+ const uploadOperationCoded = "coded";
+ const uploadOperationTemplate = "template";
+
  // Images to encode.
  const [codedMessageImage, setCodedMessageImage] = useState(null);
  const [templateImage, setTemplateImage] = useState(null);
@@ -114,17 +118,17 @@ function EncodeMode(props) {
    <Row>
     <Col>
      <ImageUpload
-      id="coded-upload"
+      id={uploadOperationCoded + "-upload"}
       imageHandler={codedMessageImageHandler}
-      operation="coded"
+      operation={uploadOperationCoded}
       message={strings.imageProcessor.codedImageMessage[appCtx.language]}
      />
     </Col>
     <Col>
      <ImageUpload
-      id="message-upload"
+      id={uploadOperationTemplate + "-upload"}
       imageHandler={templateImageHandler}
-      operation="template"
+      operation={uploadOperationTemplate}
       message={strings.imageProcessor.templateImageMessage[appCtx.language]}
      />
     </Col>
