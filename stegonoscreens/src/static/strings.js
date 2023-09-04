@@ -240,6 +240,22 @@ const strings = {
   },
  },
 
+ disclaimerModal: {
+  header: { 
+    en: "IMPORTANT MESSAGE",
+    es: "MENSAJE IMPORTANTE"
+  },
+  info: {
+    en: "Sample Info",
+    es: "Ejemplo Info"
+  },
+  
+  acknowledgeButton: {
+    en: "Acknowledge",
+    es: "Aceptar"
+  }
+ },
+
  faqs: [
   {
    id: 1,

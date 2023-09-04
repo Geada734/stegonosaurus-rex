@@ -1,8 +1,8 @@
 # Stegonosaurus-Rex
 
-*Server Version: 1.3.1*
+*Server Version: 1.3.2*
 
-*UI Version: 1.1.1*
+*UI Version: 1.1.3*
 
 Stegonosaurus-Rex is a fullstack web application created to showcase the functionalities of the [stegonosaurus](https://pypi.org/project/stegonosaurus/) Python library. The app mainly consists of two components:
 

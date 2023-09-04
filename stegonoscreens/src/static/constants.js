@@ -2,7 +2,8 @@
 
 const constants = {
     localValues: {
-        language: "stegoLang"
+        language: "stegoLang",
+        acknowledged: "acknowledged"
     },
     paths: {
         home: "/",
