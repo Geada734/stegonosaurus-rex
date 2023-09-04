@@ -468,6 +468,34 @@ const strings = {
     ),
    },
   },
+  {
+   id: 5,
+   en: {
+    question:
+     "I am concerned about my personal data getting used without my authorization...",
+    answer: (
+     <div>
+      <span>
+       Don't be, Stegonosaurus-Rex is not hooked to any kind of data store. For
+       more transparency, you can have a look at the application's source code{" "}
+       <a href="https://github.com/Geada734/stegonosaurus-rex">here</a>.
+      </span>
+     </div>
+    ),
+   },
+   es: {
+    question: "Me preocupa que mi información sea usada in mi autorización...",
+    answer: (
+     <div>
+      <span>
+       No te preocupes, Stegonosaurus-Rex no está conectado a ningún sistema de
+       almacenamiento de datos. Por transparencia, puedes revisar el código
+       fuente <a href="https://github.com/Geada734/stegonosaurus-rex">aquí</a>.
+      </span>
+     </div>
+    ),
+   },
+  },
  ],
 };
 

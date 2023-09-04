@@ -2,6 +2,10 @@
     text-align: justify;
 }
 
+.disclaimerText {
+  font-weight: bold;
+}
+
 .note {
     font-style: italic;
 }
