@@ -13,6 +13,8 @@ const AppContext = createContext({
   result: "",
   popResult: (result) => {},
   showResult: false,
+  showDisclaimer: false,
+  popDisclaimer: (show) => {}
 });
 
 export function AppContextProvider(props) {
@@ -27,6 +29,8 @@ export function AppContextProvider(props) {
   // Result and trigger for the result modal.
   const [result, setResult] = useState("");
   const [showedResult, setShowedResult] = useState(false);
+  // Disclaimer trigger.
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
 
   function changeLanguageHandler(lang) {
     setUserLanguage(lang);
@@ -62,6 +66,14 @@ export function AppContextProvider(props) {
     else setShowedResult(false);
   }
 
+  // Disclaimer modal gets shown.
+  function popDisclaimerHandler(show) {
+    /*
+     * show: whether the disclaimer modal is getting shown or not.
+     */
+    setShowDisclaimer(show);
+  }
+
   const context = {
     language: userLanguage,
     changeLanguage: changeLanguageHandler,
@@ -74,6 +86,8 @@ export function AppContextProvider(props) {
     result: result,
     popResult: popResultHandler,
     showResult: showedResult,
+    showDisclaimer: showDisclaimer,
+    popDisclaimer: popDisclaimerHandler
   };
 
   return (

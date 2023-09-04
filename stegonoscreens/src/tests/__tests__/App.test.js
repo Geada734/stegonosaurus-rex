@@ -26,7 +26,9 @@ describe("App steps rendering tests.", () => {
    render(<App />);
   });
 
-  expect(localStorage.getItem("stegoLang")).toEqual(null);
+  expect(localStorage.getItem(constants.localValues.language)).toEqual(null);
+  expect(localStorage.getItem(constants.localValues.acknowledged)).toEqual(null);
+  expect(fixtures.mockContext.popDisclaimer).toHaveBeenCalledWith(true);
   expect(screen.getByText("App renders here.")).toBeInTheDocument();
  });
 
@@ -41,8 +43,20 @@ describe("App steps rendering tests.", () => {
   expect(screen.getByText("App renders here.")).toBeInTheDocument();
  });
 
+ test("test rendering for later than the first time", () => {
+  localStorage.setItem(constants.localValues.acknowledged, true);
+
+  act(() => {
+   render(<App />);
+  });
+
+  expect(fixtures.mockContext.popDisclaimer).toHaveBeenCalledTimes(0);
+  expect(screen.getByText("App renders here.")).toBeInTheDocument();
+ });
+
  afterAll(() => {
   fixtures.mockContext.language = "en";
   localStorage.removeItem(constants.localValues.language);
+  localStorage.removeItem(constants.localValues.acknowledged);
  });
 });

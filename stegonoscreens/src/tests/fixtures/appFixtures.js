@@ -4,6 +4,7 @@
 const mockContext = {
  language: "en",
  changeLanguage: jest.fn(),
+ popDisclaimer: jest.fn()
 };
 
 module.exports = {
