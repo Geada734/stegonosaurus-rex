@@ -25,7 +25,7 @@ function DisclaimerModal() {
  return (
   <Modal
    className={classes.disclaimerModal}
-   size="md"
+   size="lg"
    show={appCtx.showDisclaimer}
    onHide={acknowledgeHandler}
   >
