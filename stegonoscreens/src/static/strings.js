@@ -484,7 +484,7 @@ const strings = {
     ),
    },
    es: {
-    question: "Me preocupa que mi información sea usada in mi autorización...",
+    question: "Me preocupa que mi información sea usada sin mi autorización...",
     answer: (
      <div>
       <span>
