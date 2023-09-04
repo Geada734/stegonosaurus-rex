@@ -34,9 +34,11 @@ function DisclaimerModal() {
    </Modal.Header>
    <Modal.Body>
     <div>{strings.disclaimerModal.info[appCtx.language]}</div>
-    <Button onClick={(e) => acknowledgeHandler(e)} variant="outline-dark">
-     {strings.disclaimerModal.acknowledgeButton[appCtx.language]}
-    </Button>
+    <div className={classes.buttonSpace}>
+     <Button onClick={(e) => acknowledgeHandler(e)} variant="outline-dark">
+      {strings.disclaimerModal.acknowledgeButton[appCtx.language]}
+     </Button>
+    </div>
    </Modal.Body>
   </Modal>
  );

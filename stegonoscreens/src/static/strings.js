@@ -241,19 +241,77 @@ const strings = {
  },
 
  disclaimerModal: {
-  header: { 
-    en: "IMPORTANT MESSAGE",
-    es: "MENSAJE IMPORTANTE"
+  header: {
+   en: "IMPORTANT MESSAGE",
+   es: "MENSAJE IMPORTANTE",
   },
   info: {
-    en: "Sample Info",
-    es: "Ejemplo Info"
+   en: (
+    <div>
+     <h4>Welcome to Stegonosaurus-Rex!</h4>
+     <p>
+      I'm sure you are very excited to start using this little application I
+      created, but first, I would like you to take a very brief minute to read
+      this so you are aware of how I am using your valuable user data:
+     </p>
+     <p style={{ fontWeight: "bold" }}>I'm not.</p>
+     <p>
+      Stegonosaurus-Rex is not hooked to any data store of any kind. The app
+      won't save the images you use for your steganographical creations.
+     </p>
+     <p>
+      Furthermore, the only data the app is going to store in your browser is
+      that related to your language preferences and the acknowledgement of this
+      message.
+     </p>
+     <p>
+      For the sake of transparency, you can have a look at the whole source code{" "}
+      <a href="https://github.com/Geada734/stegonosaurus-rex">here</a>.
+     </p>
+     <p>
+      That's it, for more information, please check the{" "}
+      <span style={{ fontStyle: "italic" }}>About</span> and{" "}
+      <span style={{ fontStyle: "italic" }}>FAQs</span> sections of this
+      application.
+     </p>
+    </div>
+   ),
+   es: (
+    <div>
+     <h4>¡Bienvenido a Stegonosaurus-Rex!</h4>
+     <p>
+      Estoy seguro de que estás muy emocionad@ por usar esta pequeña aplicación
+      que creé, pero primero, me gustaría que te tomaras un breve minuto para
+      leer esto solo para que sepas cómo usaré tu valiosa información:
+     </p>
+     <p style={{ fontWeight: "bold" }}>No lo haré.</p>
+     <p>
+      Stegonosaurus-Rex no está conectado a ningún tipo de repositorio de datos.
+      La aplicación no guardará ninguna imagen que uses para tus creaciones
+      esteganográficas.
+     </p>
+     <p>
+      Además, la única información que la aplicación guardará en tu navegador es
+      aquella relacionada con tus preferencias de idioma y la aceptación de este
+      mensaje.
+     </p>
+     <p>
+      Por transparencia, puedes revisar todo el código fuente de la aplicación{" "}
+      <a href="https://github.com/Geada734/stegonosaurus-rex">aquí</a>.
+     </p>
+     <p>
+      Eso es todo, para mayor información, puedes revisar las secciones{" "}
+      <span style={{ fontStyle: "italic" }}>Acerca De</span> y{" "}
+      <span style={{ fontStyle: "italic" }}>Preguntas Frecuentes</span>.
+     </p>
+    </div>
+   ),
   },
-  
+
   acknowledgeButton: {
-    en: "Acknowledge",
-    es: "Aceptar"
-  }
+   en: "Acknowledge",
+   es: "Aceptar",
+  },
  },
 
  faqs: [
