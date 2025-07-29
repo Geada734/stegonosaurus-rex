@@ -1,6 +1,6 @@
 # Stegonosaurus-Rex
 
-*Server Version: 1.3.2*
+*Server Version: 1.3.3*
 
 *UI Version: 1.1.3*
 
@@ -13,7 +13,7 @@ While Stegonosaurus-Rex is not currently running on the internet (WIP), develope
 
 ## Requirements
 
-- Python3 (3.7.2 or later)
+- Python3 (3.10.0 or later)
 - Yarn
 - A ReCaptcha Ver. 3 Connection ([More Info](https://developers.google.com/recaptcha/intro))
 
