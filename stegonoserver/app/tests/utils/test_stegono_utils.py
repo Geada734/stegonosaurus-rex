@@ -19,10 +19,10 @@ def test_decode_valid_rgb_png_t(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     encoded.format = "PNG"
-    encoded.mode = "RGB"
     decoded = stegono.decode(encoded, "file.png", "t", response)
     data = json.loads(decoded.data)
 
+    assert encoded.mode == "RGB"
     assert data == {
             "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4z8DA8P8fI8P/"
@@ -37,10 +37,10 @@ def test_decode_valid_rgba_png_t(raw_coded_rgb_bright_red_png, raw_image_rgba_pn
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgba_png)
     encoded.format = "PNG"
-    encoded.mode = "RGBA"
     decoded = stegono.decode(encoded, "file.png", "t", response)
     data = json.loads(decoded.data)
 
+    assert encoded.mode == "RGBA"
     assert data == {
             "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4nAXBgQEAAATAoPj/"
@@ -55,10 +55,10 @@ def test_decode_valid_rgb_png_ut(raw_coded_rgb_bright_red_png, raw_image_rgb_png
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     encoded.format = "PNG"
-    encoded.mode = "RGB"
     decoded = stegono.decode(encoded, "file.png", "T", response)
     data = json.loads(decoded.data)
 
+    assert encoded.mode == "RGB"
     assert data == {
             "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGP4z8DA8P8fI8P/"
@@ -73,10 +73,10 @@ def test_decode_valid_rgba_png_ut(raw_coded_rgb_bright_red_png, raw_image_rgba_p
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgba_png)
     encoded.format = "PNG"
-    encoded.mode = "RGBA"
     decoded = stegono.decode(encoded, "file.png", "T", response)
     data = json.loads(decoded.data)
 
+    assert encoded.mode == "RGBA"
     assert data == {
             "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4nAXBgQEAAATAoPj/"
@@ -91,10 +91,10 @@ def test_decode_valid_rgb_png_b(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     encoded.format = "PNG"
-    encoded.mode = "RGB"
     decoded = stegono.decode(encoded, "file.png", "b", response)
     data = json.loads(decoded.data)
 
+    assert encoded.mode == "RGB"
     assert data == {
             "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAADElEQVR4nGP4z4AEAA0BAQD2u9K"
@@ -109,10 +109,10 @@ def test_decode_valid_rgba_png_b(raw_coded_rgb_bright_red_png, raw_image_rgba_pn
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgba_png)
     encoded.format = "PNG"
-    encoded.mode = "RGBA"
     decoded = stegono.decode(encoded, "file.png", "b", response)
     data = json.loads(decoded.data)
 
+    assert encoded.mode == "RGBA"
     assert data == {
             "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVR4nGP4z8Dwn4GB4T8TIwME"
@@ -127,10 +127,10 @@ def test_decode_valid_rgb_png_ub(raw_coded_rgb_bright_red_png, raw_image_rgb_png
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     encoded.format = "PNG"
-    encoded.mode = "RGB"
     decoded = stegono.decode(encoded, "file.png", "B", response)
     data = json.loads(decoded.data)
 
+    assert encoded.mode == "RGB"
     assert data == {
             "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAADElEQVR4nGP4z4AEAA0BAQD2u9K"
@@ -145,10 +145,10 @@ def test_decode_valid_rgba_png_ub(raw_coded_rgb_bright_red_png, raw_image_rgba_p
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgba_png)
     encoded.format = "PNG"
-    encoded.mode = "RGBA"
     decoded = stegono.decode(encoded, "file.png", "B", response)
     data = json.loads(decoded.data)
 
+    assert encoded.mode == "RGBA"
     assert data == {
             "filename": constants["decodedPrefix"] + "file.png", 
             "result": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVR4nGP4z8Dwn4GB4T8TIwME"
@@ -187,10 +187,10 @@ def test_decode_valid_rgb_png_invalid_string_mode(raw_coded_rgb_bright_red_png, 
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     encoded.format = "PNG"
-    encoded.mode = "RGB"
     result = stegono.decode(encoded, "file.png", "CAKE", response)
     data = json.loads(result.data)
 
+    assert encoded.mode == "RGB"
     assert result.status_code == 500 and data == {
             "error_codename": "wrongDecodeMode",
             "error_message": "The provided decode mode is invalid."
@@ -205,10 +205,10 @@ def test_decode_valid_rgb_png_invalid_nonstring_mode(raw_coded_rgb_bright_red_pn
     response = Response(mimetype="application/json")
     encoded = sf.encode(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
     encoded.format = "PNG"
-    encoded.mode = "RGB"
     result = stegono.decode(encoded, "file.png", 347, response)
     data = json.loads(result.data)
 
+    assert encoded.mode == "RGB"
     assert result.status_code == 500 and data == {
             "error_codename": "wrongDecodeMode",
             "error_message": "The provided decode mode is invalid."
